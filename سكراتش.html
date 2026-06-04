@@ -1,0 +1,3497 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🎮 Scratch Pro v6</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap');
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#070b14;--p1:#0d1526;--p2:#131f35;--p3:#1a2845;--p4:#22325a;
+  --b:#1e3058;--b2:#2a4070;
+  --acc:#00e5ff;--acc2:#a855f7;--acc3:#f59e0b;--acc4:#22c55e;--acc5:#ef4444;
+  --tx:#e2f0ff;--tx2:#7da4cc;--tx3:#3d5c80;
+  --ev:#f59e0b;--mv:#3b82f6;--lk:#a855f7;--sn:#ec4899;--ct:#f59e0b;--pn:#10b981;--lg:#06b6d4;--vr:#f97316;
+  --r8:8px;--r6:6px;--r4:4px;
+}
+html,body{height:100%;overflow:hidden;font-family:'Tajawal',sans-serif;background:var(--bg);color:var(--tx)}
+
+/* ══ TOPBAR ══ */
+.top{height:50px;background:linear-gradient(90deg,var(--p1),var(--p2));border-bottom:1px solid var(--b);display:flex;align-items:center;padding:0 10px;gap:6px;z-index:300;position:relative;flex-shrink:0;overflow-x:auto}
+.logo{font-size:16px;font-weight:900;background:linear-gradient(135deg,var(--acc),var(--acc2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;white-space:nowrap;margin-left:8px}
+.tb{padding:5px 9px;border-radius:var(--r6);font-size:11px;font-weight:700;cursor:pointer;font-family:inherit;border:1px solid;transition:.18s;white-space:nowrap;flex-shrink:0}
+.tb:hover{filter:brightness(1.2);transform:translateY(-1px)}
+.tb-c{background:rgba(0,229,255,.1);color:var(--acc);border-color:rgba(0,229,255,.3)}
+.tb-g{background:rgba(34,197,94,.1);color:#4ade80;border-color:rgba(34,197,94,.3)}
+.tb-a{background:rgba(245,158,11,.1);color:#fcd34d;border-color:rgba(245,158,11,.3)}
+.tb-r{background:rgba(239,68,68,.1);color:#f87171;border-color:rgba(239,68,68,.3)}
+.tb-p{background:rgba(168,85,247,.1);color:#c084fc;border-color:rgba(168,85,247,.3)}
+.tb-sep{width:1px;height:28px;background:var(--b);flex-shrink:0;margin:0 2px}
+
+/* ══ LAYOUT ══ */
+.wrap{display:flex;height:calc(100vh - 50px)}
+
+/* ══ BLOCKS PANEL ══ */
+.blocks{width:210px;background:var(--p1);border-left:1px solid var(--b);display:flex;flex-direction:column;flex-shrink:0;overflow:hidden}
+.cat-tabs{display:flex;flex-wrap:wrap;gap:3px;padding:6px;background:var(--bg);border-bottom:1px solid var(--b);flex-shrink:0}
+.ct{padding:4px 7px;border-radius:5px;font-size:10px;font-weight:700;cursor:pointer;border:1px solid transparent;transition:.15s;font-family:inherit}
+.ct.on{color:white}
+.ct:hover{filter:brightness(1.2)}
+.ct-ev{background:rgba(245,158,11,.15);color:#fcd34d;border-color:rgba(245,158,11,.3)}
+.ct-mv{background:rgba(59,130,246,.15);color:#93c5fd;border-color:rgba(59,130,246,.3)}
+.ct-lk{background:rgba(168,85,247,.15);color:#c4b5fd;border-color:rgba(168,85,247,.3)}
+.ct-lg{background:rgba(6,182,212,.15);color:#67e8f9;border-color:rgba(6,182,212,.3)}
+.ct-vr{background:rgba(249,115,22,.15);color:#fdba74;border-color:rgba(249,115,22,.3)}
+.ct-pn{background:rgba(16,185,129,.15);color:#6ee7b7;border-color:rgba(16,185,129,.3)}
+.ct-sn{background:rgba(236,72,153,.15);color:#f9a8d4;border-color:rgba(236,72,153,.3)}
+.ct-ct{background:rgba(245,158,11,.15);color:#fcd34d;border-color:rgba(245,158,11,.3)}
+.ct.on{border-color:white!important;color:white!important;background:rgba(255,255,255,.15)!important}
+
+.blocks-scroll{flex:1;overflow-y:auto;padding:6px;scroll-behavior:smooth}
+.blocks-scroll::-webkit-scrollbar{width:4px}
+.blocks-scroll::-webkit-scrollbar-track{background:var(--bg)}
+.blocks-scroll::-webkit-scrollbar-thumb{background:var(--b2);border-radius:4px}
+
+.bcat{display:none}
+.bcat.show{display:block}
+.blk{display:flex;align-items:center;gap:5px;padding:8px 10px;margin-bottom:3px;border-radius:var(--r6);color:white;font-size:11px;font-weight:700;cursor:pointer;transition:.15s;border:1px solid rgba(255,255,255,.06);position:relative;overflow:hidden;user-select:none;flex-wrap:wrap}
+.blk::before{content:'';position:absolute;inset:0 0 50%;background:rgba(255,255,255,.06);pointer-events:none}
+.blk:hover{transform:translateX(-2px);filter:brightness(1.15);border-color:rgba(255,255,255,.2)}
+.blk:active{transform:scale(.97)}
+.blk-ev{background:linear-gradient(135deg,#92400e,#b45309)}
+.blk-mv{background:linear-gradient(135deg,#1d4ed8,#2563eb)}
+.blk-lk{background:linear-gradient(135deg,#6d28d9,#7c3aed)}
+.blk-lg{background:linear-gradient(135deg,#0e7490,#0891b2)}
+.blk-vr{background:linear-gradient(135deg,#c2410c,#ea580c)}
+.blk-pn{background:linear-gradient(135deg,#065f46,#059669)}
+.blk-sn{background:linear-gradient(135deg,#9d174d,#be185d)}
+.blk-ct{background:linear-gradient(135deg,#92400e,#d97706)}
+.bi{width:36px;padding:2px 4px;border:none;border-radius:3px;background:rgba(255,255,255,.25);color:white;font-weight:700;text-align:center;font-family:inherit;font-size:10px;flex-shrink:0}
+.bi:focus{outline:1px solid rgba(255,255,255,.6);background:rgba(255,255,255,.35)}
+
+/* ══ MIDDLE ══ */
+.mid{flex:1;display:flex;flex-direction:column;min-width:0;overflow:hidden}
+
+/* STAGE */
+.stage-wrap{flex:1;position:relative;background:#000;overflow:hidden;min-height:0}
+#stg-bg{position:absolute;inset:0;z-index:0}
+#pen-cv{position:absolute;inset:0;pointer-events:none;z-index:1}
+
+.sp-el{position:absolute;z-index:10;display:flex;align-items:center;justify-content:center;font-size:52px;width:68px;height:68px;pointer-events:auto;cursor:grab;will-change:transform,left,top;user-select:none}
+.sp-el.dragging{cursor:grabbing;z-index:500}
+.sp-el.sel{outline:2px dashed var(--acc);outline-offset:3px;border-radius:6px}
+.sp-el.ctrl{outline:2px solid #22c55e;outline-offset:3px;border-radius:6px;box-shadow:0 0 12px rgba(34,197,94,.5)}
+.sp-el.hid{display:none!important}
+.bub{position:absolute;background:white;color:#111;padding:6px 10px;border-radius:10px;border:2px solid #111;font-size:11px;font-weight:700;max-width:150px;z-index:15;pointer-events:none;font-family:'Tajawal',sans-serif;display:none;line-height:1.3}
+.bub::after{content:'';position:absolute;bottom:-8px;right:14px;border:7px solid transparent;border-top-color:#111}
+.bub.th{border-style:dashed}
+
+/* HUD */
+.coords-hud{position:absolute;bottom:56px;left:8px;background:rgba(7,11,20,.9);color:#22c55e;padding:5px 9px;border-radius:7px;font-size:10px;line-height:1.7;border:1px solid rgba(34,197,94,.2);z-index:50;pointer-events:none;font-family:monospace}
+.stage-btns{position:absolute;bottom:8px;left:50%;transform:translateX(-50%);display:flex;gap:6px;z-index:50}
+.run-btn{padding:9px 24px;border:none;border-radius:9px;background:linear-gradient(135deg,#22c55e,#16a34a);color:white;font-size:13px;font-weight:800;cursor:pointer;font-family:inherit;transition:.2s;box-shadow:0 3px 12px rgba(34,197,94,.4)}
+.run-btn:hover{transform:translateY(-2px);box-shadow:0 5px 18px rgba(34,197,94,.5)}
+.run-btn.stop{background:linear-gradient(135deg,#ef4444,#dc2626);box-shadow:0 3px 12px rgba(239,68,68,.4)}
+.rst-btn{padding:9px 14px;border:none;border-radius:9px;background:var(--p3);color:var(--tx2);font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;border:1px solid var(--b);transition:.2s}
+.rst-btn:hover{transform:translateY(-2px);border-color:var(--acc)}
+
+/* VAR displays */
+.vdisp{position:absolute;background:rgba(7,11,20,.88);color:var(--acc);padding:3px 9px;border-radius:5px;font-size:12px;font-weight:700;z-index:20;pointer-events:none;font-family:'Tajawal',sans-serif;border:1px solid rgba(0,229,255,.25);top:8px}
+
+/* GAME OVER / WIN */
+.gover{position:absolute;inset:0;display:none;align-items:center;justify-content:center;z-index:200;background:rgba(7,11,20,.8);backdrop-filter:blur(6px)}
+.gover.on{display:flex}
+.gover-box{background:var(--p2);border:1px solid var(--b2);border-radius:16px;padding:28px 36px;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,.8)}
+.gover-icon{font-size:48px;margin-bottom:8px}
+.gover-title{font-size:22px;font-weight:900;margin-bottom:6px}
+.gover-sub{font-size:13px;color:var(--tx2);margin-bottom:18px}
+.gover-btn{padding:10px 26px;background:linear-gradient(135deg,var(--acc2),var(--acc));color:white;border:none;border-radius:10px;font-size:13px;font-weight:800;cursor:pointer;font-family:inherit;transition:.2s}
+.gover-btn:hover{opacity:.88;transform:translateY(-2px)}
+
+/* JOYSTICK */
+.joystick-wrap{position:absolute;bottom:70px;right:12px;z-index:60;display:none}
+.joystick-wrap.on{display:block}
+.joystick-outer{width:100px;height:100px;background:rgba(13,21,38,.85);border:2px solid var(--b2);border-radius:50%;position:relative;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(0,0,0,.5);touch-action:none}
+.joystick-inner{width:40px;height:40px;background:linear-gradient(135deg,var(--acc),var(--acc2));border-radius:50%;position:absolute;cursor:grab;box-shadow:0 2px 10px rgba(0,229,255,.5);touch-action:none}
+.joystick-inner:active{cursor:grabbing}
+.dir-ring{position:absolute;inset:-4px;border-radius:50%;border:1px solid rgba(0,229,255,.15);pointer-events:none}
+
+/* D-Pad */
+.dpad{position:absolute;bottom:70px;right:120px;z-index:60;display:none;flex-direction:column;align-items:center;gap:2px;touch-action:none}
+.dpad.on{display:flex}
+.drow{display:flex;gap:2px}
+.darr{width:38px;height:38px;background:rgba(13,21,38,.88);border:1px solid var(--b2);border-radius:6px;color:var(--acc);font-size:16px;display:flex;align-items:center;justify-content:center;cursor:pointer;user-select:none;transition:.12s;-webkit-tap-highlight-color:transparent;touch-action:none}
+.darr.act{background:var(--acc);color:var(--bg);transform:scale(.92)}
+
+/* Action button (for shooting) */
+.act-btn{position:absolute;bottom:180px;right:30px;z-index:60;width:54px;height:54px;border-radius:50%;background:linear-gradient(135deg,#ef4444,#dc2626);color:white;font-size:22px;border:2px solid rgba(255,255,255,.2);display:none;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 3px 12px rgba(239,68,68,.4);user-select:none;touch-action:none;font-weight:900}
+.act-btn.on{display:flex}
+.act-btn:active{transform:scale(.92)}
+
+/* CTRL TOGGLE */
+.ctrl-toggle{position:absolute;bottom:8px;right:8px;z-index:60;display:flex;gap:5px;flex-direction:column;align-items:flex-end}
+.ctrl-btn{padding:5px 9px;background:rgba(13,21,38,.88);border:1px solid var(--b2);border-radius:7px;color:var(--tx2);font-size:10px;font-weight:700;cursor:pointer;font-family:inherit;transition:.15s;white-space:nowrap}
+.ctrl-btn.on{border-color:var(--acc);color:var(--acc)}
+.ctrl-btn:hover{border-color:var(--acc2)}
+.ctrl-target{font-size:9px;color:var(--tx3);background:rgba(13,21,38,.88);padding:3px 7px;border-radius:5px;border:1px solid var(--b)}
+
+/* SPRITES BAR */
+.sp-bar{height:128px;background:var(--p1);border-top:1px solid var(--b);display:flex;gap:6px;padding:7px 8px;align-items:flex-start;flex-shrink:0}
+.si-box{width:148px;background:var(--p2);border-radius:8px;padding:6px;display:flex;flex-direction:column;gap:3px;flex-shrink:0;border:1px solid var(--b)}
+.si-lbl{font-size:9px;font-weight:700;color:var(--tx3);letter-spacing:.3px}
+.si-in{width:100%;padding:3px 6px;background:var(--p3);border:1px solid var(--b);border-radius:4px;color:var(--tx);font-size:10px;font-family:inherit;text-align:center}
+.si-in:focus{outline:none;border-color:var(--acc)}
+.si-row{display:flex;gap:3px}
+.si-row>div{flex:1}
+.si-ctrl{display:flex;align-items:center;gap:3px;font-size:9px;color:var(--tx2);background:var(--p3);padding:3px 5px;border-radius:4px;cursor:pointer;border:1px solid var(--b);user-select:none}
+.si-ctrl:hover{border-color:var(--acc4)}
+.si-ctrl.on{background:rgba(34,197,94,.15);color:#4ade80;border-color:var(--acc4)}
+.sp-list{flex:1;display:flex;gap:5px;overflow-x:auto;padding-bottom:3px}
+.sp-list::-webkit-scrollbar{height:3px}
+.sp-list::-webkit-scrollbar-thumb{background:var(--b2)}
+.sp-card{width:74px;background:var(--p2);border:2px solid var(--b);border-radius:7px;padding:5px;cursor:pointer;text-align:center;flex-shrink:0;position:relative;transition:.15s}
+.sp-card:hover{border-color:rgba(0,229,255,.4)}
+.sp-card.active{border-color:var(--acc);box-shadow:0 0 10px rgba(0,229,255,.2)}
+.sp-card.ctrl{box-shadow:0 0 8px rgba(34,197,94,.5);border-color:var(--acc4)}
+.sp-card .em{font-size:30px;height:40px;display:flex;align-items:center;justify-content:center}
+.sp-card .nm{font-size:9px;font-weight:700;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--tx)}
+.sp-card .ctag{position:absolute;top:-5px;left:-5px;background:#22c55e;color:white;font-size:10px;width:16px;height:16px;border-radius:50%;display:flex;align-items:center;justify-content:center;border:1px solid white}
+.sp-card .dx{position:absolute;top:-6px;right:-6px;width:17px;height:17px;background:#ef4444;color:white;border-radius:50%;font-size:9px;display:none;align-items:center;justify-content:center;border:none;cursor:pointer;font-weight:900}
+.sp-card:hover .dx{display:flex}
+.add-card{width:74px;height:88px;background:var(--p2);border:2px dashed var(--acc2);border-radius:7px;cursor:pointer;font-size:26px;color:var(--acc2);flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:.15s}
+.add-card:hover{background:rgba(168,85,247,.1);transform:scale(1.04)}
+
+/* ══ CODE PANEL ══ */
+.code-panel{width:290px;background:var(--p1);border-right:1px solid var(--b);display:flex;flex-direction:column;flex-shrink:0;overflow:hidden}
+.cp-head{padding:8px 10px;border-bottom:1px solid var(--b);flex-shrink:0}
+.cp-title{font-size:12px;font-weight:800;display:flex;align-items:center;justify-content:space-between;margin-bottom:5px}
+.cp-info{font-size:10px;color:var(--tx2);background:var(--p3);padding:4px 8px;border-radius:5px;border:1px solid var(--b)}
+.cp-acts{display:flex;gap:3px}
+.ib{background:var(--p3);border:1px solid var(--b);color:var(--tx3);width:24px;height:24px;border-radius:5px;cursor:pointer;font-size:10px;transition:.15s}
+.ib:hover{color:var(--tx);border-color:var(--acc)}
+
+.code-scroll{flex:1;overflow-y:auto;padding:6px}
+.code-scroll::-webkit-scrollbar{width:4px}
+.code-scroll::-webkit-scrollbar-thumb{background:var(--b2);border-radius:4px}
+
+.line{background:var(--p2);padding:7px 9px;margin-bottom:3px;border-radius:6px;font-weight:700;display:flex;justify-content:space-between;align-items:center;gap:4px;font-size:11px;border:1px solid var(--b);border-right:3px solid var(--mv);cursor:grab;transition:.15s}
+.line:hover{background:var(--p3)}
+.line.exec{background:rgba(34,197,94,.12)!important;border-right-color:#4ade80!important;border-color:rgba(74,222,128,.25)!important;box-shadow:0 0 6px rgba(74,222,128,.25)}
+.line.ind1{margin-right:12px}.line.ind2{margin-right:24px}.line.ind3{margin-right:36px}.line.ind4{margin-right:48px}
+.line.lev{border-right-color:var(--ev)}
+.line.lmv{border-right-color:var(--mv)}
+.line.llk{border-right-color:var(--lk)}
+.line.lsn{border-right-color:var(--sn)}
+.line.lct{border-right-color:var(--ct)}
+.line.lpn{border-right-color:var(--pn)}
+.line.llg{border-right-color:var(--lg)}
+.line.lvr{border-right-color:var(--vr)}
+
+.la{display:flex;gap:2px;flex-shrink:0}
+.lb{background:rgba(255,255,255,.06);border:none;color:var(--tx3);width:18px;height:18px;border-radius:3px;cursor:pointer;font-size:9px;transition:.12s}
+.lb:hover{background:rgba(255,255,255,.18);color:white}
+.lb.d:hover{background:#ef4444;color:white}
+.empty-c{text-align:center;color:var(--tx3);padding:18px 8px;font-size:11px;line-height:1.7}
+.stat{padding:5px 10px;border-top:1px solid var(--b);font-size:10px;color:var(--tx3);text-align:center;background:var(--bg);flex-shrink:0}
+
+/* ══ MODAL ══ */
+.ov{position:fixed;inset:0;background:rgba(0,0,0,.82);display:none;align-items:center;justify-content:center;z-index:9000;backdrop-filter:blur(5px)}
+.ov.on{display:flex}
+.modal{background:var(--p2);padding:20px;border-radius:12px;max-width:560px;width:92%;max-height:82vh;overflow-y:auto;border:1px solid var(--b2);box-shadow:0 20px 60px rgba(0,0,0,.9)}
+.modal::-webkit-scrollbar{width:4px}
+.modal::-webkit-scrollbar-thumb{background:var(--b2)}
+.mh{color:var(--acc);font-size:15px;font-weight:800;margin-bottom:8px}
+.mt{color:var(--tx2);font-size:11px;margin-bottom:10px;line-height:1.5}
+.modal input,.modal select,.modal textarea{width:100%;padding:8px 10px;background:var(--p3);border:1px solid var(--b);border-radius:6px;color:var(--tx);font-family:inherit;font-size:11px;margin-bottom:7px}
+.modal input:focus,.modal select:focus{outline:none;border-color:var(--acc)}
+.ma{display:flex;gap:6px;margin-top:4px}
+.mb{padding:7px 14px;border:none;border-radius:7px;font-size:11px;font-weight:700;cursor:pointer;font-family:inherit;transition:.18s}
+.mb:hover{transform:translateY(-1px)}
+.mb-ok{background:linear-gradient(135deg,var(--acc2),var(--acc));color:white}
+.mb-cn{background:var(--p3);color:var(--tx2);border:1px solid var(--b)}
+.egrid{display:grid;grid-template-columns:repeat(8,1fr);gap:4px;max-height:280px;overflow-y:auto;margin-bottom:8px;padding:2px}
+.egrid::-webkit-scrollbar{width:4px}
+.egrid::-webkit-scrollbar-thumb{background:var(--b2)}
+.ep{font-size:24px;background:var(--p3);border:1px solid var(--b);border-radius:6px;padding:4px;cursor:pointer;transition:.12s;text-align:center}
+.ep:hover{border-color:var(--acc);transform:scale(1.1)}
+.eslbl{font-size:9px;font-weight:700;color:var(--tx3);letter-spacing:.5px;margin:6px 0 3px}
+.irow{display:flex;gap:7px}
+.irow>*{flex:1}
+
+/* Template gallery */
+.tpl-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:10px}
+.tpl-card{background:var(--p3);border:2px solid var(--b);border-radius:10px;padding:12px;cursor:pointer;transition:.2s;text-align:right}
+.tpl-card:hover{border-color:var(--acc);transform:translateY(-2px);box-shadow:0 4px 14px rgba(0,229,255,.2)}
+.tpl-emoji{font-size:32px;margin-bottom:6px;line-height:1}
+.tpl-name{font-size:13px;font-weight:900;color:var(--tx);margin-bottom:4px}
+.tpl-desc{font-size:10px;color:var(--tx2);line-height:1.5}
+.tpl-badge{display:inline-block;font-size:9px;background:rgba(34,197,94,.15);color:#4ade80;padding:2px 6px;border-radius:4px;margin-top:5px;font-weight:700}
+
+@keyframes pop{0%{opacity:0;transform:scale(.9)}60%{transform:scale(1.04)}100%{opacity:1;transform:scale(1)}}
+.line.new{animation:pop .2s ease}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}
+.shake{animation:shake .25s ease}
+@keyframes pulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.05);opacity:.85}}
+.pulse{animation:pulse 1.5s ease infinite}
+@keyframes slideIn{from{transform:translateX(100%);opacity:0}to{transform:translateX(0);opacity:1}}
+
+/* ══════════════════════════════════════
+   CUSTOM BUTTONS ON STAGE
+══════════════════════════════════════ */
+.custom-btn{position:absolute;z-index:55;border:none;border-radius:12px;font-weight:900;font-family:'Tajawal',sans-serif;cursor:pointer;user-select:none;display:flex;align-items:center;justify-content:center;gap:5px;box-shadow:0 4px 14px rgba(0,0,0,.45),inset 0 1px 0 rgba(255,255,255,.3);transition:transform .1s,filter .15s;-webkit-tap-highlight-color:transparent;touch-action:none;white-space:nowrap;padding:0 12px;text-shadow:0 1px 2px rgba(0,0,0,.3)}
+.custom-btn:hover{filter:brightness(1.15);transform:translateY(-2px);box-shadow:0 6px 18px rgba(0,0,0,.55),inset 0 1px 0 rgba(255,255,255,.3)}
+.custom-btn:active,.custom-btn.pressed{transform:scale(.92);filter:brightness(.85)}
+.custom-btn.edit-mode{outline:2px dashed #fcd34d;outline-offset:3px;cursor:move;animation:pulse 2s ease infinite}
+.custom-btn.edit-mode::after{content:'✏️';position:absolute;top:-9px;right:-9px;background:#f59e0b;color:white;border-radius:50%;width:20px;height:20px;font-size:10px;display:flex;align-items:center;justify-content:center;border:2px solid white;box-shadow:0 1px 4px rgba(0,0,0,.5)}
+
+/* ══════════════════════════════════════
+   ADMIN PANEL (SIDE — DOES NOT COVER STAGE)
+══════════════════════════════════════ */
+.admin-panel{position:fixed;top:50px;right:-400px;width:380px;height:calc(100vh - 50px);background:linear-gradient(180deg,var(--p1),var(--p2));border-left:2px solid var(--acc3);z-index:8500;transition:right .3s cubic-bezier(.4,0,.2,1);display:flex;flex-direction:column;box-shadow:-15px 0 50px rgba(0,0,0,.6);overflow:hidden}
+.admin-panel.on{right:0}
+.admin-head{background:linear-gradient(135deg,#f59e0b,#d97706);padding:13px 16px;display:flex;justify-content:space-between;align-items:center;flex-shrink:0;border-bottom:1px solid rgba(0,0,0,.2)}
+.admin-head-title{color:white;font-weight:900;font-size:15px;display:flex;align-items:center;gap:8px}
+.admin-close{background:rgba(255,255,255,.22);border:none;color:white;width:32px;height:32px;border-radius:8px;cursor:pointer;font-size:15px;font-weight:900;transition:.15s}
+.admin-close:hover{background:rgba(255,255,255,.4);transform:rotate(90deg)}
+
+.admin-tabs{display:flex;background:var(--bg);border-bottom:1px solid var(--b);flex-shrink:0}
+.atab{flex:1;padding:10px 4px;background:transparent;border:none;color:var(--tx3);font-size:10px;font-weight:700;cursor:pointer;font-family:inherit;border-bottom:2px solid transparent;transition:.15s}
+.atab.on{color:var(--acc);border-bottom-color:var(--acc);background:var(--p2)}
+.atab:hover{color:var(--tx)}
+
+.admin-body{flex:1;overflow-y:auto;padding:14px}
+.admin-body::-webkit-scrollbar{width:6px}
+.admin-body::-webkit-scrollbar-thumb{background:var(--b2);border-radius:4px}
+
+.apanel{display:none}
+.apanel.on{display:block;animation:slideIn .3s ease}
+
+.asection{background:var(--p3);border:1px solid var(--b);border-radius:10px;padding:12px;margin-bottom:11px}
+.asection-title{font-size:12px;font-weight:900;color:var(--acc);margin-bottom:10px;display:flex;align-items:center;gap:6px}
+
+.add-btn-card{background:linear-gradient(135deg,var(--p3),var(--p4));border:2px dashed var(--acc2);border-radius:10px;padding:18px;text-align:center;cursor:pointer;color:var(--acc2);font-weight:900;font-size:13px;transition:.2s}
+.add-btn-card:hover{background:rgba(168,85,247,.1);transform:scale(1.02);box-shadow:0 4px 16px rgba(168,85,247,.25)}
+
+.quick-btn-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:6px}
+.qbtn{padding:9px 8px;font-size:11px;font-weight:800;border:1px solid var(--b);border-radius:7px;cursor:pointer;font-family:inherit;background:var(--p2);color:var(--tx);transition:.15s;display:flex;align-items:center;justify-content:center;gap:5px}
+.qbtn:hover{border-color:var(--acc);transform:translateY(-1px);box-shadow:0 3px 10px rgba(0,229,255,.15)}
+
+.btn-list-item{background:var(--p2);border:1px solid var(--b);border-radius:8px;padding:9px;margin-bottom:6px;display:flex;align-items:center;gap:9px;cursor:pointer;transition:.15s}
+.btn-list-item:hover{border-color:var(--acc);transform:translateX(-3px)}
+.btn-list-item .preview{width:52px;height:34px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:900;color:white;flex-shrink:0;box-shadow:0 2px 6px rgba(0,0,0,.3)}
+.btn-list-item .info{flex:1;min-width:0}
+.btn-list-item .info .nm{font-size:11px;font-weight:800;color:var(--tx);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.btn-list-item .info .meta{font-size:9px;color:var(--tx3);margin-top:2px}
+.btn-list-item .acts{display:flex;gap:4px}
+.btn-list-item .acts button{background:var(--p3);border:1px solid var(--b);color:var(--tx2);width:26px;height:26px;border-radius:5px;cursor:pointer;font-size:11px;transition:.15s}
+.btn-list-item .acts button:hover{color:var(--tx);border-color:var(--acc)}
+.btn-list-item .acts button.del:hover{background:#ef4444;color:white;border-color:#ef4444}
+
+.bform{display:flex;flex-direction:column;gap:9px}
+.bform-row{display:flex;gap:7px;align-items:center}
+.bform-row label{font-size:11px;color:var(--tx2);font-weight:800;min-width:75px}
+.bform-row input,.bform-row select{flex:1;padding:7px 9px;background:var(--p3);border:1px solid var(--b);border-radius:6px;color:var(--tx);font-size:11px;font-family:inherit;margin:0}
+.bform-row input[type=color]{height:34px;padding:2px;cursor:pointer}
+.color-presets{display:flex;gap:5px;flex-wrap:wrap;margin-top:4px}
+.cpre{width:26px;height:26px;border-radius:6px;cursor:pointer;border:2px solid transparent;transition:.15s;box-shadow:0 2px 6px rgba(0,0,0,.3)}
+.cpre:hover{transform:scale(1.15)}
+.cpre.on{border-color:white;box-shadow:0 0 10px rgba(0,229,255,.6)}
+
+.btn-preview-area{background:repeating-linear-gradient(45deg,var(--p2),var(--p2) 8px,var(--p3) 8px,var(--p3) 16px);border:1px dashed var(--b);border-radius:10px;padding:22px;display:flex;align-items:center;justify-content:center;min-height:80px;margin-bottom:10px}
+
+.stat-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:7px}
+.stat-card{background:var(--p2);border:1px solid var(--b);border-radius:8px;padding:11px;text-align:center}
+.stat-card .lbl{font-size:9px;color:var(--tx3);font-weight:700}
+.stat-card .val{font-size:22px;color:var(--acc);font-weight:900;margin-top:3px}
+.stat-card.green .val{color:#4ade80}
+.stat-card.purple .val{color:#c084fc}
+.stat-card.orange .val{color:#fcd34d}
+
+.var-row{background:var(--p2);border:1px solid var(--b);border-radius:7px;padding:8px;margin-bottom:5px;display:flex;align-items:center;gap:7px}
+.var-row input{padding:5px 8px;background:var(--p3);border:1px solid var(--b);border-radius:5px;color:var(--tx);font-size:11px;font-family:inherit}
+.var-row .vn{flex:1;font-weight:800}
+.var-row .vv{width:78px;text-align:center}
+.var-row .vdel{background:var(--p3);border:1px solid var(--b);color:#f87171;width:26px;height:26px;border-radius:5px;cursor:pointer}
+.var-row .vdel:hover{background:#ef4444;color:white}
+
+.toggle-sw{position:relative;width:42px;height:22px;background:var(--p2);border:1px solid var(--b);border-radius:22px;cursor:pointer;transition:.2s;flex-shrink:0}
+.toggle-sw::after{content:'';position:absolute;width:16px;height:16px;background:var(--tx3);border-radius:50%;top:2px;right:2px;transition:.2s}
+.toggle-sw.on{background:rgba(34,197,94,.25);border-color:var(--acc4)}
+.toggle-sw.on::after{background:#4ade80;right:auto;left:2px}
+
+/* ══════════════════════════════════════
+   TUTORIAL BOOK — دفتر التعليم
+══════════════════════════════════════ */
+.tutorial-overlay{position:fixed;inset:0;background:rgba(0,0,0,.85);backdrop-filter:blur(8px);z-index:9500;display:none;align-items:center;justify-content:center;padding:20px}
+.tutorial-overlay.on{display:flex;animation:slideIn .3s ease}
+.tutorial-book{width:100%;max-width:900px;height:90vh;background:linear-gradient(180deg,#fef3c7,#fde68a);border-radius:16px;box-shadow:0 30px 80px rgba(0,0,0,.7);overflow:hidden;display:flex;flex-direction:column;border:3px solid #d97706;color:#1f2937;font-family:'Tajawal',sans-serif}
+.tb-head{background:linear-gradient(135deg,#d97706,#b45309);padding:14px 22px;display:flex;justify-content:space-between;align-items:center;color:white;flex-shrink:0}
+.tb-head-title{font-size:18px;font-weight:900;display:flex;align-items:center;gap:9px}
+.tb-close{background:rgba(255,255,255,.25);border:none;color:white;width:34px;height:34px;border-radius:8px;cursor:pointer;font-size:16px;font-weight:900}
+.tb-close:hover{background:rgba(255,255,255,.4)}
+
+.tb-layout{flex:1;display:flex;overflow:hidden}
+.tb-sidebar{width:220px;background:rgba(217,119,6,.1);border-left:2px solid #d97706;overflow-y:auto;flex-shrink:0;padding:10px}
+.tb-sidebar::-webkit-scrollbar{width:5px}.tb-sidebar::-webkit-scrollbar-thumb{background:#d97706;border-radius:4px}
+.tb-lesson{padding:10px 12px;margin-bottom:5px;border-radius:8px;cursor:pointer;font-weight:800;font-size:12px;color:#78350f;background:rgba(255,255,255,.5);border:1px solid transparent;transition:.15s;display:flex;align-items:center;gap:7px}
+.tb-lesson:hover{background:rgba(255,255,255,.85);transform:translateX(-3px)}
+.tb-lesson.on{background:linear-gradient(135deg,#d97706,#b45309);color:white;border-color:#92400e;box-shadow:0 3px 10px rgba(217,119,6,.4)}
+.tb-lesson .num{background:rgba(255,255,255,.3);width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;flex-shrink:0}
+.tb-lesson.on .num{background:rgba(255,255,255,.4)}
+
+.tb-content{flex:1;overflow-y:auto;padding:24px 30px;line-height:1.85}
+.tb-content::-webkit-scrollbar{width:6px}.tb-content::-webkit-scrollbar-thumb{background:#d97706;border-radius:4px}
+.tb-content h2{font-size:24px;color:#92400e;margin-bottom:16px;display:flex;align-items:center;gap:10px;border-bottom:3px solid #fbbf24;padding-bottom:10px}
+.tb-content h3{font-size:17px;color:#b45309;margin-top:20px;margin-bottom:10px;display:flex;align-items:center;gap:7px}
+.tb-content p{font-size:14px;color:#1f2937;margin-bottom:12px}
+.tb-content .info-box{background:rgba(255,255,255,.7);border:1px solid #d97706;border-right:5px solid #d97706;border-radius:9px;padding:14px 18px;margin:12px 0;font-size:13px}
+.tb-content .tip{background:rgba(34,197,94,.15);border-right:5px solid #16a34a;color:#14532d;padding:11px 16px;border-radius:8px;margin:10px 0;font-weight:700;font-size:13px}
+.tb-content .warn{background:rgba(239,68,68,.12);border-right:5px solid #dc2626;color:#7f1d1d;padding:11px 16px;border-radius:8px;margin:10px 0;font-weight:700;font-size:13px}
+.tb-content .step{background:white;border:2px solid #fbbf24;border-radius:10px;padding:14px 18px;margin:10px 0;font-size:13px;box-shadow:0 2px 8px rgba(0,0,0,.08)}
+.tb-content .step-num{display:inline-flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#d97706,#b45309);color:white;width:30px;height:30px;border-radius:50%;font-weight:900;margin-left:9px}
+.tb-content kbd{background:#1f2937;color:#fde68a;padding:3px 9px;border-radius:5px;font-size:12px;font-weight:700;font-family:monospace;box-shadow:0 2px 0 #000}
+.tb-content .code-box{background:#1f2937;color:#e5e7eb;padding:14px 18px;border-radius:9px;margin:10px 0;font-family:monospace;font-size:12px;line-height:1.8;direction:ltr;text-align:left}
+.tb-content .badge{display:inline-block;padding:3px 9px;background:#fbbf24;color:#78350f;border-radius:5px;font-size:11px;font-weight:800;margin:0 4px}
+.tb-content ul{margin-right:20px;margin-bottom:12px}
+.tb-content li{margin-bottom:6px;font-size:13px}
+.tb-content .try-btn{background:linear-gradient(135deg,#22c55e,#16a34a);color:white;border:none;padding:11px 22px;border-radius:9px;font-weight:900;font-size:13px;cursor:pointer;font-family:inherit;margin-top:12px;box-shadow:0 4px 12px rgba(34,197,94,.4);transition:.2s;display:inline-flex;align-items:center;gap:7px}
+.tb-content .try-btn:hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(34,197,94,.55)}
+
+.tb-foot{background:rgba(217,119,6,.1);padding:11px 22px;display:flex;justify-content:space-between;align-items:center;border-top:2px solid #d97706;flex-shrink:0}
+.tb-nav-btn{background:#d97706;color:white;border:none;padding:8px 18px;border-radius:8px;font-weight:800;font-size:12px;cursor:pointer;font-family:inherit;transition:.15s}
+.tb-nav-btn:hover:not(:disabled){background:#b45309;transform:translateY(-1px)}
+.tb-nav-btn:disabled{opacity:.4;cursor:not-allowed}
+.tb-progress{font-size:12px;color:#78350f;font-weight:800}
+
+/* Welcome hint */
+.welcome-hint{position:fixed;top:60px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,#22c55e,#16a34a);color:white;padding:11px 22px;border-radius:11px;font-weight:800;font-size:13px;z-index:7000;box-shadow:0 6px 20px rgba(34,197,94,.5);display:flex;align-items:center;gap:9px;animation:pulse 2.5s ease infinite}
+.welcome-hint.gone{display:none}
+.welcome-hint .x{background:rgba(255,255,255,.25);border:none;color:white;width:24px;height:24px;border-radius:5px;cursor:pointer;font-weight:900}
+</style>
+</head>
+<body>
+
+<!-- WELCOME HINT (first time) -->
+<div class="welcome-hint" id="welcome-hint">
+  <span>👋 مرحباً! ابدأ بالضغط على <b>📖 تعلَّم</b> أعلاه</span>
+  <button class="x" onclick="dismissWelcome()">✕</button>
+</div>
+
+<!-- ADMIN PANEL — جانبي، لا يغطي المسرح -->
+<div class="admin-panel" id="admin-panel">
+  <div class="admin-head">
+    <div class="admin-head-title">👑 لوحة الأدمن</div>
+    <button class="admin-close" onclick="toggleAdmin()">✕</button>
+  </div>
+  <div class="admin-tabs">
+    <button class="atab on" onclick="aTab('buttons',this)">🎛️ أزرار</button>
+    <button class="atab" onclick="aTab('sprites',this)">🎭 شخصيات</button>
+    <button class="atab" onclick="aTab('vars',this)">📦 متغيرات</button>
+    <button class="atab" onclick="aTab('stage',this)">🎬 المسرح</button>
+    <button class="atab" onclick="aTab('stats',this)">📊 إحصاءات</button>
+  </div>
+  <div class="admin-body">
+
+    <!-- 🎛️ BUTTONS TAB -->
+    <div class="apanel on" id="apanel-buttons">
+      <div class="asection">
+        <div class="asection-title">⚡ أزرار جاهزة بضغطة واحدة</div>
+        <p style="font-size:11px;color:var(--tx2);margin-bottom:10px;line-height:1.6">اضغط أي زر أدناه ليُضاف لشاشتك مباشرة مع وظيفته!</p>
+        <div class="quick-btn-grid">
+          <button class="qbtn" onclick="quickBtn('jump')">⬆️ قفز</button>
+          <button class="qbtn" onclick="quickBtn('shoot')">🚀 إطلاق</button>
+          <button class="qbtn" onclick="quickBtn('kick')">⚽ شوط</button>
+          <button class="qbtn" onclick="quickBtn('left')">◀ يسار</button>
+          <button class="qbtn" onclick="quickBtn('right')">▶ يمين</button>
+          <button class="qbtn" onclick="quickBtn('up')">▲ أعلى</button>
+          <button class="qbtn" onclick="quickBtn('down')">▼ أسفل</button>
+          <button class="qbtn" onclick="quickBtn('pause')">⏸️ إيقاف</button>
+          <button class="qbtn" onclick="quickBtn('reset')">🔄 إعادة</button>
+          <button class="qbtn" onclick="quickBtn('boost')">⚡ تعزيز</button>
+          <button class="qbtn" onclick="quickBtn('teleport')">✨ نقل</button>
+          <button class="qbtn" onclick="quickBtn('coin')">🪙 نقطة+1</button>
+        </div>
+      </div>
+
+      <div class="asection">
+        <div class="asection-title">➕ زر مخصص</div>
+        <div class="add-btn-card" onclick="openBtnEditor()">➕ أنشئ زراً بمواصفاتك</div>
+      </div>
+
+      <div class="asection">
+        <div class="asection-title">📋 أزراري <span id="btn-count" style="color:var(--tx3);font-weight:400">(0)</span></div>
+        <p style="font-size:10px;color:var(--tx3);margin-bottom:8px">💡 اسحب أي زر لتغيير مكانه على الشاشة</p>
+        <div id="btn-list"></div>
+      </div>
+    </div>
+
+    <!-- 🎭 SPRITES TAB -->
+    <div class="apanel" id="apanel-sprites">
+      <div class="asection">
+        <div class="asection-title">🎭 الشخصيات الموجودة</div>
+        <div id="adm-sprite-list"></div>
+      </div>
+      <div class="asection">
+        <div class="asection-title">⚙️ إجراءات جماعية</div>
+        <button class="mb mb-cn" style="width:100%;margin-bottom:5px" onclick="allCenter()">🎯 الكل للوسط</button>
+        <button class="mb mb-cn" style="width:100%;margin-bottom:5px" onclick="allShow()">✨ إظهار الكل</button>
+        <button class="mb mb-cn" style="width:100%" onclick="allHide()">👻 إخفاء الكل</button>
+      </div>
+    </div>
+
+    <!-- 📦 VARS TAB -->
+    <div class="apanel" id="apanel-vars">
+      <div class="asection">
+        <div class="asection-title">📦 المتغيرات</div>
+        <div id="adm-var-list"></div>
+        <button class="mb mb-ok" style="width:100%;margin-top:9px" onclick="openVarModal()">➕ متغير جديد</button>
+      </div>
+    </div>
+
+    <!-- 🎬 STAGE TAB -->
+    <div class="apanel" id="apanel-stage">
+      <div class="asection">
+        <div class="asection-title">🖼️ الخلفية</div>
+        <div id="adm-bd-grid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:6px"></div>
+      </div>
+      <div class="asection">
+        <div class="asection-title">⚙️ إعدادات التحكم</div>
+        <div class="bform-row"><label>نمط:</label>
+          <select id="adm-ctrl-mode" onchange="setCtrlModeDirect(this.value)">
+            <option value="0">⌨️ لوحة المفاتيح</option>
+            <option value="1">🎮 D-Pad</option>
+            <option value="2">🕹️ جويستيك</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- 📊 STATS TAB -->
+    <div class="apanel" id="apanel-stats">
+      <div class="stat-grid">
+        <div class="stat-card"><div class="lbl">🎭 الشخصيات</div><div class="val" id="st-sp">0</div></div>
+        <div class="stat-card green"><div class="lbl">🎛️ الأزرار</div><div class="val" id="st-btn">0</div></div>
+        <div class="stat-card purple"><div class="lbl">📦 المتغيرات</div><div class="val" id="st-var">0</div></div>
+        <div class="stat-card orange"><div class="lbl">🧾 الأوامر</div><div class="val" id="st-code">0</div></div>
+      </div>
+      <div class="asection" style="margin-top:11px">
+        <div class="asection-title">📋 المشروع</div>
+        <div style="font-size:11px;color:var(--tx2);line-height:1.9">
+          <div>🎮 الحالة: <span id="st-status" style="color:#4ade80;font-weight:700">⚪ متوقف</span></div>
+        </div>
+      </div>
+      <button class="mb mb-ok" style="width:100%;margin-top:9px" onclick="save()">💾 حفظ المشروع</button>
+      <button class="mb mb-cn" style="width:100%;margin-top:5px" onclick="load()">📂 تحميل</button>
+      <button class="mb mb-cn" style="width:100%;margin-top:5px;color:#f87171;border-color:#ef4444" onclick="nuke()">🗑️ مسح الكل</button>
+    </div>
+
+  </div>
+</div>
+
+<!-- 📖 TUTORIAL BOOK — دفتر التعليم -->
+<div class="tutorial-overlay" id="tut-overlay">
+  <div class="tutorial-book">
+    <div class="tb-head">
+      <div class="tb-head-title">📖 دفتر تعلُّم صناعة الألعاب</div>
+      <button class="tb-close" onclick="closeTutorial()">✕</button>
+    </div>
+    <div class="tb-layout">
+      <div class="tb-sidebar" id="tb-sidebar"></div>
+      <div class="tb-content" id="tb-content"></div>
+    </div>
+    <div class="tb-foot">
+      <button class="tb-nav-btn" id="tb-prev" onclick="tutNav(-1)">⬅️ السابق</button>
+      <div class="tb-progress" id="tb-progress">الدرس 1 / 10</div>
+      <button class="tb-nav-btn" id="tb-next" onclick="tutNav(1)">التالي ➡️</button>
+    </div>
+  </div>
+</div>
+
+<!-- TOP BAR -->
+<div class="top">
+  <div class="logo">🎮 Scratch Pro <span style="-webkit-text-fill-color:var(--tx3);font-size:9px;font-weight:400">v6</span></div>
+  <div class="tb-sep"></div>
+  <button class="tb tb-p" onclick="openLib()">➕ شخصية</button>
+  <button class="tb tb-c" onclick="openBdModal()">🖼️ خلفية</button>
+  <button class="tb tb-a" onclick="openVarModal()">📦 متغير</button>
+  <div class="tb-sep"></div>
+  <button class="tb tb-a" onclick="openTplGallery()">🎮 قوالب الألعاب</button>
+  <button class="tb" style="background:linear-gradient(135deg,#06b6d4,#0891b2);color:white;border-color:#0891b2;font-weight:900" onclick="openCodeSnippets()">📜 أكواد جاهزة</button>
+  <div class="tb-sep"></div>
+  <button class="tb tb-g" onclick="save()">💾 حفظ</button>
+  <button class="tb tb-c" onclick="load()">📂 تحميل</button>
+  <button class="tb tb-r" onclick="nuke()">🗑️ مسح</button>
+  <div class="tb-sep"></div>
+  <button class="tb" style="background:linear-gradient(135deg,#22c55e,#16a34a);color:white;border-color:#16a34a;font-weight:900" onclick="openTutorial()">📖 تعلَّم</button>
+  <button class="tb" style="background:linear-gradient(135deg,#f59e0b,#d97706);color:white;border-color:#d97706;font-weight:900" onclick="toggleAdmin()">👑 أدمن</button>
+</div>
+
+<div class="wrap">
+
+<!-- ══ BLOCKS ══ -->
+<div class="blocks">
+  <div class="cat-tabs">
+    <button class="ct ct-ev on" id="ct-ev" onclick="showCat('ev',this)">🚩 أحداث</button>
+    <button class="ct ct-mv" id="ct-mv" onclick="showCat('mv',this)">🏃 حركة</button>
+    <button class="ct ct-lk" id="ct-lk" onclick="showCat('lk',this)">👀 مظهر</button>
+    <button class="ct ct-lg" id="ct-lg" onclick="showCat('lg',this)">🔍 إذا</button>
+    <button class="ct ct-vr" id="ct-vr" onclick="showCat('vr',this)">📦 متغير</button>
+    <button class="ct ct-ct" id="ct-ct" onclick="showCat('ct',this)">⚙️ تحكم</button>
+    <button class="ct ct-pn" id="ct-pn" onclick="showCat('pn',this)">✏️ قلم</button>
+    <button class="ct ct-sn" id="ct-sn" onclick="showCat('sn',this)">🔊 صوت</button>
+  </div>
+  <div class="blocks-scroll">
+
+    <!-- EVENTS -->
+    <div class="bcat show" id="bcat-ev">
+      <div class="blk blk-ev" onclick="AB('flag')">🚩 عند النقر على العلم</div>
+      <div class="blk blk-ev" onclick="P_key()">⌨️ عند ضغط مفتاح...</div>
+      <div class="blk blk-ev" onclick="AB('click')">🖱️ عند النقر على الشخصية</div>
+      <div class="blk blk-ev" onclick="P_bc('send')">📢 بث رسالة...</div>
+      <div class="blk blk-ev" onclick="P_bc('recv')">📨 عند استقبال رسالة...</div>
+      <div class="blk blk-ev" onclick="AB('loop')">🔄 حلقة اللعبة الرئيسية</div>
+      <div class="blk blk-ev" onclick="AB('action')">🎯 عند زر الإطلاق (مسافة)</div>
+      <div class="blk blk-ev" onclick="P_btnEv()">🎛️ عند ضغط زر مخصص...</div>
+    </div>
+
+    <!-- MOVEMENT -->
+    <div class="bcat" id="bcat-mv">
+      <div class="blk blk-mv" onclick="AB('mr',{v:10})">➡️ يمين <input class="bi" type="number" value="10" onclick="stopE(event)" onchange="lastV(this)"></div>
+      <div class="blk blk-mv" onclick="AB('ml',{v:10})">⬅️ يسار <input class="bi" type="number" value="10" onclick="stopE(event)" onchange="lastV(this)"></div>
+      <div class="blk blk-mv" onclick="AB('mu',{v:10})">⬆️ أعلى <input class="bi" type="number" value="10" onclick="stopE(event)" onchange="lastV(this)"></div>
+      <div class="blk blk-mv" onclick="AB('md',{v:10})">⬇️ أسفل <input class="bi" type="number" value="10" onclick="stopE(event)" onchange="lastV(this)"></div>
+      <div class="blk blk-mv" onclick="AB('fwd',{v:10})">🔺 تحرك للأمام <input class="bi" type="number" value="10" onclick="stopE(event)" onchange="lastV(this)"></div>
+      <div class="blk blk-mv" onclick="P_goto()">📍 اذهب إلى x,y</div>
+      <div class="blk blk-mv" onclick="P_glide()">✨ انزلق إلى x,y</div>
+      <div class="blk blk-mv" onclick="AB('rnd')">🎲 انتقل عشوائياً</div>
+      <div class="blk blk-mv" onclick="AB('ctr')">🎯 العودة للوسط</div>
+      <div class="blk blk-mv" onclick="AB('bnc')">↩️ ارتد عن الحافة</div>
+      <div class="blk blk-mv" onclick="AB('follow')">🖱️ اتبع الماوس</div>
+      <div class="blk blk-mv" onclick="P_followSp()">🎯 اتبع شخصية</div>
+      <div class="blk blk-mv" onclick="P_vel()">💨 اضبط السرعة vx vy</div>
+      <div class="blk blk-mv" onclick="AB('grav')">🌍 تفعيل الجاذبية</div>
+      <div class="blk blk-mv" onclick="AB('friction')">🌀 تفعيل الاحتكاك (للكرة)</div>
+      <div class="blk blk-mv" onclick="P_kick()">⚽ اشوط الكرة نحو (قوة)</div>
+      <div class="blk blk-mv" onclick="P_kickFrom()">🦵 اشوطني من اللاعب (قوة)</div>
+      <div class="blk blk-mv" onclick="AB('jump',{v:14})">⬆️ قفز قوة <input class="bi" type="number" value="14" onclick="stopE(event)" onchange="lastV(this)"></div>
+      <div class="blk blk-mv" onclick="P_setX()">↔️ اضبط X</div>
+      <div class="blk blk-mv" onclick="P_setY()">↕️ اضبط Y</div>
+    </div>
+
+    <!-- LOOKS -->
+    <div class="bcat" id="bcat-lk">
+      <div class="blk blk-lk" onclick="AB('rcw',{v:15})">🔄 دوران ° <input class="bi" type="number" value="15" onclick="stopE(event)" onchange="lastV(this)"></div>
+      <div class="blk blk-lk" onclick="AB('rcc',{v:15})">↪️ دوران عكسي ° <input class="bi" type="number" value="15" onclick="stopE(event)" onchange="lastV(this)"></div>
+      <div class="blk blk-lk" onclick="AB('sdir',{v:90})">🧭 اتجاه = <input class="bi" type="number" value="90" onclick="stopE(event)" onchange="lastV(this)">°</div>
+      <div class="blk blk-lk" onclick="P_face()">👁️ انظر نحو شخصية...</div>
+      <div class="blk blk-lk" onclick="AB('sup',{v:10})">🔍 تكبير % <input class="bi" type="number" value="10" onclick="stopE(event)" onchange="lastV(this)"></div>
+      <div class="blk blk-lk" onclick="AB('sdn',{v:10})">🔎 تصغير % <input class="bi" type="number" value="10" onclick="stopE(event)" onchange="lastV(this)"></div>
+      <div class="blk blk-lk" onclick="AB('ssz',{v:100})">📐 حجم = % <input class="bi" type="number" value="100" onclick="stopE(event)" onchange="lastV(this)"></div>
+      <div class="blk blk-lk" onclick="P_say()">💬 قل لـ ثوان</div>
+      <div class="blk blk-lk" onclick="AB('hide')">👻 إخفاء</div>
+      <div class="blk blk-lk" onclick="AB('show')">✨ إظهار</div>
+      <div class="blk blk-lk" onclick="P_costume()">🎭 تغيير المظهر</div>
+      <div class="blk blk-lk" onclick="AB('flash')">⚡ وميض</div>
+      <div class="blk blk-lk" onclick="AB('ghost',{v:50})">👁️ شفافية % <input class="bi" type="number" value="50" onclick="stopE(event)" onchange="lastV(this)"></div>
+    </div>
+
+    <!-- LOGIC / IF -->
+    <div class="bcat" id="bcat-lg">
+      <div class="blk blk-lg" onclick="P_ifTouch()">🎯 إذا لمس شخصية...</div>
+      <div class="blk blk-lg" onclick="AB('ifEdge')">⚠️ إذا لمس الحافة</div>
+      <div class="blk blk-lg" onclick="P_ifKey()">⌨️ إذا ضغط مفتاح...</div>
+      <div class="blk blk-lg" onclick="AB('ifMouse')">🖱️ إذا ضغط الماوس</div>
+      <div class="blk blk-lg" onclick="AB('ifAction')">🎯 إذا ضغط زر الإطلاق</div>
+      <div class="blk blk-lg" onclick="P_ifVar()">📦 إذا متغير ⋈ قيمة...</div>
+      <div class="blk blk-lg" onclick="P_ifDir()">🧭 إذا الاتجاه = ...</div>
+      <div class="blk blk-lg" onclick="AB('else')">🔀 وإلا (else)</div>
+      <div class="blk blk-lg" onclick="AB('endif')">⏹️ نهاية إذا (end if)</div>
+    </div>
+
+    <!-- VARIABLES -->
+    <div class="bcat" id="bcat-vr">
+      <div class="blk blk-vr" onclick="P_setV()">📝 اضبط متغير = قيمة</div>
+      <div class="blk blk-vr" onclick="P_chgV()">➕ غير متغير بـ</div>
+      <div class="blk blk-vr" onclick="P_showV()">👁️ أظهر متغير على الشاشة</div>
+      <div class="blk blk-vr" onclick="P_hideV()">🙈 أخفِ متغير</div>
+    </div>
+
+    <!-- CONTROL -->
+    <div class="bcat" id="bcat-ct">
+      <div class="blk blk-ct" onclick="AB('wait',{v:1})">⏱️ انتظر ث <input class="bi" type="number" value="1" step=".1" onclick="stopE(event)" onchange="lastV(this)"></div>
+      <div class="blk blk-ct" onclick="AB('rep',{v:10})">🔁 كرر مرات <input class="bi" type="number" value="10" onclick="stopE(event)" onchange="lastV(this)"></div>
+      <div class="blk blk-ct" onclick="AB('endrep')">⏹️ نهاية كرر</div>
+      <div class="blk blk-ct" onclick="AB('frv')">♾️ كرر للأبد</div>
+      <div class="blk blk-ct" onclick="AB('endfrv')">⏹️ نهاية الكرر للأبد</div>
+      <div class="blk blk-ct" onclick="AB('stop')">🛑 أوقف الكل</div>
+      <div class="blk blk-ct" onclick="P_go()">💀 شاشة انتهاء اللعبة</div>
+      <div class="blk blk-ct" onclick="P_win()">🏆 شاشة الفوز</div>
+      <div class="blk blk-ct" onclick="P_clone()">👯 استنسخ نفسي</div>
+      <div class="blk blk-ct" onclick="AB('delClone')">💀 احذف هذا الاستنساخ</div>
+      <div class="blk blk-ct" onclick="AB('whenClone')">🐣 عند الاستنساخ كنسخة</div>
+    </div>
+
+    <!-- PEN -->
+    <div class="bcat" id="bcat-pn">
+      <div class="blk blk-pn" onclick="AB('pon')">🖊️ ابدأ الرسم</div>
+      <div class="blk blk-pn" onclick="AB('poff')">🛑 أوقف الرسم</div>
+      <div class="blk blk-pn" onclick="AB('pcl')">🧹 امسح اللوحة</div>
+      <div class="blk blk-pn" onclick="P_pc()">🎨 لون القلم</div>
+      <div class="blk blk-pn" onclick="AB('psz',{v:4})">📏 حجم القلم <input class="bi" type="number" value="4" min="1" onclick="stopE(event)" onchange="lastV(this)"></div>
+      <div class="blk blk-pn" onclick="AB('stmp')">🏷️ ختم</div>
+    </div>
+
+    <!-- SOUND -->
+    <div class="bcat" id="bcat-sn">
+      <div class="blk blk-sn" onclick="AB('sclk')">🔔 صوت نقر</div>
+      <div class="blk blk-sn" onclick="AB('swin')">🎉 صوت فوز</div>
+      <div class="blk blk-sn" onclick="AB('slos')">❌ صوت خسارة</div>
+      <div class="blk blk-sn" onclick="AB('shot')">💥 صوت طلق</div>
+      <div class="blk blk-sn" onclick="AB('sjump')">🦘 صوت قفز</div>
+      <div class="blk blk-sn" onclick="AB('scoin')">🪙 صوت عملة</div>
+      <div class="blk blk-sn" onclick="P_note()">🎵 اعزف نغمة</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══ MIDDLE ══ -->
+<div class="mid">
+  <div class="stage-wrap" id="stg">
+    <div id="stg-bg"></div>
+    <canvas id="pen-cv"></canvas>
+
+    <!-- Controls -->
+    <div class="joystick-wrap" id="joystick-wrap">
+      <div class="joystick-outer" id="jstick-outer">
+        <div class="dir-ring"></div>
+        <div class="joystick-inner" id="jstick"></div>
+      </div>
+    </div>
+
+    <!-- Action button -->
+    <button class="act-btn" id="act-btn">🚀</button>
+
+    <div class="coords-hud" id="coords">X:0  Y:0<br>🧭 90°  📏 100%</div>
+
+    <!-- D-Pad -->
+    <div class="dpad" id="dpad">
+      <div class="drow"><div class="darr" id="d-u">▲</div></div>
+      <div class="drow">
+        <div class="darr" id="d-l">◀</div>
+        <div class="darr" style="background:transparent;border-color:transparent;cursor:default"></div>
+        <div class="darr" id="d-r">▶</div>
+      </div>
+      <div class="drow"><div class="darr" id="d-d">▼</div></div>
+    </div>
+
+    <div class="ctrl-toggle">
+      <div class="ctrl-target" id="ctrl-tgt">🎮 تحكم: —</div>
+      <button class="ctrl-btn" id="ctrl-btn" onclick="cycleCtrl()">🕹️ نمط: لوحة مفاتيح</button>
+    </div>
+
+    <div class="stage-btns">
+      <button class="rst-btn" onclick="resetAll()">🔄 إعادة</button>
+      <button class="run-btn" id="runBtn" onclick="toggleRun()">🚩 تشغيل</button>
+    </div>
+
+    <div class="gover" id="gover">
+      <div class="gover-box">
+        <div class="gover-icon" id="gover-ico">💀</div>
+        <div class="gover-title" id="gover-title">انتهت اللعبة</div>
+        <div class="gover-sub" id="gover-sub">حاول مرة أخرى</div>
+        <button class="gover-btn" onclick="closeGover();resetAll()">🔄 إعادة اللعب</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- SPRITES BAR -->
+  <div class="sp-bar">
+    <div class="si-box">
+      <div class="si-lbl">📛 الاسم</div>
+      <input class="si-in" id="si-name" onchange="updName(this.value)">
+      <div class="si-row">
+        <div><div class="si-lbl">X</div><input class="si-in" type="number" id="si-x" onchange="updPos('x',this.value)"></div>
+        <div><div class="si-lbl">Y</div><input class="si-in" type="number" id="si-y" onchange="updPos('y',this.value)"></div>
+      </div>
+      <div class="si-row">
+        <div><div class="si-lbl">الحجم%</div><input class="si-in" type="number" id="si-sz" onchange="updSz(this.value)"></div>
+        <div><div class="si-lbl">الاتجاه°</div><input class="si-in" type="number" id="si-dir" onchange="updDir(this.value)"></div>
+      </div>
+      <div class="si-ctrl" id="si-ctrl" onclick="toggleCtrlSp()">🎮 لا تخضع للتحكم</div>
+    </div>
+    <div class="sp-list" id="sp-list"></div>
+    <button class="add-card" onclick="openLib()">+</button>
+  </div>
+</div>
+
+<!-- ══ CODE PANEL ══ -->
+<div class="code-panel">
+  <div class="cp-head">
+    <div class="cp-title">
+      <span>🧾 الأوامر</span>
+      <div class="cp-acts">
+        <button class="ib" onclick="dupSprite()" title="نسخ">📋</button>
+        <button class="ib" onclick="clearCode()" title="مسح">🗑️</button>
+      </div>
+    </div>
+    <div class="cp-info" id="cp-info">اختر شخصية...</div>
+  </div>
+  <div class="code-scroll" id="code-scroll">
+    <div class="empty-c">👈 اختر فئة ثم اضغط اللبنة</div>
+  </div>
+  <div class="stat" id="stat">جاهز</div>
+</div>
+
+</div><!-- /wrap -->
+
+<!-- MODAL -->
+<div class="ov" id="modal">
+  <div class="modal">
+    <div class="mh" id="m-h">إدخال</div>
+    <div class="mt" id="m-t"></div>
+    <div id="m-b"></div>
+    <div class="ma">
+      <button class="mb mb-ok" onclick="mOK()">✅ تأكيد</button>
+      <button class="mb mb-cn" onclick="mClose()">إلغاء</button>
+    </div>
+  </div>
+</div>
+
+<script>
+'use strict';
+/* ═══════════════════════════════════════════════════════════
+   SCRATCH PRO v6 — FULLY ENHANCED ENGINE
+═══════════════════════════════════════════════════════════ */
+const EMOJIS={
+  'حيوانات':'🐱🐶🐰🦊🐻🐼🐯🦁🐮🐸🐵🐧🦅🐬🦈🐢🦖🐙🦒🐘🐺🦓🐊🦔🐝🦋🐞🕷️',
+  'شخصيات':'👦👧🧒👨👩🧙🥷🦸🦹👸🤴👮👷🕵️🧛🧟🧚‍♀️🤖',
+  'مركبات':'🚗🚕🏎️🚀✈️🛸🚁🚂🚤🛵🚲🛻🛴',
+  'طعام':'🍎🍌🍕🍔🌮🍩🍓🍇🧁🍦🍰🍭🍪🍫🍿🥨',
+  'رياضة':'⚽🏀🎾🏐🎯🎮🕹️🎲♟️🥅🏆🥇🏈🏉⛳',
+  'طبيعة':'⭐🌟✨🌈☀️🌙⚡🔥💧❄️☁️🌸💎💣🪙🔮🌵🌴',
+  'أشياء':'🪣🗡️🛡️🔑🎁👑🧲🎈🎉🚩🔔🏹💥🌀💰🎯'
+};
+const BDS=[
+  {n:'أبيض',c:'background:#fff'},
+  {n:'شبكة',c:'background:repeating-linear-gradient(0deg,#e2e8f0 0,#e2e8f0 1px,transparent 1px,transparent 36px),repeating-linear-gradient(90deg,#e2e8f0 0,#e2e8f0 1px,transparent 1px,transparent 36px);background-color:#f8fafc'},
+  {n:'سماء',c:'background:linear-gradient(180deg,#0ea5e9 0%,#38bdf8 55%,#bae6fd 100%)'},
+  {n:'غروب',c:'background:linear-gradient(180deg,#9333ea 0%,#f97316 50%,#fbbf24 100%)'},
+  {n:'فضاء',c:'background:radial-gradient(ellipse at 20% 30%,rgba(139,92,246,.3) 0%,transparent 50%),radial-gradient(ellipse at 80% 70%,rgba(59,130,246,.2) 0%,transparent 50%),#030712;background-image:radial-gradient(white 1px,transparent 1px),radial-gradient(white 1px,transparent 1px);background-size:60px 60px,35px 35px;background-position:0 0,30px 30px'},
+  {n:'عشب',c:'background:linear-gradient(180deg,#38bdf8 0%,#7dd3fc 45%,#4ade80 45%,#16a34a 100%)'},
+  {n:'صحراء',c:'background:linear-gradient(180deg,#fde68a 0%,#fbbf24 55%,#d97706 100%)'},
+  {n:'بحر',c:'background:linear-gradient(180deg,#7dd3fc 0%,#0284c7 50%,#0c4a6e 100%)'},
+  {n:'ليل',c:'background:linear-gradient(180deg,#020617 0%,#0f172a 60%,#1e293b 100%)'},
+  {n:'غابة',c:'background:linear-gradient(180deg,#86efac 0%,#22c55e 50%,#14532d 100%)'},
+  {n:'ملعب',c:'background:linear-gradient(180deg,#38bdf8 0%,#0284c7 35%,#16a34a 35%,#15803d 100%);background-image:repeating-linear-gradient(90deg,rgba(255,255,255,.06) 0px,rgba(255,255,255,.06) 1px,transparent 1px,transparent 80px),linear-gradient(180deg,#38bdf8 0%,#0284c7 35%,#16a34a 35%,#15803d 100%)'},
+  {n:'برتقالي',c:'background:linear-gradient(180deg,#fed7aa 0%,#fb923c 55%,#ea580c 100%)'},
+  {n:'ثلج',c:'background:linear-gradient(180deg,#dbeafe 0%,#bfdbfe 60%,#f8fafc 100%)'},
+];
+
+const V={w:480,h:360};
+const G={sp:[],cur:null,bd:0,run:false,stop:false,vars:{},vd:{},keys:{},mx:0,my:0,mouseDown:false,actionPressed:false,nid:1,mcb:null,ivs:[],grav:{},clones:[]};
+
+const stg=document.getElementById('stg');
+const bgEl=document.getElementById('stg-bg');
+const cv=document.getElementById('pen-cv');
+const ctx=cv.getContext('2d');
+const codeEl=document.getElementById('code-scroll');
+const statEl=document.getElementById('stat');
+const runBtn=document.getElementById('runBtn');
+const coordEl=document.getElementById('coords');
+
+/* ═══════════════════════════════════════════════════════════
+   CONTROL MODES — FIXED & IMPROVED
+═══════════════════════════════════════════════════════════ */
+let ctrlMode=0;
+const ctrlNames=['⌨️ لوحة المفاتيح','🎮 D-Pad','🕹️ عصا التحكم'];
+const jp={dx:0,dy:0};
+const dpad={u:false,d:false,l:false,r:false};
+
+function cycleCtrl(){
+  ctrlMode=(ctrlMode+1)%3;
+  document.getElementById('ctrl-btn').textContent='🕹️ نمط: '+ctrlNames[ctrlMode];
+  document.getElementById('ctrl-btn').classList.toggle('on',ctrlMode>0);
+  document.getElementById('joystick-wrap').classList.toggle('on',ctrlMode===2);
+  document.getElementById('dpad').classList.toggle('on',ctrlMode===1);
+  document.getElementById('act-btn').classList.toggle('on',ctrlMode>0);
+}
+
+/* D-Pad with pointer events */
+function setupDpad(){
+  ['u','d','l','r'].forEach(d=>{
+    const el=document.getElementById('d-'+d);
+    const press=ev=>{ev.preventDefault();dpad[d]=true;el.classList.add('act');el.setPointerCapture?.(ev.pointerId)};
+    const rel=ev=>{dpad[d]=false;el.classList.remove('act')};
+    el.addEventListener('pointerdown',press);
+    el.addEventListener('pointerup',rel);
+    el.addEventListener('pointercancel',rel);
+    el.addEventListener('pointerleave',rel);
+  });
+}
+
+/* Action button */
+function setupActBtn(){
+  const el=document.getElementById('act-btn');
+  el.addEventListener('pointerdown',ev=>{ev.preventDefault();G.actionPressed=true;el.style.transform='scale(.9)';trigActionEv();el.setPointerCapture?.(ev.pointerId)});
+  el.addEventListener('pointerup',()=>{G.actionPressed=false;el.style.transform=''});
+  el.addEventListener('pointercancel',()=>{G.actionPressed=false;el.style.transform=''});
+}
+
+/* Joystick — robust */
+function setupJoystick(){
+  const jo=document.getElementById('jstick-outer');
+  const ji=document.getElementById('jstick');
+  let dragging=false;
+  const center=()=>{ji.style.transform='translate(-50%,-50%)';ji.style.left='50%';ji.style.top='50%';jp.dx=0;jp.dy=0};
+  center();
+  const onMove=ev=>{
+    if(!dragging)return;
+    ev.preventDefault();
+    const r=jo.getBoundingClientRect();
+    const cx=r.left+r.width/2,cy=r.top+r.height/2;
+    let dx=ev.clientX-cx,dy=ev.clientY-cy;
+    const maxR=r.width/2-20;
+    const dist=Math.hypot(dx,dy);
+    if(dist>maxR){dx=dx/dist*maxR;dy=dy/dist*maxR}
+    ji.style.left=(50+dx/r.width*100)+'%';
+    ji.style.top=(50+dy/r.height*100)+'%';
+    jp.dx=dx/maxR;jp.dy=-dy/maxR;
+  };
+  jo.addEventListener('pointerdown',ev=>{dragging=true;jo.setPointerCapture(ev.pointerId);onMove(ev)});
+  jo.addEventListener('pointermove',onMove);
+  const end=()=>{dragging=false;center()};
+  jo.addEventListener('pointerup',end);
+  jo.addEventListener('pointercancel',end);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   CANVAS
+═══════════════════════════════════════════════════════════ */
+function resizeCV(){cv.width=stg.clientWidth;cv.height=stg.clientHeight;G.sp.forEach(applyT);G.clones.forEach(applyT)}
+window.addEventListener('resize',resizeCV);
+
+function v2c(s){
+  const sw=stg.clientWidth,sh=stg.clientHeight;
+  const sc=Math.min(sw/V.w,sh/V.h);
+  return{x:sw/2+s.x*sc-34,y:sh/2-s.y*sc-34,sc}
+}
+function c2v(cx,cy){
+  const sw=stg.clientWidth,sh=stg.clientHeight;
+  const sc=Math.min(sw/V.w,sh/V.h);
+  return{x:(cx-sw/2)/sc,y:(sh/2-cy)/sc}
+}
+function applyT(s){
+  if(!s.el)return;
+  const{x,y}=v2c(s);
+  s.el.style.left=x+'px';s.el.style.top=y+'px';
+  s.el.style.transform=`rotate(${s.dir-90}deg) scale(${s.sz})`;
+  s.el.style.opacity=s.ghost!==undefined?((100-s.ghost)/100):1;
+  s.el.classList.toggle('hid',!s.vis);
+  s.el.style.zIndex=s.z;
+  if(!s.isClone&&s.id===G.cur)updCoords(s);
+  posBub(s);
+}
+function clip(s){const hw=V.w/2,hh=V.h/2;s.x=Math.max(-hw,Math.min(hw,s.x));s.y=Math.max(-hh,Math.min(hh,s.y))}
+function atEdge(s){return Math.abs(s.x)>=V.w/2-6||Math.abs(s.y)>=V.h/2-6}
+function spPt(s){const sw=stg.clientWidth,sh=stg.clientHeight,sc=Math.min(sw/V.w,sh/V.h);return{x:sw/2+s.x*sc,y:sh/2-s.y*sc}}
+function penMove(s,nx,ny){
+  if(s.pen){const f=spPt(s);s.x=nx;s.y=ny;const t=spPt(s);ctx.beginPath();ctx.moveTo(f.x,f.y);ctx.lineTo(t.x,t.y);ctx.strokeStyle=s.pc;ctx.lineWidth=s.ps;ctx.lineCap='round';ctx.stroke()}
+  else{s.x=nx;s.y=ny}
+}
+function clrPen(){ctx.clearRect(0,0,cv.width,cv.height)}
+function updCoords(s){coordEl.innerHTML=`X:${Math.round(s.x)}  Y:${Math.round(s.y)}<br>🧭 ${Math.round(s.dir)}°  📏 ${Math.round(s.sz*100)}%`}
+function applyBd(){bgEl.style.cssText=BDS[G.bd].c+';position:absolute;inset:0'}
+
+/* ═══════════════════════════════════════════════════════════
+   SPRITES
+═══════════════════════════════════════════════════════════ */
+function mkSprite(emoji,name){
+  const id=G.nid++;
+  const s={id,name:name||`شخصية_${id}`,emoji,x:0,y:0,dir:90,sz:1,vis:true,z:10+id,
+    pen:false,pc:'#3b82f6',ps:3,vx:0,vy:0,gravity:false,ghost:0,
+    isControllable:false,startX:0,startY:0,startDir:90,startSz:1,startVis:true,
+    code:[],el:null,bub:null,isClone:false};
+  const el=document.createElement('div');el.className='sp-el';el.textContent=emoji;el.dataset.id=id;stg.appendChild(el);s.el=el;
+  const bub=document.createElement('div');bub.className='bub';stg.appendChild(bub);s.bub=bub;
+  el.addEventListener('pointerdown',ev=>{if(!G.run&&!ev.defaultPrevented){startDrag(s,ev)}});
+  el.addEventListener('click',()=>{if(G.run&&!dragData.moved)trigClick(s);if(!G.run)selS(s.id)});
+  applyT(s);return s;
+}
+function addS(emoji){const s=mkSprite(emoji);G.sp.push(s);renderList();selS(s.id);flash(`✅ ${s.name}`)}
+function delS(id){
+  if(G.sp.length<=1){flash('⚠️ شخصية واحدة على الأقل');return}
+  if(!confirm('حذف؟'))return;
+  const i=G.sp.findIndex(s=>s.id===id);if(i<0)return;
+  G.sp[i].el.remove();G.sp[i].bub.remove();G.sp.splice(i,1);
+  if(G.cur===id)G.cur=G.sp[0].id;
+  renderList();renderCode();updPanel();updCtrlTarget();flash('🗑️ حُذف');
+}
+function getS(){return G.sp.find(s=>s.id===G.cur)}
+function selS(id){G.cur=id;G.sp.forEach(s=>s.el.classList.toggle('sel',s.id===id));renderList();renderCode();updPanel()}
+
+function toggleCtrlSp(){
+  const s=getS();if(!s)return;
+  s.isControllable=!s.isControllable;
+  s.el.classList.toggle('ctrl',s.isControllable);
+  updPanel();renderList();updCtrlTarget();
+  flash(s.isControllable?`🎮 "${s.name}" قابل للتحكم`:`🎮 "${s.name}" إيقاف التحكم`);
+}
+
+function updCtrlTarget(){
+  const ctrlSp=G.sp.filter(s=>s.isControllable);
+  const el=document.getElementById('ctrl-tgt');
+  if(ctrlSp.length===0)el.textContent='🎮 تحكم: — (لا أحد)';
+  else if(ctrlSp.length===1)el.textContent=`🎮 تحكم: ${ctrlSp[0].emoji} ${ctrlSp[0].name}`;
+  else el.textContent=`🎮 تحكم: ${ctrlSp.length} شخصيات`;
+}
+
+function dupSprite(){
+  const s=getS();if(!s)return;
+  const ns=mkSprite(s.emoji,s.name+'_نسخة');
+  ns.x=s.x+20;ns.y=s.y-20;ns.dir=s.dir;ns.sz=s.sz;ns.code=JSON.parse(JSON.stringify(s.code));
+  clip(ns);G.sp.push(ns);renderList();selS(ns.id);flash('📋 نُسخت');
+}
+function renderList(){
+  const el=document.getElementById('sp-list');el.innerHTML='';
+  G.sp.forEach(s=>{
+    const c=document.createElement('div');
+    c.className='sp-card'+(s.id===G.cur?' active':'')+(s.isControllable?' ctrl':'');
+    c.onclick=()=>selS(s.id);
+    const ctag=s.isControllable?`<div class="ctag" title="قابل للتحكم">🎮</div>`:'';
+    c.innerHTML=`<button class="dx" onclick="event.stopPropagation();delS(${s.id})">×</button>${ctag}<div class="em">${s.emoji}</div><div class="nm">${s.name}</div>`;
+    el.appendChild(c);
+  });
+}
+function updPanel(){
+  const s=getS();if(!s)return;
+  document.getElementById('cp-info').innerHTML=`${s.emoji} <b>${s.name}</b> — ${s.code.length} أمر`;
+  document.getElementById('si-name').value=s.name;
+  document.getElementById('si-x').value=Math.round(s.x);
+  document.getElementById('si-y').value=Math.round(s.y);
+  document.getElementById('si-sz').value=Math.round(s.sz*100);
+  document.getElementById('si-dir').value=Math.round(s.dir);
+  const ctrl=document.getElementById('si-ctrl');
+  ctrl.textContent=s.isControllable?'🎮 قابل للتحكم ✓':'🎮 لا تخضع للتحكم';
+  ctrl.classList.toggle('on',s.isControllable);
+}
+function updName(v){const s=getS();if(!s)return;s.name=v||s.name;renderList();updPanel();updCtrlTarget()}
+function updPos(ax,v){const s=getS();if(!s)return;s[ax]=parseFloat(v)||0;applyT(s)}
+function updSz(v){const s=getS();if(!s)return;s.sz=Math.max(.1,Math.min(5,(parseFloat(v)||100)/100));applyT(s)}
+function updDir(v){const s=getS();if(!s)return;s.dir=parseFloat(v)||0;applyT(s)}
+
+/* ═══════════════════════════════════════════════════════════
+   DRAG
+═══════════════════════════════════════════════════════════ */
+const dragData={s:null,ox:0,oy:0,moved:false};
+function startDrag(s,ev){
+  ev.preventDefault();dragData.s=s;dragData.moved=false;s.el.classList.add('dragging');
+  const r=s.el.getBoundingClientRect();dragData.ox=ev.clientX-r.left;dragData.oy=ev.clientY-r.top;
+  selS(s.id);s.el.setPointerCapture(ev.pointerId);
+}
+document.addEventListener('pointermove',ev=>{
+  if(!dragData.s||G.run)return;dragData.moved=true;
+  const r=stg.getBoundingClientRect();const sw=stg.clientWidth,sh=stg.clientHeight;const sc=Math.min(sw/V.w,sh/V.h);
+  dragData.s.x=(ev.clientX-r.left-dragData.ox+34-sw/2)/sc;
+  dragData.s.y=(sh/2-(ev.clientY-r.top-dragData.oy+34))/sc;
+  clip(dragData.s);applyT(dragData.s);updPanel();
+});
+document.addEventListener('pointerup',()=>{if(dragData.s){dragData.s.el.classList.remove('dragging');dragData.s=null;setTimeout(()=>dragData.moved=false,50)}});
+
+stg.addEventListener('pointermove',ev=>{const r=stg.getBoundingClientRect();const p=c2v(ev.clientX-r.left,ev.clientY-r.top);G.mx=p.x;G.my=p.y});
+stg.addEventListener('pointerdown',()=>{G.mouseDown=true});
+document.addEventListener('pointerup',()=>{G.mouseDown=false});
+
+/* ═══════════════════════════════════════════════════════════
+   KEYS
+═══════════════════════════════════════════════════════════ */
+document.addEventListener('keydown',ev=>{
+  G.keys[ev.key]=true;
+  if(ev.key===' '){G.keys.space=true;G.actionPressed=true;trigActionEv()}
+  const t=ev.target.tagName;
+  if(['INPUT','TEXTAREA','SELECT'].includes(t)){
+    if(ev.key==='Enter'&&document.getElementById('modal').classList.contains('on'))mOK();
+    if(ev.key==='Escape')mClose();return;
+  }
+  if(ev.key===' ')ev.preventDefault();
+  if(ev.key==='Escape')mClose();
+  if((ev.ctrlKey||ev.metaKey)&&ev.key==='s'){ev.preventDefault();save()}
+  if(G.run)trigKeyEv(ev.key===' '?'space':ev.key);
+});
+document.addEventListener('keyup',ev=>{G.keys[ev.key]=false;if(ev.key===' '){G.keys.space=false;G.actionPressed=false}});
+
+/* ═══════════════════════════════════════════════════════════
+   COLLISION — accurate even with clones
+═══════════════════════════════════════════════════════════ */
+function touching(s,nm){
+  if(!nm)return false;
+  // Find all sprites + clones matching name or emoji
+  const all=[...G.sp,...G.clones];
+  for(const t of all){
+    if(!t.vis||t.id===s.id||t===s)continue;
+    if(t.name!==nm&&t.emoji!==nm&&!(t.parent&&t.parent.name===nm))continue;
+    const a=s.el.getBoundingClientRect(),b=t.el.getBoundingClientRect();
+    if(!(a.right<b.left||a.left>b.right||a.bottom<b.top||a.top>b.bottom))return true;
+  }
+  return false;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   BUBBLE
+═══════════════════════════════════════════════════════════ */
+function posBub(s){
+  if(!s.bub||s.bub.style.display==='none')return;
+  const a=s.el.getBoundingClientRect(),b=stg.getBoundingClientRect();
+  s.bub.style.left=(a.left-b.left+65)+'px';s.bub.style.top=(a.top-b.top-46)+'px';
+}
+async function showBub(s,txt,dur,think=false){
+  s.bub.textContent=txt;s.bub.className='bub'+(think?' th':'');s.bub.style.display='block';posBub(s);
+  if(dur>0){await sleep(dur);s.bub.style.display='none'}
+}
+
+/* ═══════════════════════════════════════════════════════════
+   VARS
+═══════════════════════════════════════════════════════════ */
+function openVarModal(){
+  showM('📦 متغير جديد','',`<div class="irow"><input id="vn" placeholder="اسم المتغير"><input id="vv" type="number" value="0"></div>`,()=>{
+    const nm=document.getElementById('vn').value.trim();if(!nm)return;
+    G.vars[nm]=parseFloat(document.getElementById('vv').value)||0;flash(`📦 "${nm}"`)
+  });setTimeout(()=>document.getElementById('vn')?.focus(),50);
+}
+function showVD(nm){
+  if(G.vd[nm])return;const d=document.createElement('div');
+  d.className='vdisp';d.id='vd-'+nm;
+  const cnt=Object.keys(G.vd).length;d.style.right=(8+cnt*120)+'px';
+  stg.appendChild(d);G.vd[nm]=d;updVD();
+}
+function hideVD(nm){if(G.vd[nm]){G.vd[nm].remove();delete G.vd[nm]}}
+function updVD(){Object.keys(G.vd).forEach(nm=>{if(G.vd[nm])G.vd[nm].textContent=`${nm}: ${G.vars[nm]??0}`})}
+
+/* ═══════════════════════════════════════════════════════════
+   STAMPS
+═══════════════════════════════════════════════════════════ */
+function stampS(s){if(!s.vis)return;const p=spPt(s);ctx.save();ctx.translate(p.x,p.y);ctx.rotate((s.dir-90)*Math.PI/180);ctx.scale(s.sz,s.sz);ctx.font='52px sans-serif';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(s.emoji,0,0);ctx.restore()}
+
+/* ═══════════════════════════════════════════════════════════
+   SOUND
+═══════════════════════════════════════════════════════════ */
+let ac;function gac(){if(!ac)ac=new(window.AudioContext||window.webkitAudioContext)();return ac}
+function tone(f,d,t='sine',v=0.22){try{const c=gac(),o=c.createOscillator(),g=c.createGain();o.type=t;o.frequency.value=f;g.gain.setValueAtTime(v,c.currentTime);g.gain.exponentialRampToValueAtTime(.001,c.currentTime+d);o.connect(g);g.connect(c.destination);o.start();o.stop(c.currentTime+d)}catch(e){}}
+function sClk(){tone(700,.08,'square')}
+function sWin(){[523,659,784,1047].forEach((f,i)=>setTimeout(()=>tone(f,.15),i*80))}
+function sLos(){[300,200].forEach((f,i)=>setTimeout(()=>tone(f,.2,'sawtooth'),i*120))}
+function sShot(){tone(880,.04,'square',.15);setTimeout(()=>tone(440,.08,'sawtooth',.1),40)}
+function sJump(){tone(440,.1,'sine',.2);setTimeout(()=>tone(660,.1,'sine',.2),50)}
+function sCoin(){tone(988,.06,'square',.2);setTimeout(()=>tone(1319,.12,'square',.2),60)}
+const NF={C4:261.63,D4:293.66,E4:329.63,F4:349.23,G4:392,A4:440,B4:493.88,C5:523.25,D5:587.33,E5:659.25,G5:784};
+function sNote(n,d){tone(NF[n]||440,d,'triangle',.28)}
+
+/* ═══════════════════════════════════════════════════════════
+   BLOCKS
+═══════════════════════════════════════════════════════════ */
+function showCat(id,el){
+  document.querySelectorAll('.ct').forEach(b=>b.classList.remove('on'));
+  document.querySelectorAll('.bcat').forEach(c=>c.classList.remove('show'));
+  el.classList.add('on');
+  document.getElementById('bcat-'+id).classList.add('show');
+}
+function stopE(ev){ev.stopPropagation()}
+function lastV(inp){const s=getS();if(!s||!s.code.length)return;s.code[s.code.length-1].params.v=parseFloat(inp.value)||0;renderCode()}
+
+function AB(action,params={}){
+  if(G.run){flash('⚠️ أوقف أولاً');return}
+  const s=getS();if(!s){flash('⚠️ اختر شخصية');return}
+  s.code.push({action,params:{...params},id:Date.now()+Math.random()});
+  renderCode();flash(`✅ ${BL({action,params})}`);
+}
+
+function BL(b){
+  const p=b.params||{},v=p.v;
+  // btnPress handler (custom buttons)
+  if(b.action==='btnPress')return`🎛️ عند ضغط زر "${p.label||p.bid||''}"`;
+  const M={
+    flag:'🚩 عند النقر على العلم',click:'🖱️ عند النقر',loop:'🔄 حلقة اللعبة',
+    action:'🎯 عند زر الإطلاق',whenClone:'🐣 عند الاستنساخ',
+    keyPress:`⌨️ عند ضغط "${p.k||''}"`,broadcast:`📢 بث "${p.m||''}"`,receive:`📨 استقبال "${p.m||''}"`,
+    mr:`➡️ يمين ${v??10}`,ml:`⬅️ يسار ${v??10}`,mu:`⬆️ أعلى ${v??10}`,md:`⬇️ أسفل ${v??10}`,
+    fwd:`🔺 للأمام ${v??10}`,
+    goto:`📍 إلى (${p.x??0},${p.y??0})`,glide:`✨ انزلق ${p.t??1}ث (${p.x??0},${p.y??0})`,
+    rnd:'🎲 عشوائياً',ctr:'🎯 الوسط',bnc:'↩️ ارتد',follow:'🖱️ اتبع الماوس',
+    followSp:`🎯 اتبع "${p.nm||''}"`,
+    setVel:`💨 vx:${p.vx??0} vy:${p.vy??0}`,grav:'🌍 الجاذبية',friction:'🌀 الاحتكاك مفعّل',
+    kick:`⚽ اشوط الكرة "${p.nm||''}" بقوة ${p.f??10}`,
+    kickFrom:`🦵 اشوطني من "${p.nm||''}" بقوة ${p.f??10}`,
+    jump:`⬆️ قفز ${v??14}`,
+    setX:`↔️ X = ${v??0}`,setY:`↕️ Y = ${v??0}`,
+    rcw:`🔄 +${v??15}°`,rcc:`↪️ -${v??15}°`,sdir:`🧭 اتجاه=${v??90}°`,
+    faceSprite:`👁️ انظر نحو "${p.nm||''}"`,
+    sup:`🔍 +${v??10}%`,sdn:`🔎 -${v??10}%`,ssz:`📐 حجم=${v??100}%`,
+    say:`💬 "${p.tx||''}" ${p.t??2}ث`,hide:'👻 إخفاء',show:'✨ إظهار',
+    costume:`🎭 ${p.e||''}`,flash:'⚡ وميض',ghost:`👁️ شفافية=${v??50}%`,
+    ifTouch:`🎯 إذا لمس "${p.nm||''}"`,ifEdge:'⚠️ إذا لمس الحافة',
+    ifKey:`⌨️ إذا "${p.k||''}"`,ifMouse:'🖱️ إذا الماوس',ifAction:'🎯 إذا زر الإطلاق',
+    ifVar:`📦 إذا ${p.nm||''} ${p.op||'='} ${p.vl??0}`,
+    ifDir:`🧭 إذا الاتجاه ${p.op||'='} ${p.vl??0}`,
+    else:'🔀 وإلا',endif:'⏹️ نهاية إذا',
+    setV:`📝 ${p.nm||''}=${p.vl??0}`,chgV:`➕ ${p.nm||''} بـ${p.vl??0}`,
+    showV:`👁️ أظهر "${p.nm||''}"`,hideV:`🙈 أخفِ "${p.nm||''}"`,
+    wait:`⏱️ ${v??1}ث`,rep:`🔁 ${v??10}مرات`,endrep:'⏹️ نهاية كرر',
+    frv:'♾️ للأبد',endfrv:'⏹️ نهاية للأبد',stop:'🛑 أوقف',
+    gameover:`💀 ${p.m||'انتهت اللعبة'}`,win:`🏆 ${p.m||'فزت!'}`,
+    clone:'👯 استنسخ نفسي',delClone:'💀 احذف الاستنساخ',
+    pon:'🖊️ ابدأ الرسم',poff:'🛑 أوقف الرسم',pcl:'🧹 امسح',
+    penColor:`🎨 ${p.c||''}`,psz:`📏 حجم=${v??4}`,stmp:'🏷️ ختم',
+    sclk:'🔔 نقر',swin:'🎉 فوز',slos:'❌ خسارة',shot:'💥 طلق',sjump:'🦘 قفز',scoin:'🪙 عملة',
+    note:`🎵 ${p.n||'C4'} ${p.d??0.3}ث`,
+  };
+  return M[b.action]||b.action;
+}
+function BC(a){
+  if(['flag','click','keyPress','broadcast','receive','loop','action','whenClone','btnPress'].includes(a))return'lev';
+  if(['mr','ml','mu','md','fwd','goto','glide','rnd','ctr','bnc','follow','followSp','setVel','grav','friction','kick','kickFrom','jump','setX','setY'].includes(a))return'lmv';
+  if(['rcw','rcc','sdir','faceSprite','sup','sdn','ssz','say','hide','show','costume','flash','ghost'].includes(a))return'llk';
+  if(['sclk','swin','slos','shot','sjump','scoin','note'].includes(a))return'lsn';
+  if(['wait','rep','endrep','frv','endfrv','stop','gameover','win','clone','delClone'].includes(a))return'lct';
+  if(['pon','poff','pcl','penColor','psz','stmp'].includes(a))return'lpn';
+  if(['ifTouch','ifEdge','ifKey','ifMouse','ifAction','ifVar','ifDir','else','endif'].includes(a))return'llg';
+  if(['setV','chgV','showV','hideV'].includes(a))return'lvr';
+  return'';
+}
+function isOpen(a){return['ifTouch','ifEdge','ifKey','ifMouse','ifAction','ifVar','ifDir','rep','frv'].includes(a)}
+function isClose(a){return['endif','endrep','endfrv'].includes(a)||a==='else'}
+function isEv(a){return['flag','click','keyPress','broadcast','receive','loop','action','whenClone','btnPress'].includes(a)}
+
+function renderCode(){
+  const s=getS();
+  if(!s||!s.code.length){codeEl.innerHTML='<div class="empty-c">👈 اختر فئة ثم اضغط اللبنة</div>';updPanel();return}
+  codeEl.innerHTML='';let ind=0;
+  s.code.forEach((b,i)=>{
+    if(isClose(b.action))ind=Math.max(0,ind-1);
+    const d=document.createElement('div');
+    d.className=`line ${BC(b.action)} ind${Math.min(4,ind)} new`;
+    d.innerHTML=`<span style="flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="${BL(b)}">${i+1}. ${BL(b)}</span><div class="la"><button class="lb" onclick="mvU(${i})">▲</button><button class="lb" onclick="mvD(${i})">▼</button><button class="lb d" onclick="rmB(${i})">✖</button></div>`;
+    codeEl.appendChild(d);setTimeout(()=>d.classList.remove('new'),200);
+    if(isOpen(b.action)||b.action==='else')ind++;
+  });
+  updPanel();
+}
+function rmB(i){if(G.run)return;const s=getS();s.code.splice(i,1);renderCode()}
+function mvU(i){if(G.run||i===0)return;const c=getS().code;[c[i-1],c[i]]=[c[i],c[i-1]];renderCode()}
+function mvD(i){const s=getS();if(G.run||i===s.code.length-1)return;const c=s.code;[c[i+1],c[i]]=[c[i],c[i+1]];renderCode()}
+function clearCode(){if(G.run)return;const s=getS();if(!s||!s.code.length)return;if(confirm(`مسح أوامر "${s.name}"؟`)){s.code=[];renderCode();flash('🗑️ مُسح')}}
+
+/* ═══════════════════════════════════════════════════════════
+   EXECUTION ENGINE — REBUILT FOR RELIABILITY
+═══════════════════════════════════════════════════════════ */
+function toggleRun(){G.run?stopExec():startExec()}
+
+function snapshotAll(){
+  G.sp.forEach(s=>{s.startX=s.x;s.startY=s.y;s.startDir=s.dir;s.startSz=s.sz;s.startVis=s.vis});
+}
+function restoreAll(){
+  G.sp.forEach(s=>{s.x=s.startX;s.y=s.startY;s.dir=s.startDir;s.sz=s.startSz;s.vis=s.startVis;s.vx=0;s.vy=0;s.gravity=false;s.ghost=0;s.pen=false;s.bub.style.display='none';s.el.style.filter='';applyT(s)});
+}
+
+function startExec(){
+  G.run=true;G.stop=false;runBtn.textContent='⏹ إيقاف';runBtn.classList.add('stop');
+  flash('🚩 يشتغل...',99999);
+  G.ivs=[];G.grav={};
+  G.sp.forEach(s=>{G.grav[s.id]=0});
+  snapshotAll();
+  closeGover();
+
+  const proms=[];
+  G.sp.forEach(s=>{
+    s.code.forEach((b,i)=>{
+      if(b.action==='flag')proms.push(runFrom(s,i+1));
+    });
+    // Start ONE game-loop per sprite that has it
+    s.code.forEach((b,i)=>{
+      if(b.action==='loop'){
+        const startIdx=i+1;
+        const iv=setInterval(()=>{
+          if(G.stop){clearInterval(iv);return}
+          gameLoopTick(s,startIdx);
+        },30);
+        G.ivs.push(iv);
+      }
+    });
+  });
+
+  Promise.all(proms).then(()=>{
+    // Only end if no loops
+    if(!G.ivs.length&&!G.clones.length&&G.run){
+      setTimeout(()=>{if(G.run&&!G.ivs.length)endExec()},50);
+    }
+  });
+}
+function stopExec(){
+  G.stop=true;
+  G.ivs.forEach(iv=>clearInterval(iv));G.ivs=[];
+  // Remove all clones
+  G.clones.forEach(c=>{c.el?.remove();c.bub?.remove()});G.clones=[];
+  endExec();
+}
+function endExec(){
+  G.run=false;G.stop=false;runBtn.textContent='🚩 تشغيل';runBtn.classList.remove('stop');
+  document.querySelectorAll('.line.exec').forEach(e=>e.classList.remove('exec'));
+  flash('✅ اكتمل');
+}
+
+/* ═══════════════════════════════════════════════════════════
+   GAME LOOP TICK — uses FULL evaluator for if/etc
+═══════════════════════════════════════════════════════════ */
+function gameLoopTick(s,start){
+  if(G.stop)return;
+
+  // Apply joystick / dpad / arrow to controllable sprites
+  if(s.isControllable){
+    applyControl(s);
+  }
+
+  // Gravity
+  if(s.gravity){
+    G.grav[s.id]=(G.grav[s.id]||0)-.7;
+    penMove(s,s.x,s.y+G.grav[s.id]);
+    if(s.y<=-V.h/2+6){s.y=-V.h/2+6;G.grav[s.id]=0}
+    clip(s);
+  }
+  if(s.vx||s.vy){
+    penMove(s,s.x+s.vx,s.y+s.vy);clip(s);
+    // Friction: physics for ball-like sprites
+    if(s.friction){
+      s.vx*=0.97;s.vy*=0.97;
+      if(Math.abs(s.vx)<0.15)s.vx=0;
+      if(Math.abs(s.vy)<0.15)s.vy=0;
+    }
+    // Auto-bounce off edges with energy loss
+    if(s.autoBounce){
+      const hw=V.w/2,hh=V.h/2;
+      if(Math.abs(s.x)>=hw-6){s.vx=-s.vx*0.7;s.x=Math.sign(s.x)*(hw-7)}
+      if(Math.abs(s.y)>=hh-6){s.vy=-s.vy*0.7;s.y=Math.sign(s.y)*(hh-7)}
+    }
+  }
+
+  // Run body with full sync evaluator
+  runSyncBlocks(s,s.code,start,findEvEnd(s.code,start));
+  applyT(s);
+}
+
+function applyControl(s){
+  const spd=s.ctrlSpeed||6;
+  if(ctrlMode===0){
+    // Keyboard arrows
+    if(G.keys.ArrowRight||G.keys.d||G.keys.D){penMove(s,s.x+spd,s.y);clip(s)}
+    if(G.keys.ArrowLeft||G.keys.a||G.keys.A){penMove(s,s.x-spd,s.y);clip(s)}
+    if(G.keys.ArrowUp||G.keys.w||G.keys.W){penMove(s,s.x,s.y+spd);clip(s)}
+    if(G.keys.ArrowDown||G.keys.s||G.keys.S){penMove(s,s.x,s.y-spd);clip(s)}
+  }else if(ctrlMode===1){
+    if(dpad.r){penMove(s,s.x+spd,s.y);clip(s)}
+    if(dpad.l){penMove(s,s.x-spd,s.y);clip(s)}
+    if(dpad.u){penMove(s,s.x,s.y+spd);clip(s)}
+    if(dpad.d){penMove(s,s.x,s.y-spd);clip(s)}
+  }else if(ctrlMode===2){
+    if(Math.abs(jp.dx)>.15||Math.abs(jp.dy)>.15){
+      penMove(s,s.x+jp.dx*spd,s.y+jp.dy*spd);clip(s);
+    }
+  }
+}
+
+/* Find where the event-block scope ends (next event or end) */
+function findEvEnd(code,start){
+  for(let j=start;j<code.length;j++){
+    if(isEv(code[j].action))return j;
+  }
+  return code.length;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   SYNC BLOCK RUNNER — used by game loop for instant if/rep
+═══════════════════════════════════════════════════════════ */
+function runSyncBlocks(s,code,start,end){
+  let i=start;
+  while(i<end){
+    if(G.stop)return;
+    const b=code[i];
+    if(b.action==='rep'){
+      const cnt=Math.max(0,parseInt(b.params.v)||0);
+      const ei=findEnd(code,i,'rep','endrep',end);
+      for(let r=0;r<cnt;r++){if(G.stop)return;runSyncBlocks(s,code,i+1,ei)}
+      i=ei+1;continue;
+    }
+    if(b.action==='frv'){i++;continue} // skip in sync (use async)
+    if(b.action==='endrep'||b.action==='endfrv'){i++;continue}
+    if(b.action==='ifTouch'||b.action==='ifEdge'||b.action==='ifKey'||b.action==='ifMouse'||b.action==='ifAction'||b.action==='ifVar'||b.action==='ifDir'){
+      const cond=evalCond(s,b);
+      const ei=findElse(code,i,end);
+      const endi=findEnd2(code,i,end);
+      if(cond)runSyncBlocks(s,code,i+1,ei>=0?ei:endi);
+      else if(ei>=0)runSyncBlocks(s,code,ei+1,endi);
+      i=endi+1;continue;
+    }
+    if(b.action==='else'||b.action==='endif'){i++;continue}
+    if(b.action==='stop'){G.stop=true;return}
+    if(isEv(b.action))return;
+    execSync(s,b);
+    i++;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   ASYNC RUNNER — for flag/keypress/broadcast/click handlers
+═══════════════════════════════════════════════════════════ */
+async function runFrom(s,start){await execBlks(s,s.code,start,findEvEnd(s.code,start))}
+
+async function execBlks(s,code,start,end){
+  let i=start;
+  while(i<end){
+    if(G.stop)return;
+    const b=code[i];
+    if(s.id===G.cur&&!s.isClone)hlLine(i);
+    if(b.action==='rep'){
+      const cnt=Math.max(0,parseInt(b.params.v)||0);
+      const ei=findEnd(code,i,'rep','endrep',end);
+      for(let r=0;r<cnt;r++){if(G.stop)return;await execBlks(s,code,i+1,ei)}
+      i=ei+1;continue;
+    }
+    if(b.action==='frv'){
+      const ei=findEnd(code,i,'frv','endfrv',end);let sf=0;
+      while(!G.stop&&sf++<200000){await execBlks(s,code,i+1,ei);await sleep(16)}
+      return;
+    }
+    if(b.action==='endrep'||b.action==='endfrv'){i++;continue}
+    if(b.action==='ifTouch'||b.action==='ifEdge'||b.action==='ifKey'||b.action==='ifMouse'||b.action==='ifAction'||b.action==='ifVar'||b.action==='ifDir'){
+      const cond=evalCond(s,b);
+      const ei=findElse(code,i,end);const endi=findEnd2(code,i,end);
+      if(cond)await execBlks(s,code,i+1,ei>=0?ei:endi);
+      else if(ei>=0)await execBlks(s,code,ei+1,endi);
+      i=endi+1;continue;
+    }
+    if(b.action==='else'||b.action==='endif'){i++;continue}
+    if(b.action==='stop'){G.stop=true;return}
+    await execOne(s,b);i++;
+  }
+}
+function findEnd(code,start,op,cl,lim){let d=1;for(let j=start+1;j<lim;j++){if(code[j].action===op)d++;else if(code[j].action===cl){d--;if(d===0)return j}}return lim}
+function findElse(code,start,lim){
+  let d=0;for(let j=start+1;j<lim;j++){
+    if(isOpen(code[j].action))d++;else if(code[j].action==='endif'){if(d===0)return-1;d--}
+    else if(code[j].action==='else'&&d===0)return j;
+  }return-1;
+}
+function findEnd2(code,start,lim){
+  let d=0;for(let j=start+1;j<lim;j++){
+    if(isOpen(code[j].action))d++;else if(code[j].action==='endif'){if(d===0)return j;d--}
+  }return lim;
+}
+function evalCond(s,b){
+  const p=b.params;
+  if(b.action==='ifTouch')return touching(s,p.nm||'');
+  if(b.action==='ifEdge')return atEdge(s);
+  if(b.action==='ifKey'){const k=p.k||'';return!!(G.keys[k]||G.keys[k.toLowerCase()]||(k==='space'&&G.keys.space))}
+  if(b.action==='ifMouse')return G.mouseDown;
+  if(b.action==='ifAction')return G.actionPressed;
+  if(b.action==='ifVar'){const v=G.vars[p.nm]??0,c=parseFloat(p.vl)||0;return p.op==='='?v===c:p.op==='>'?v>c:p.op==='<'?v<c:p.op==='>='?v>=c:p.op==='<='?v<=c:v!==c}
+  if(b.action==='ifDir'){const v=s.dir,c=parseFloat(p.vl)||0;return p.op==='='?Math.abs(v-c)<5:p.op==='>'?v>c:p.op==='<'?v<c:false}
+  return false;
+}
+function execSync(s,b){
+  const p=b.params,v=parseFloat(p.v)||0;
+  switch(b.action){
+    case 'mr':penMove(s,s.x+v,s.y);clip(s);break;case 'ml':penMove(s,s.x-v,s.y);clip(s);break;
+    case 'mu':penMove(s,s.x,s.y+v);clip(s);break;case 'md':penMove(s,s.x,s.y-v);clip(s);break;
+    case 'fwd':{const rad=(s.dir-90)*Math.PI/180;penMove(s,s.x+Math.cos(rad)*v,s.y-Math.sin(rad)*v);clip(s);break}
+    case 'rnd':penMove(s,Math.random()*V.w-V.w/2,Math.random()*V.h-V.h/2);break;
+    case 'ctr':penMove(s,0,0);break;
+    case 'bnc':{const hw=V.w/2,hh=V.h/2;if(Math.abs(s.x)>=hw-6){s.vx=-s.vx;s.x=Math.sign(s.x)*(hw-7)}if(Math.abs(s.y)>=hh-6){s.vy=-s.vy;s.y=Math.sign(s.y)*(hh-7)}clip(s);break}
+    case 'follow':penMove(s,G.mx,G.my);clip(s);break;
+    case 'followSp':{const t=[...G.sp,...G.clones].find(x=>x.name===p.nm&&x.id!==s.id);if(t){const dx=t.x-s.x,dy=t.y-s.y,d=Math.hypot(dx,dy);if(d>2){penMove(s,s.x+dx/d*2,s.y+dy/d*2);clip(s)}}break}
+    case 'setX':s.x=v;clip(s);break;case 'setY':s.y=v;clip(s);break;
+    case 'rcw':s.dir=(s.dir+v)%360;break;case 'rcc':s.dir=(s.dir-v+360)%360;break;case 'sdir':s.dir=v;break;
+    case 'faceSprite':{const t=[...G.sp,...G.clones].find(x=>x.name===p.nm&&x.id!==s.id);if(t){const dx=t.x-s.x,dy=t.y-s.y;s.dir=((Math.atan2(-dy,dx)*180/Math.PI)+90+360)%360}break}
+    case 'sup':s.sz=Math.min(5,s.sz+v/100);break;case 'sdn':s.sz=Math.max(.1,s.sz-v/100);break;
+    case 'ssz':s.sz=Math.max(.1,Math.min(5,v/100));break;
+    case 'hide':s.vis=false;s.bub.style.display='none';break;case 'show':s.vis=true;break;
+    case 'setV':G.vars[p.nm]=parseFloat(p.vl)||0;updVD();break;
+    case 'chgV':G.vars[p.nm]=(G.vars[p.nm]??0)+parseFloat(p.vl||0);updVD();break;
+    case 'showV':showVD(p.nm);break;case 'hideV':hideVD(p.nm);break;
+    case 'pon':s.pen=true;break;case 'poff':s.pen=false;break;case 'pcl':clrPen();break;
+    case 'penColor':s.pc=p.c||'#3b82f6';break;case 'psz':s.ps=Math.max(1,v);break;
+    case 'stmp':stampS(s);break;case 'sclk':sClk();break;
+    case 'shot':sShot();break;case 'sjump':sJump();break;case 'scoin':sCoin();break;
+    case 'swin':sWin();break;case 'slos':sLos();break;
+    case 'ghost':s.ghost=v;break;
+    case 'jump':if(s.gravity){G.grav[s.id]=v}else{s.y+=v*2;clip(s)};break;
+    case 'setVel':s.vx=parseFloat(p.vx)||0;s.vy=parseFloat(p.vy)||0;break;
+    case 'grav':s.gravity=true;break;
+    case 'friction':s.friction=true;s.autoBounce=true;break;
+    case 'kick':{
+      // I am the player, kicking ball "nm" in my facing direction with force "f"
+      const ball=[...G.sp,...G.clones].find(x=>x.name===p.nm&&x.id!==s.id);
+      if(ball){
+        const force=parseFloat(p.f)||10;
+        const rad=(s.dir-90)*Math.PI/180;
+        ball.vx=Math.cos(rad)*force;
+        ball.vy=-Math.sin(rad)*force;
+        ball.friction=true;ball.autoBounce=true;
+      }
+      break;
+    }
+    case 'kickFrom':{
+      // I am the ball, get kicked away from sprite "nm" with force "f"
+      const player=[...G.sp,...G.clones].find(x=>x.name===p.nm&&x.id!==s.id);
+      if(player){
+        const force=parseFloat(p.f)||10;
+        const dx=s.x-player.x,dy=s.y-player.y;
+        const d=Math.hypot(dx,dy)||1;
+        // Direction from player toward ball, plus player's facing
+        const rad=(player.dir-90)*Math.PI/180;
+        s.vx=(dx/d*0.4+Math.cos(rad)*0.6)*force;
+        s.vy=(dy/d*0.4-Math.sin(rad)*0.6)*force;
+        s.friction=true;s.autoBounce=true;
+      }
+      break;
+    }
+    case 'gameover':showGover('💀',p.m||'انتهت اللعبة!',p.s||'حاول');G.stop=true;break;
+    case 'win':showGover('🏆',p.m||'فزت!',p.s||'أحسنت!');G.stop=true;break;
+    case 'broadcast':trigBC(p.m||'');break;
+    case 'clone':spawnClone(s);break;
+    case 'delClone':if(s.isClone){delClone(s)};break;
+    case 'costume':s.emoji=p.e||s.emoji;s.el.textContent=s.emoji;break;
+  }
+}
+async function execOne(s,b){
+  const p=b.params,v=parseFloat(p.v)||0;
+  switch(b.action){
+    case 'flag':case 'click':case 'keyPress':case 'broadcast':case 'receive':case 'loop':case 'action':case 'whenClone':break;
+    case 'mr':penMove(s,s.x+v,s.y);clip(s);applyT(s);break;
+    case 'ml':penMove(s,s.x-v,s.y);clip(s);applyT(s);break;
+    case 'mu':penMove(s,s.x,s.y+v);clip(s);applyT(s);break;
+    case 'md':penMove(s,s.x,s.y-v);clip(s);applyT(s);break;
+    case 'fwd':{const rad=(s.dir-90)*Math.PI/180;penMove(s,s.x+Math.cos(rad)*v,s.y-Math.sin(rad)*v);clip(s);applyT(s);break}
+    case 'goto':penMove(s,parseFloat(p.x)||0,parseFloat(p.y)||0);clip(s);applyT(s);break;
+    case 'glide':{const tx=parseFloat(p.x)||0,ty=parseFloat(p.y)||0,dur=(parseFloat(p.t)||1)*1000,sx=s.x,sy=s.y,t0=performance.now();
+      while(true){if(G.stop)return;const e=performance.now()-t0,pct=Math.min(1,e/dur);penMove(s,sx+(tx-sx)*pct,sy+(ty-sy)*pct);applyT(s);if(pct>=1)break;await sleep(16)}break}
+    case 'rnd':penMove(s,Math.random()*V.w-V.w/2,Math.random()*V.h-V.h/2);applyT(s);break;
+    case 'ctr':penMove(s,0,0);applyT(s);break;
+    case 'bnc':{const hw=V.w/2,hh=V.h/2;if(Math.abs(s.x)>=hw-6){s.vx=-s.vx;s.x=Math.sign(s.x)*(hw-7)}if(Math.abs(s.y)>=hh-6){s.vy=-s.vy;s.y=Math.sign(s.y)*(hh-7)}clip(s);applyT(s);break}
+    case 'follow':penMove(s,G.mx,G.my);clip(s);applyT(s);break;
+    case 'followSp':{const t=[...G.sp,...G.clones].find(x=>x.name===p.nm&&x.id!==s.id);if(t){const dx=t.x-s.x,dy=t.y-s.y,d=Math.hypot(dx,dy);if(d>2){penMove(s,s.x+dx/d*3,s.y+dy/d*3);clip(s);applyT(s)}}break}
+    case 'setVel':s.vx=parseFloat(p.vx)||0;s.vy=parseFloat(p.vy)||0;break;
+    case 'grav':s.gravity=true;break;
+    case 'friction':s.friction=true;s.autoBounce=true;break;
+    case 'kick':{
+      const ball=[...G.sp,...G.clones].find(x=>x.name===p.nm&&x.id!==s.id);
+      if(ball){
+        const force=parseFloat(p.f)||10;
+        const rad=(s.dir-90)*Math.PI/180;
+        ball.vx=Math.cos(rad)*force;
+        ball.vy=-Math.sin(rad)*force;
+        ball.friction=true;ball.autoBounce=true;
+        sClk();
+      }
+      break;
+    }
+    case 'kickFrom':{
+      const player=[...G.sp,...G.clones].find(x=>x.name===p.nm&&x.id!==s.id);
+      if(player){
+        const force=parseFloat(p.f)||10;
+        const dx=s.x-player.x,dy=s.y-player.y;
+        const d=Math.hypot(dx,dy)||1;
+        const rad=(player.dir-90)*Math.PI/180;
+        s.vx=(dx/d*0.4+Math.cos(rad)*0.6)*force;
+        s.vy=(dy/d*0.4-Math.sin(rad)*0.6)*force;
+        s.friction=true;s.autoBounce=true;
+      }
+      break;
+    }
+    case 'jump':if(s.gravity){G.grav[s.id]=v}else{s.y+=v*2;clip(s);applyT(s)};break;
+    case 'setX':s.x=v;clip(s);applyT(s);break;case 'setY':s.y=v;clip(s);applyT(s);break;
+    case 'rcw':s.dir=(s.dir+v)%360;applyT(s);break;case 'rcc':s.dir=(s.dir-v+360)%360;applyT(s);break;
+    case 'sdir':s.dir=v;applyT(s);break;
+    case 'faceSprite':{const t=[...G.sp,...G.clones].find(x=>x.name===p.nm&&x.id!==s.id);if(t){const dx=t.x-s.x,dy=t.y-s.y;s.dir=((Math.atan2(-dy,dx)*180/Math.PI)+90+360)%360;applyT(s)}break}
+    case 'sup':s.sz=Math.min(5,s.sz+v/100);applyT(s);break;case 'sdn':s.sz=Math.max(.1,s.sz-v/100);applyT(s);break;
+    case 'ssz':s.sz=Math.max(.1,Math.min(5,v/100));applyT(s);break;
+    case 'say':await showBub(s,p.tx||'...',(parseFloat(p.t)||2)*1000,false);return;
+    case 'hide':s.vis=false;s.bub.style.display='none';applyT(s);break;
+    case 'show':s.vis=true;applyT(s);break;
+    case 'costume':s.emoji=p.e||s.emoji;s.el.textContent=s.emoji;renderList();break;
+    case 'flash':s.el.style.filter='brightness(4)';await sleep(80);s.el.style.filter='';await sleep(80);s.el.style.filter='brightness(4)';await sleep(80);s.el.style.filter='';break;
+    case 'ghost':s.ghost=v;applyT(s);break;
+    case 'setV':G.vars[p.nm]=parseFloat(p.vl)||0;updVD();break;
+    case 'chgV':G.vars[p.nm]=(G.vars[p.nm]??0)+parseFloat(p.vl||0);updVD();break;
+    case 'showV':showVD(p.nm);break;case 'hideV':hideVD(p.nm);break;
+    case 'pon':s.pen=true;break;case 'poff':s.pen=false;break;case 'pcl':clrPen();break;
+    case 'penColor':s.pc=p.c||'#3b82f6';break;case 'psz':s.ps=Math.max(1,v);break;
+    case 'stmp':stampS(s);break;
+    case 'sclk':sClk();break;case 'swin':sWin();break;case 'slos':sLos();break;
+    case 'shot':sShot();break;case 'sjump':sJump();break;case 'scoin':sCoin();break;
+    case 'note':sNote(p.n||'C4',parseFloat(p.d)||.3);await sleep((parseFloat(p.d)||.3)*1000);return;
+    case 'wait':await sleep(v*1000);return;
+    case 'broadcast':trigBC(p.m||'');break;
+    case 'clone':spawnClone(s);break;
+    case 'delClone':if(s.isClone){delClone(s);G.stop=true}break;
+    case 'gameover':showGover('💀',p.m||'انتهت اللعبة!',p.s||'حاول مرة أخرى');G.stop=true;return;
+    case 'win':showGover('🏆',p.m||'أنت فزت!',p.s||'أحسنت!');G.stop=true;return;
+  }
+  await sleep(16);
+}
+function hlLine(i){document.querySelectorAll('.line.exec').forEach(e=>e.classList.remove('exec'));const ls=codeEl.querySelectorAll('.line');if(ls[i])ls[i].classList.add('exec')}
+function sleep(ms){return new Promise(r=>setTimeout(r,ms))}
+
+/* ═══════════════════════════════════════════════════════════
+   CLONES — Scratch-style
+═══════════════════════════════════════════════════════════ */
+function spawnClone(parent){
+  if(G.clones.length>=60)return; // safety cap
+  const c={
+    id:'c'+(G.nid++),name:parent.name,emoji:parent.emoji,
+    x:parent.x,y:parent.y,dir:parent.dir,sz:parent.sz,vis:true,z:parent.z+1,
+    pen:false,pc:parent.pc,ps:parent.ps,vx:0,vy:0,gravity:false,ghost:parent.ghost,
+    code:parent.code,el:null,bub:null,isClone:true,parent:parent
+  };
+  const el=document.createElement('div');el.className='sp-el';el.textContent=parent.emoji;stg.appendChild(el);c.el=el;
+  const bub=document.createElement('div');bub.className='bub';stg.appendChild(bub);c.bub=bub;
+  applyT(c);G.clones.push(c);
+
+  // Trigger whenClone handler
+  c.code.forEach((b,i)=>{
+    if(b.action==='whenClone')runFrom(c,i+1);
+  });
+}
+function delClone(c){
+  const i=G.clones.indexOf(c);if(i<0)return;
+  c.el?.remove();c.bub?.remove();
+  G.clones.splice(i,1);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   EVENT TRIGGERS
+═══════════════════════════════════════════════════════════ */
+function trigClick(s){s.code.forEach((b,i)=>{if(b.action==='click')runFrom(s,i+1)})}
+function trigKeyEv(key){G.sp.forEach(s=>{s.code.forEach((b,i)=>{if(b.action==='keyPress'&&(b.params.k===key||b.params.k==='any'))runFrom(s,i+1)})})}
+function trigBC(msg){G.sp.forEach(s=>{s.code.forEach((b,i)=>{if(b.action==='receive'&&b.params.m===msg)runFrom(s,i+1)})})}
+function trigActionEv(){if(!G.run)return;G.sp.forEach(s=>{s.code.forEach((b,i)=>{if(b.action==='action')runFrom(s,i+1)})})}
+
+/* ═══════════════════════════════════════════════════════════
+   GAME OVER
+═══════════════════════════════════════════════════════════ */
+function showGover(ico,title,sub){document.getElementById('gover-ico').textContent=ico;document.getElementById('gover-title').textContent=title;document.getElementById('gover-sub').textContent=sub;document.getElementById('gover').classList.add('on')}
+function closeGover(){document.getElementById('gover').classList.remove('on')}
+
+/* ═══════════════════════════════════════════════════════════
+   RESET
+═══════════════════════════════════════════════════════════ */
+function resetAll(){
+  if(G.run)stopExec();
+  closeGover();clrPen();
+  Object.keys(G.vd).forEach(k=>{if(G.vd[k])G.vd[k].remove()});G.vd={};
+  G.clones.forEach(c=>{c.el?.remove();c.bub?.remove()});G.clones=[];
+  G.sp.forEach(s=>{
+    s.x=s.startX??0;s.y=s.startY??0;s.dir=s.startDir??90;s.sz=s.startSz??1;s.vis=s.startVis??true;
+    s.vx=0;s.vy=0;s.gravity=false;s.ghost=0;s.pen=false;
+    s.bub.style.display='none';s.el.style.filter='';applyT(s);
+  });
+  updPanel();flash('🔄 إعادة تعيين');
+}
+
+/* ═══════════════════════════════════════════════════════════
+   MODAL
+═══════════════════════════════════════════════════════════ */
+function showM(h,t,body,cb){document.getElementById('m-h').textContent=h;document.getElementById('m-t').textContent=t;document.getElementById('m-b').innerHTML=body;document.getElementById('modal').classList.add('on');G.mcb=cb}
+function mOK(){const is=document.querySelectorAll('#m-b input,#m-b select,#m-b textarea');const vs=Array.from(is).map(i=>i.value);document.getElementById('modal').classList.remove('on');if(G.mcb)G.mcb(vs);G.mcb=null}
+function mClose(){document.getElementById('modal').classList.remove('on');G.mcb=null}
+
+/* ═══════════════════════════════════════════════════════════
+   BLOCK PROMPTS
+═══════════════════════════════════════════════════════════ */
+function P_key(){showM('⌨️ مفتاح','ArrowRight, ArrowLeft, ArrowUp, ArrowDown, space, a, w, d, s',`<input id="ki" value="ArrowRight">`,()=>AB('keyPress',{k:document.getElementById('ki').value||'ArrowRight'}))}
+function P_bc(t){showM(t==='send'?'📢 بث':'📨 استقبال','اسم الرسالة',`<input id="bi" value="رسالة1">`,()=>AB(t==='send'?'broadcast':'receive',{m:document.getElementById('bi').value||'رسالة1'}))}
+function P_goto(){showM('📍 اذهب إلى','x,y (الوسط=0,0)',`<div class="irow"><input id="gx" type="number" placeholder="X" value="0"><input id="gy" type="number" placeholder="Y" value="0"></div>`,()=>AB('goto',{x:document.getElementById('gx').value,y:document.getElementById('gy').value}))}
+function P_glide(){showM('✨ انزلق إلى','المدة ثم x,y',`<input id="gt" type="number" value="1" step=".1" placeholder="ثوان"><div class="irow"><input id="gx" type="number" placeholder="X" value="100"><input id="gy" type="number" placeholder="Y" value="0"></div>`,()=>AB('glide',{t:document.getElementById('gt').value,x:document.getElementById('gx').value,y:document.getElementById('gy').value}))}
+function P_vel(){showM('💨 سرعة','vx: الأفقية, vy: العمودية',`<div class="irow"><input id="vx" type="number" value="3" placeholder="vx"><input id="vy" type="number" value="0" placeholder="vy"></div>`,()=>AB('setVel',{vx:document.getElementById('vx').value,vy:document.getElementById('vy').value}))}
+function P_setX(){showM('↔️ اضبط X','',`<input id="xi" type="number" value="0">`,()=>AB('setX',{v:document.getElementById('xi').value}))}
+function P_setY(){showM('↕️ اضبط Y','',`<input id="yi" type="number" value="0">`,()=>AB('setY',{v:document.getElementById('yi').value}))}
+function P_face(){const opts=G.sp.filter(s=>s.id!==G.cur).map(s=>`<option value="${s.name}">${s.emoji} ${s.name}</option>`).join('');showM('👁️ انظر نحو','',`<select id="fi">${opts||'<option>لا توجد شخصيات</option>'}</select>`,()=>AB('faceSprite',{nm:document.getElementById('fi').value}))}
+function P_followSp(){const opts=G.sp.filter(s=>s.id!==G.cur).map(s=>`<option value="${s.name}">${s.emoji} ${s.name}</option>`).join('');showM('🎯 اتبع شخصية','',`<select id="fsi">${opts||'<option>لا توجد</option>'}</select>`,()=>AB('followSp',{nm:document.getElementById('fsi').value}))}
+function P_kick(){const opts=G.sp.filter(s=>s.id!==G.cur).map(s=>`<option value="${s.name}">${s.emoji} ${s.name}</option>`).join('');showM('⚽ اشوط الكرة','اختر الكرة ثم القوة (1-30). الاتجاه = اتجاه اللاعب الحالي',`<select id="ki">${opts||'<option>لا توجد</option>'}</select><input id="kf" type="number" value="14" placeholder="القوة">`,()=>AB('kick',{nm:document.getElementById('ki').value,f:document.getElementById('kf').value}))}
+function P_kickFrom(){const opts=G.sp.filter(s=>s.id!==G.cur).map(s=>`<option value="${s.name}">${s.emoji} ${s.name}</option>`).join('');showM('🦵 اشوطني من','أنا الكرة - اختر من يشوطني والقوة',`<select id="kfi">${opts||'<option>لا توجد</option>'}</select><input id="kff" type="number" value="14" placeholder="القوة">`,()=>AB('kickFrom',{nm:document.getElementById('kfi').value,f:document.getElementById('kff').value}))}
+function P_say(){showM('💬 قل','',`<input id="st" placeholder="مرحباً!" value="مرحباً!"><input id="sd" type="number" value="2" step=".1" placeholder="ثوان">`,()=>AB('say',{tx:document.getElementById('st').value,t:document.getElementById('sd').value}))}
+function P_costume(){
+  const g=Object.entries(EMOJIS).map(([c,emojis])=>`<div class="eslbl">${c}</div><div class="egrid">${[...emojis].map(em=>`<div class="ep" onclick="pickC('${em}')">${em}</div>`).join('')}</div>`).join('');
+  showM('🎭 تغيير المظهر','',g,()=>{});
+}
+function pickC(e){mClose();AB('costume',{e})}
+function P_ifTouch(){const opts=G.sp.filter(s=>s.id!==G.cur).map(s=>`<option value="${s.name}">${s.emoji} ${s.name}</option>`).join('');showM('🎯 إذا لمس','',`<select id="ti">${opts||'<option value="">لا يوجد</option>'}</select>`,()=>AB('ifTouch',{nm:document.getElementById('ti').value}))}
+function P_ifKey(){showM('⌨️ إذا ضغط مفتاح','',`<input id="iki" value="ArrowRight">`,()=>AB('ifKey',{k:document.getElementById('iki').value||'ArrowRight'}))}
+function P_ifVar(){
+  const ks=Object.keys(G.vars);const sel=ks.length?`<select id="vni">${ks.map(k=>`<option>${k}</option>`).join('')}</select>`:`<input id="vni" placeholder="اسم المتغير">`;
+  showM('📦 شرط متغير','',`${sel}<select id="opi"><option>=</option><option>></option><option><</option><option>>=</option><option><=</option><option>!=</option></select><input id="vli" type="number" value="0">`,()=>AB('ifVar',{nm:document.getElementById('vni').value,op:document.getElementById('opi').value,vl:document.getElementById('vli').value}))
+}
+function P_ifDir(){showM('🧭 إذا الاتجاه','',`<select id="dopi"><option>=</option><option>></option><option><</option></select><input id="dvli" type="number" value="90">`,()=>AB('ifDir',{op:document.getElementById('dopi').value,vl:document.getElementById('dvli').value}))}
+function P_setV(){const ks=Object.keys(G.vars);const sel=ks.length?`<select id="svn">${ks.map(k=>`<option>${k}</option>`).join('')}</select>`:`<input id="svn" placeholder="اسم المتغير">`;showM('📝 اضبط متغير','',`${sel}<input id="svl" type="number" value="0">`,()=>AB('setV',{nm:document.getElementById('svn').value,vl:document.getElementById('svl').value}))}
+function P_chgV(){const ks=Object.keys(G.vars);const sel=ks.length?`<select id="cvn">${ks.map(k=>`<option>${k}</option>`).join('')}</select>`:`<input id="cvn" placeholder="اسم المتغير">`;showM('➕ غير متغير','',`${sel}<input id="cvl" type="number" value="1">`,()=>AB('chgV',{nm:document.getElementById('cvn').value,vl:document.getElementById('cvl').value}))}
+function P_showV(){const ks=Object.keys(G.vars);const sel=ks.length?`<select id="svvn">${ks.map(k=>`<option>${k}</option>`).join('')}</select>`:`<input id="svvn" placeholder="اسم">`;showM('👁️ أظهر متغير','',sel,()=>AB('showV',{nm:document.getElementById('svvn').value}))}
+function P_hideV(){const ks=Object.keys(G.vars);const sel=ks.length?`<select id="hvn">${ks.map(k=>`<option>${k}</option>`).join('')}</select>`:`<input id="hvn" placeholder="اسم">`;showM('🙈 أخفِ متغير','',sel,()=>AB('hideV',{nm:document.getElementById('hvn').value}))}
+function P_pc(){showM('🎨 لون القلم','',`<input id="pci" type="color" value="#3b82f6" style="height:50px;width:100%;padding:4px">`,()=>AB('penColor',{c:document.getElementById('pci').value}))}
+function P_note(){showM('🎵 نغمة','',`<select id="ni"><option>C4</option><option>D4</option><option>E4</option><option>F4</option><option>G4</option><option>A4</option><option>B4</option><option>C5</option><option>D5</option></select><input id="ndi" type="number" value="0.3" step=".1">`,()=>AB('note',{n:document.getElementById('ni').value,d:document.getElementById('ndi').value}))}
+function P_go(){showM('💀 شاشة انتهاء','',`<input id="gom" value="💀 انتهت اللعبة!"><input id="gos" value="حاول مرة أخرى">`,()=>AB('gameover',{m:document.getElementById('gom').value,s:document.getElementById('gos').value}))}
+function P_win(){showM('🏆 شاشة الفوز','',`<input id="wm" value="🏆 فزت!"><input id="ws" value="أحسنت!">`,()=>AB('win',{m:document.getElementById('wm').value,s:document.getElementById('ws').value}))}
+function P_clone(){AB('clone')}
+
+/* ═══════════════════════════════════════════════════════════
+   SPRITE LIBRARY
+═══════════════════════════════════════════════════════════ */
+function openLib(){
+  const g=Object.entries(EMOJIS).map(([c,emojis])=>`<div class="eslbl">${c}</div><div class="egrid">${[...emojis].map(em=>`<div class="ep" onclick="pickS('${em}')">${em}</div>`).join('')}</div>`).join('');
+  showM('➕ اختر شخصية','انقر لإضافتها',g,()=>{});
+}
+function pickS(e){mClose();addS(e)}
+
+/* ═══════════════════════════════════════════════════════════
+   BACKDROP
+═══════════════════════════════════════════════════════════ */
+function openBdModal(){
+  const items=BDS.map((b,i)=>`<div onclick="pickBd(${i})" style="${b.c};height:54px;border-radius:7px;cursor:pointer;display:flex;align-items:flex-end;justify-content:center;padding:4px;font-size:11px;font-weight:700;color:white;text-shadow:0 1px 4px rgba(0,0,0,.9);border:2px solid ${i===G.bd?'#00e5ff':'transparent'}">${b.n}</div>`).join('');
+  showM('🖼️ اختر خلفية','',`<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:6px">${items}</div>`,()=>{});
+}
+function pickBd(i){G.bd=i;applyBd();mClose();flash(`🖼️ ${BDS[i].n}`)}
+
+/* ═══════════════════════════════════════════════════════════
+   SAVE / LOAD / CLEAR
+═══════════════════════════════════════════════════════════ */
+function flash(msg,d=2200){statEl.textContent=msg;clearTimeout(G._ft);G._ft=setTimeout(()=>{statEl.textContent=`جاهز • ${G.sp.length} شخصيات`;},d)}
+function save(){
+  const data={v:8,bd:G.bd,vars:G.vars,nid:G.nid,btns:G.btns||[],sp:G.sp.map(s=>({id:s.id,name:s.name,emoji:s.emoji,x:s.x,y:s.y,dir:s.dir,sz:s.sz,vis:s.vis,z:s.z,isControllable:s.isControllable,code:s.code}))};
+  try{localStorage.setItem('sp8',JSON.stringify(data));flash('💾 تم الحفظ');sWin()}catch{flash('❌ فشل')}
+}
+function load(){
+  try{const raw=localStorage.getItem('sp8')||localStorage.getItem('sp6');if(!raw){flash('⚠️ لا يوجد مشروع');return}
+    const d=JSON.parse(raw);
+    G.sp.forEach(s=>{s.el.remove();s.bub.remove()});G.sp=[];G.bd=d.bd||0;G.vars=d.vars||{};G.nid=d.nid||1;G.btns=d.btns||[];
+    d.sp.forEach(sd=>{const s=mkSprite(sd.emoji,sd.name);Object.assign(s,{x:sd.x,y:sd.y,dir:sd.dir,sz:sd.sz,vis:sd.vis,z:sd.z,code:sd.code,id:sd.id,isControllable:sd.isControllable||false});s.el.dataset.id=sd.id;if(s.isControllable)s.el.classList.add('ctrl');applyT(s);G.sp.push(s)});
+    G.nid=Math.max(G.nid,...G.sp.map(s=>typeof s.id==='number'?s.id+1:1));
+    if(G.sp.length)G.cur=G.sp[0].id;
+    applyBd();renderList();renderCode();updPanel();updCtrlTarget();renderCustomBtns();flash('📂 تم التحميل');sWin();
+  }catch(e){console.error(e);flash('❌ فشل التحميل')}
+}
+function nuke(){
+  if(G.run)stopExec();if(!confirm('مسح كل شيء؟'))return;
+  G.sp.forEach(s=>{s.el.remove();s.bub.remove()});G.sp=[];G.vars={};G.nid=1;G.btns=[];
+  Object.keys(G.vd).forEach(k=>{if(G.vd[k])G.vd[k].remove()});G.vd={};
+  document.querySelectorAll('.custom-btn').forEach(b=>b.remove());
+  clrPen();closeGover();addS('🐱');updCtrlTarget();flash('✨ بداية جديدة');
+}
+
+/* ═══════════════════════════════════════════════════════════
+   TEMPLATE GALLERY — 10 SCENARIOS
+═══════════════════════════════════════════════════════════ */
+const TEMPLATES=[
+  {id:'football',emoji:'⚽',name:'كرة القدم',desc:'تحرّك بالأسهم، اركل الكرة في المرمى — 5 أهداف للفوز',badge:'سهل'},
+  {id:'maze',emoji:'🧩',name:'متاهة الفأر',desc:'اجمع الجبن وتجنّب القطة — 5 قطع للفوز، 3 حيوات',badge:'متوسط'},
+  {id:'catch',emoji:'🪣',name:'صيد التفاح',desc:'حرّك السلة لاصطياد التفاح المتساقط — 10 للفوز',badge:'سهل'},
+  {id:'shooter',emoji:'🚀',name:'رماية الفضاء',desc:'مركبة تطلق صواريخ على الأعداء — مسافة للإطلاق',badge:'متقدم'},
+  {id:'platformer',emoji:'🏃',name:'منصات قفز',desc:'بطل بقفز وجاذبية على منصات — اوصل للقلعة!',badge:'متقدم'},
+  {id:'snake',emoji:'🐍',name:'الثعبان الجائع',desc:'تحرّك واجمع الفواكه — كل تفاحة = نقطة',badge:'كلاسيكي'},
+  {id:'racing',emoji:'🏎️',name:'سباق السيارات',desc:'تجنّب العقبات على الطريق — 30 ثانية للفوز',badge:'متوسط'},
+  {id:'dodger',emoji:'☄️',name:'مراوغة النيازك',desc:'تجنّب النيازك المتساقطة لأطول مدة',badge:'سهل'},
+  {id:'invaders',emoji:'👾',name:'غزاة الفضاء',desc:'أعداء متعددون يهبطون — اقتلهم جميعاً',badge:'متقدم'},
+  {id:'paint',emoji:'🎨',name:'رسم بالحركة',desc:'تحرك بالأسهم لترسم على اللوحة — إبداع حر',badge:'إبداعي'},
+  {id:'flappy',emoji:'🐦',name:'الطائر القافز',desc:'اضغط مسافة للقفز وتجنّب الأنابيب',badge:'كلاسيكي'},
+  {id:'pong',emoji:'🏓',name:'بونغ',desc:'لاعب ضد كمبيوتر — صدّ الكرة بمضربك',badge:'كلاسيكي'},
+  // ═══ ألعاب جديدة في v9 ═══
+  {id:'frog',emoji:'🐸',name:'عبور الضفدع',desc:'ضفدع يقفز عبر شارع مزدحم — 5 مرات للفوز',badge:'🆕 كلاسيكي'},
+  {id:'whackmole',emoji:'🔨',name:'اضرب الخلد',desc:'خلد يظهر عشوائياً — انقر عليه قبل اختفائه!',badge:'🆕 سهل'},
+  {id:'fishing',emoji:'🎣',name:'صيد السمك',desc:'حرّك الصنارة واصطد الأسماك — تجنّب القناديل',badge:'🆕 متوسط'},
+  {id:'memory',emoji:'🧠',name:'لعبة الذاكرة',desc:'احفظ النمط ثم كرّره - مستويات صاعبة',badge:'🆕 ذكاء'},
+  {id:'tank',emoji:'🪖',name:'حرب الدبابات',desc:'دبابة تطلق قذائف — تجنّب وأطلق!',badge:'🆕 متقدم'},
+  {id:'puzzle',emoji:'🎯',name:'جامع الكنوز',desc:'بطل يجمع 10 كنوز قبل انتهاء الوقت',badge:'🆕 سهل'},
+  {id:'asteroid',emoji:'🛸',name:'حقل الكويكبات',desc:'مركبة فضائية تتجنّب كويكبات لانهائية',badge:'🆕 متوسط'},
+  {id:'tennis',emoji:'🎾',name:'تنس بريك',desc:'كرة ترتد - حطّم كل الطوب بالمضرب',badge:'🆕 كلاسيكي'},
+];
+function openTplGallery(){
+  const cards=TEMPLATES.map(t=>`<div class="tpl-card" onclick="loadTpl('${t.id}')">
+    <div class="tpl-emoji">${t.emoji}</div>
+    <div class="tpl-name">${t.name}</div>
+    <div class="tpl-desc">${t.desc}</div>
+    <div class="tpl-badge">${t.badge}</div>
+  </div>`).join('');
+  showM('🎮 معرض القوالب','اختر لعبة جاهزة للعب أو التعديل',`<div class="tpl-grid">${cards}</div>`,()=>{});
+}
+
+/* ═══════════════════════════════════════════════════════════
+   TEMPLATES — REBUILT, ALL WORKING
+   The KEY fix: the player uses `isControllable=true` + a `loop` block
+   so movement is handled automatically by applyControl().
+═══════════════════════════════════════════════════════════ */
+function loadTpl(t){
+  mClose();
+  if(G.run)stopExec();
+  if(!confirm('حمّل القالب؟ سيُمسح المشروع الحالي'))return;
+  G.sp.forEach(s=>{s.el.remove();s.bub.remove()});G.sp=[];G.vars={};G.nid=1;
+  Object.keys(G.vd).forEach(k=>{if(G.vd[k])G.vd[k].remove()});G.vd={};
+  G.clones.forEach(c=>{c.el?.remove();c.bub?.remove()});G.clones=[];
+  clrPen();closeGover();
+
+  const mk=(emoji,name,x,y,opts={})=>{
+    const s=mkSprite(emoji,name);
+    s.x=x;s.y=y;
+    Object.assign(s,opts);
+    G.sp.push(s);applyT(s);
+    return s;
+  };
+
+  if(t==='football'){
+    G.bd=10;G.vars={النقاط:0,الوقت:60};
+    // ═════ اللاعب: يتحرك بالأسهم ويغيّر اتجاهه تلقائياً، ويشوط بـ Space ═════
+    const P=mk('🧑','اللاعب',-80,-100,{isControllable:true,ctrlSpeed:6});
+    P.code=[
+      {action:'flag'},
+      {action:'setV',params:{nm:'النقاط',vl:0}},
+      {action:'setV',params:{nm:'الوقت',vl:60}},
+      {action:'showV',params:{nm:'النقاط'}},
+      {action:'showV',params:{nm:'الوقت'}},
+      {action:'say',params:{tx:'🎮 أسهم للحركة، مسافة للشوط!',t:2.5}},
+      // حلقة رئيسية: تغيير الاتجاه حسب آخر مفتاح مضغوط (ليعرف اتجاه الشوط)
+      {action:'loop'},
+      {action:'ifKey',params:{k:'ArrowRight'}},{action:'sdir',params:{v:90}},{action:'endif'},
+      {action:'ifKey',params:{k:'ArrowLeft'}},{action:'sdir',params:{v:270}},{action:'endif'},
+      {action:'ifKey',params:{k:'ArrowUp'}},{action:'sdir',params:{v:0}},{action:'endif'},
+      {action:'ifKey',params:{k:'ArrowDown'}},{action:'sdir',params:{v:180}},{action:'endif'},
+      // عند ضغط Space: إذا كنت قريباً من الكرة - اشوطها بقوة!
+      {action:'ifAction'},
+      {action:'ifTouch',params:{nm:'الكرة'}},
+      {action:'kick',params:{nm:'الكرة',f:18}},
+      {action:'flash'},
+      {action:'say',params:{tx:'⚽ شووووط!',t:0.6}},
+      {action:'endif'},
+      {action:'endif'},
+    ];
+    // ═════ الكرة: فيزياء واقعية + لمسة خفيفة عند الاحتكاك ═════
+    const B=mk('⚽','الكرة',0,-60,{sz:0.85,friction:true,autoBounce:true});
+    B.code=[
+      {action:'flag'},
+      {action:'friction'},
+      {action:'loop'},
+      // لمسة خفيفة عند الجري مع الكرة (بدون Space)
+      {action:'ifTouch',params:{nm:'اللاعب'}},
+      {action:'kickFrom',params:{nm:'اللاعب',f:5}},
+      {action:'endif'},
+      // هدف!
+      {action:'ifTouch',params:{nm:'المرمى'}},
+      {action:'swin'},
+      {action:'chgV',params:{nm:'النقاط',vl:1}},
+      {action:'say',params:{tx:'⚽ هدف!',t:1}},
+      {action:'setVel',params:{vx:0,vy:0}},
+      {action:'ctr'},
+      {action:'ifVar',params:{nm:'النقاط',op:'>=',vl:5}},
+      {action:'win',params:{m:'🏆 فزت بالمباراة!',s:'سجّلت 5 أهداف رائعة!'}},
+      {action:'endif'},
+      {action:'endif'},
+    ];
+    // ═════ المرمى ═════
+    const GL=mk('🥅','المرمى',0,130,{sz:2.4});GL.code=[];
+    // ═════ موقت اللعبة ═════
+    const TM=mk('⏱️','الموقت',180,140,{sz:0.5});
+    TM.code=[
+      {action:'flag'},
+      {action:'rep',params:{v:60}},
+      {action:'wait',params:{v:1}},
+      {action:'chgV',params:{nm:'الوقت',vl:-1}},
+      {action:'endrep'},
+      {action:'gameover',params:{m:'⏰ انتهى الوقت!',s:'لم تسجّل 5 أهداف'}},
+    ];
+    G.cur=P.id;
+
+  }else if(t==='maze'){
+    G.bd=1;G.vars={النقاط:0,الحياة:3};
+    const P=mk('🐭','الفأر',-160,-120,{sz:0.75,isControllable:true,ctrlSpeed:7});
+    P.code=[
+      {action:'flag'},
+      {action:'setV',params:{nm:'النقاط',vl:0}},
+      {action:'setV',params:{nm:'الحياة',vl:3}},
+      {action:'showV',params:{nm:'النقاط'}},
+      {action:'showV',params:{nm:'الحياة'}},
+      {action:'loop'},
+      {action:'ifTouch',params:{nm:'الجبن'}},
+      {action:'chgV',params:{nm:'النقاط',vl:1}},
+      {action:'scoin'},
+      {action:'rep',params:{v:5}},
+      {action:'endrep'},
+      {action:'endif'},
+      {action:'ifTouch',params:{nm:'القطة'}},
+      {action:'chgV',params:{nm:'الحياة',vl:-1}},
+      {action:'slos'},
+      {action:'ctr'},
+      {action:'ifVar',params:{nm:'الحياة',op:'<=',vl:0}},
+      {action:'gameover',params:{m:'😿 أكلتك القطة!',s:'فقدت كل حياتك'}},
+      {action:'endif'},
+      {action:'endif'},
+      {action:'ifVar',params:{nm:'النقاط',op:'>=',vl:5}},
+      {action:'win',params:{m:'🎉 الفأر هرب!',s:'جمعت 5 قطع جبن'}},
+      {action:'endif'},
+    ];
+    const C=mk('🧀','الجبن',120,80,{sz:0.9});
+    C.code=[
+      {action:'loop'},
+      {action:'ifTouch',params:{nm:'الفأر'}},
+      {action:'rnd'},
+      {action:'endif'},
+    ];
+    const CAT=mk('🐱','القطة',60,40,{sz:0.9});
+    CAT.code=[
+      {action:'loop'},
+      {action:'followSp',params:{nm:'الفأر'}},
+    ];
+    G.cur=P.id;
+
+  }else if(t==='catch'){
+    G.bd=4;G.vars={النقاط:0,الأخطاء:0};
+    const B=mk('🪣','السلة',0,-135,{sz:1.1,isControllable:true,ctrlSpeed:11});
+    B.code=[
+      {action:'flag'},
+      {action:'setV',params:{nm:'النقاط',vl:0}},
+      {action:'setV',params:{nm:'الأخطاء',vl:0}},
+      {action:'showV',params:{nm:'النقاط'}},
+      {action:'showV',params:{nm:'الأخطاء'}},
+      {action:'loop'},
+    ];
+    const A=mk('🍎','التفاحة',0,140,{sz:0.85});
+    A.code=[
+      {action:'flag'},
+      {action:'wait',params:{v:0.5}},
+      {action:'frv'},
+      {action:'setX',params:{v:0}},
+      {action:'setY',params:{v:150}},
+      {action:'rnd'},
+      {action:'setY',params:{v:150}},
+      {action:'rep',params:{v:50}},
+      {action:'md',params:{v:6}},
+      {action:'ifTouch',params:{nm:'السلة'}},
+      {action:'chgV',params:{nm:'النقاط',vl:1}},
+      {action:'scoin'},
+      {action:'ifVar',params:{nm:'النقاط',op:'>=',vl:10}},
+      {action:'win',params:{m:'🎉 رائع!',s:'اصطدت 10 تفاحات'}},
+      {action:'endif'},
+      {action:'setY',params:{v:200}},
+      {action:'endif'},
+      {action:'ifEdge'},
+      {action:'chgV',params:{nm:'الأخطاء',vl:1}},
+      {action:'slos'},
+      {action:'ifVar',params:{nm:'الأخطاء',op:'>=',vl:5}},
+      {action:'gameover',params:{m:'💀 انتهت الفرص!',s:'فاتتك 5 تفاحات'}},
+      {action:'endif'},
+      {action:'setY',params:{v:200}},
+      {action:'endif'},
+      {action:'endrep'},
+      {action:'endfrv'},
+    ];
+    G.cur=B.id;
+
+  }else if(t==='shooter'){
+    G.bd=4;G.vars={النقاط:0};
+    const SH=mk('🚀','المركبة',0,-130,{sz:1,isControllable:true,ctrlSpeed:9});
+    SH.dir=0;
+    SH.code=[
+      {action:'flag'},
+      {action:'sdir',params:{v:0}},
+      {action:'setV',params:{nm:'النقاط',vl:0}},
+      {action:'showV',params:{nm:'النقاط'}},
+      {action:'loop'},
+      // The action button / space spawns a clone via separate handler below
+    ];
+    // Bullet spawner — using clones
+    const BU=mk('💥','الرصاصة',0,-200,{sz:0.5,vis:false});
+    BU.code=[
+      {action:'action'},
+      {action:'shot'},
+      {action:'clone'},
+      {action:'whenClone'},
+      {action:'show'},
+      {action:'setX',params:{v:0}},
+      {action:'setY',params:{v:-120}},
+      // Sync x with player position would be ideal but we use simpler approach: shoot from center
+      {action:'rep',params:{v:30}},
+      {action:'mu',params:{v:14}},
+      {action:'ifTouch',params:{nm:'العدو'}},
+      {action:'chgV',params:{nm:'النقاط',vl:1}},
+      {action:'swin'},
+      {action:'ifVar',params:{nm:'النقاط',op:'>=',vl:8}},
+      {action:'win',params:{m:'🏆 أبدعت!',s:'دمّرت 8 أعداء'}},
+      {action:'endif'},
+      {action:'delClone'},
+      {action:'endif'},
+      {action:'endrep'},
+      {action:'delClone'},
+    ];
+    const EN=mk('👾','العدو',0,130,{sz:1});
+    EN.code=[
+      {action:'flag'},
+      {action:'frv'},
+      {action:'rnd'},
+      {action:'setY',params:{v:130}},
+      {action:'rep',params:{v:50}},
+      {action:'md',params:{v:3}},
+      {action:'ifTouch',params:{nm:'المركبة'}},
+      {action:'gameover',params:{m:'💥 تحطمت!',s:'العدو وصل إليك'}},
+      {action:'endif'},
+      {action:'endrep'},
+      {action:'endfrv'},
+    ];
+    G.cur=SH.id;
+
+  }else if(t==='platformer'){
+    G.bd=2;G.vars={النقاط:0};
+    const H=mk('🏃','البطل',-180,-50,{sz:0.95,isControllable:true,ctrlSpeed:5,gravity:true});
+    H.code=[
+      {action:'flag'},
+      {action:'setV',params:{nm:'النقاط',vl:0}},
+      {action:'showV',params:{nm:'النقاط'}},
+      {action:'grav'},
+      {action:'loop'},
+      {action:'ifKey',params:{k:'ArrowUp'}},
+      {action:'jump',params:{v:14}},
+      {action:'sjump'},
+      {action:'endif'},
+      {action:'ifKey',params:{k:' '}},
+      {action:'jump',params:{v:14}},
+      {action:'endif'},
+      {action:'ifTouch',params:{nm:'النجمة'}},
+      {action:'chgV',params:{nm:'النقاط',vl:1}},
+      {action:'scoin'},
+      {action:'endif'},
+      {action:'ifTouch',params:{nm:'القلعة'}},
+      {action:'win',params:{m:'🏰 وصلت!',s:'فزت بالمستوى'}},
+      {action:'endif'},
+    ];
+    mk('🟫','أرض1',-100,-130,{sz:1.8}).code=[];
+    mk('🟫','أرض2',60,-100,{sz:1.8}).code=[];
+    mk('🟫','أرض3',180,-50,{sz:1.8}).code=[];
+    mk('⭐','النجمة',60,-60,{sz:0.8}).code=[];
+    mk('🏰','القلعة',200,-10,{sz:1.4}).code=[];
+    G.cur=H.id;
+
+  }else if(t==='snake'){
+    G.bd=8;G.vars={الطول:1};
+    const S=mk('🐍','الثعبان',0,0,{sz:0.9,isControllable:true,ctrlSpeed:6});
+    S.code=[
+      {action:'flag'},
+      {action:'setV',params:{nm:'الطول',vl:1}},
+      {action:'showV',params:{nm:'الطول'}},
+      {action:'pon'},
+      {action:'penColor',params:{c:'#22c55e'}},
+      {action:'psz',params:{v:8}},
+      {action:'loop'},
+      {action:'ifTouch',params:{nm:'الفاكهة'}},
+      {action:'chgV',params:{nm:'الطول',vl:1}},
+      {action:'scoin'},
+      {action:'ifVar',params:{nm:'الطول',op:'>=',vl:15}},
+      {action:'win',params:{m:'🐍 ثعبان أسطوري!',s:'الطول وصل 15'}},
+      {action:'endif'},
+      {action:'endif'},
+      {action:'ifEdge'},
+      {action:'gameover',params:{m:'💀 لمست الجدار!',s:'حاول مجدداً'}},
+      {action:'endif'},
+    ];
+    const F=mk('🍎','الفاكهة',100,60,{sz:0.7});
+    F.code=[
+      {action:'loop'},
+      {action:'ifTouch',params:{nm:'الثعبان'}},
+      {action:'rnd'},
+      {action:'endif'},
+    ];
+    G.cur=S.id;
+
+  }else if(t==='racing'){
+    G.bd=6;G.vars={الوقت:30,الاصطدامات:0};
+    const C=mk('🏎️','السيارة',0,-120,{sz:1,isControllable:true,ctrlSpeed:9});
+    C.code=[
+      {action:'flag'},
+      {action:'setV',params:{nm:'الوقت',vl:30}},
+      {action:'setV',params:{nm:'الاصطدامات',vl:0}},
+      {action:'showV',params:{nm:'الوقت'}},
+      {action:'showV',params:{nm:'الاصطدامات'}},
+      {action:'loop'},
+      {action:'ifTouch',params:{nm:'العقبة'}},
+      {action:'chgV',params:{nm:'الاصطدامات',vl:1}},
+      {action:'slos'},
+      {action:'flash'},
+      {action:'ifVar',params:{nm:'الاصطدامات',op:'>=',vl:3}},
+      {action:'gameover',params:{m:'💥 تحطمت السيارة!',s:'3 اصطدامات'}},
+      {action:'endif'},
+      {action:'ctr'},
+      {action:'setY',params:{v:-120}},
+      {action:'endif'},
+    ];
+    const O=mk('🚧','العقبة',0,140,{sz:0.9});
+    O.code=[
+      {action:'flag'},
+      {action:'frv'},
+      {action:'rnd'},
+      {action:'setY',params:{v:160}},
+      {action:'rep',params:{v:60}},
+      {action:'md',params:{v:7}},
+      {action:'endrep'},
+      {action:'endfrv'},
+    ];
+    const TM=mk('⏱️','الموقت',180,145,{sz:0.5});
+    TM.code=[
+      {action:'flag'},
+      {action:'rep',params:{v:30}},
+      {action:'wait',params:{v:1}},
+      {action:'chgV',params:{nm:'الوقت',vl:-1}},
+      {action:'endrep'},
+      {action:'win',params:{m:'🏆 نجحت بالسباق!',s:'صمدت 30 ثانية'}},
+    ];
+    G.cur=C.id;
+
+  }else if(t==='dodger'){
+    G.bd=4;G.vars={الوقت:0};
+    const P=mk('🛡️','الدرع',0,-100,{sz:1,isControllable:true,ctrlSpeed:10});
+    P.code=[
+      {action:'flag'},
+      {action:'setV',params:{nm:'الوقت',vl:0}},
+      {action:'showV',params:{nm:'الوقت'}},
+      {action:'loop'},
+      {action:'ifTouch',params:{nm:'النيزك'}},
+      {action:'gameover',params:{m:'💥 ضربك نيزك!',s:'حاول مجدداً'}},
+      {action:'endif'},
+    ];
+    const M=mk('☄️','النيزك',0,150,{sz:1});
+    M.code=[
+      {action:'flag'},
+      {action:'frv'},
+      {action:'rnd'},
+      {action:'setY',params:{v:170}},
+      {action:'rep',params:{v:50}},
+      {action:'md',params:{v:8}},
+      {action:'endrep'},
+      {action:'endfrv'},
+    ];
+    const TM=mk('⏱️','الموقت',180,145,{sz:0.5});
+    TM.code=[
+      {action:'flag'},
+      {action:'frv'},
+      {action:'wait',params:{v:1}},
+      {action:'chgV',params:{nm:'الوقت',vl:1}},
+      {action:'ifVar',params:{nm:'الوقت',op:'>=',vl:30}},
+      {action:'win',params:{m:'🏆 ناج محترف!',s:'صمدت 30 ثانية'}},
+      {action:'endif'},
+      {action:'endfrv'},
+    ];
+    G.cur=P.id;
+
+  }else if(t==='invaders'){
+    G.bd=4;G.vars={النقاط:0};
+    const SH=mk('🚀','المركبة',0,-130,{sz:1,isControllable:true,ctrlSpeed:9});
+    SH.dir=0;
+    SH.code=[
+      {action:'flag'},
+      {action:'sdir',params:{v:0}},
+      {action:'setV',params:{nm:'النقاط',vl:0}},
+      {action:'showV',params:{nm:'النقاط'}},
+      {action:'loop'},
+    ];
+    const BU=mk('💥','الرصاصة',0,-200,{sz:0.45,vis:false});
+    BU.code=[
+      {action:'action'},
+      {action:'shot'},
+      {action:'clone'},
+      {action:'whenClone'},
+      {action:'show'},
+      {action:'setY',params:{v:-110}},
+      {action:'rep',params:{v:25}},
+      {action:'mu',params:{v:16}},
+      {action:'ifTouch',params:{nm:'العدو'}},
+      {action:'chgV',params:{nm:'النقاط',vl:1}},
+      {action:'swin'},
+      {action:'ifVar',params:{nm:'النقاط',op:'>=',vl:10}},
+      {action:'win',params:{m:'🏆 منقذ المجرّة!',s:'دمّرت 10 غزاة'}},
+      {action:'endif'},
+      {action:'delClone'},
+      {action:'endif'},
+      {action:'endrep'},
+      {action:'delClone'},
+    ];
+    // 3 enemies
+    for(let i=0;i<3;i++){
+      const EN=mk('👾','العدو',(i-1)*120,130,{sz:0.95});
+      EN.code=[
+        {action:'flag'},
+        {action:'frv'},
+        {action:'rnd'},
+        {action:'setY',params:{v:130}},
+        {action:'rep',params:{v:60}},
+        {action:'md',params:{v:2}},
+        {action:'rcw',params:{v:5}},
+        {action:'ifTouch',params:{nm:'المركبة'}},
+        {action:'gameover',params:{m:'💥 وصلوك!',s:'الغزاة انتصروا'}},
+        {action:'endif'},
+        {action:'endrep'},
+        {action:'endfrv'},
+      ];
+    }
+    G.cur=SH.id;
+
+  }else if(t==='paint'){
+    G.bd=0;G.vars={};
+    const P=mk('🖌️','الفرشاة',0,0,{sz:0.7,isControllable:true,ctrlSpeed:5});
+    P.code=[
+      {action:'flag'},
+      {action:'pon'},
+      {action:'penColor',params:{c:'#a855f7'}},
+      {action:'psz',params:{v:5}},
+      {action:'loop'},
+      {action:'ifKey',params:{k:'r'}},{action:'penColor',params:{c:'#ef4444'}},{action:'endif'},
+      {action:'ifKey',params:{k:'g'}},{action:'penColor',params:{c:'#22c55e'}},{action:'endif'},
+      {action:'ifKey',params:{k:'b'}},{action:'penColor',params:{c:'#3b82f6'}},{action:'endif'},
+      {action:'ifKey',params:{k:'c'}},{action:'pcl'},{action:'endif'},
+    ];
+    G.cur=P.id;
+
+  }else if(t==='flappy'){
+    G.bd=2;G.vars={النقاط:0};
+    const B=mk('🐦','الطائر',-100,0,{sz:1,gravity:true});
+    B.code=[
+      {action:'flag'},
+      {action:'setV',params:{nm:'النقاط',vl:0}},
+      {action:'showV',params:{nm:'النقاط'}},
+      {action:'setX',params:{v:-100}},
+      {action:'setY',params:{v:0}},
+      {action:'grav'},
+      {action:'loop'},
+      {action:'ifAction'},
+      {action:'jump',params:{v:13}},
+      {action:'sjump'},
+      {action:'endif'},
+      {action:'ifKey',params:{k:' '}},
+      {action:'jump',params:{v:13}},
+      {action:'endif'},
+      {action:'ifTouch',params:{nm:'الأنبوب'}},
+      {action:'gameover',params:{m:'💥 اصطدمت!',s:'حاول مرة أخرى'}},
+      {action:'endif'},
+      {action:'ifEdge'},
+      {action:'gameover',params:{m:'💀 سقطت!',s:'حاول مرة أخرى'}},
+      {action:'endif'},
+    ];
+    const PI=mk('🟩','الأنبوب',220,0,{sz:1.3});
+    PI.code=[
+      {action:'flag'},
+      {action:'frv'},
+      {action:'setX',params:{v:220}},
+      {action:'setY',params:{v:0}},
+      {action:'rep',params:{v:60}},
+      {action:'ml',params:{v:5}},
+      {action:'endrep'},
+      {action:'chgV',params:{nm:'النقاط',vl:1}},
+      {action:'scoin'},
+      {action:'ifVar',params:{nm:'النقاط',op:'>=',vl:10}},
+      {action:'win',params:{m:'🐦 طائر بطل!',s:'عبرت 10 أنابيب'}},
+      {action:'endif'},
+      {action:'endfrv'},
+    ];
+    G.cur=B.id;
+
+  }else if(t==='pong'){
+    G.bd=8;G.vars={اللاعب:0,الكمبيوتر:0};
+    const PD=mk('🟦','مضربي',-200,0,{sz:1.5,isControllable:true,ctrlSpeed:8});
+    PD.code=[
+      {action:'flag'},
+      {action:'setV',params:{nm:'اللاعب',vl:0}},
+      {action:'setV',params:{nm:'الكمبيوتر',vl:0}},
+      {action:'showV',params:{nm:'اللاعب'}},
+      {action:'showV',params:{nm:'الكمبيوتر'}},
+      {action:'setX',params:{v:-200}},
+      {action:'loop'},
+    ];
+    const AI=mk('🟥','مضرب AI',200,0,{sz:1.5});
+    AI.code=[
+      {action:'flag'},
+      {action:'frv'},
+      {action:'followSp',params:{nm:'الكرة'}},
+      {action:'setX',params:{v:200}},
+      {action:'endfrv'},
+    ];
+    const BL=mk('⚪','الكرة',0,0,{sz:0.7});
+    BL.code=[
+      {action:'flag'},
+      {action:'setVel',params:{vx:5,vy:3}},
+      {action:'loop'},
+      {action:'bnc'},
+      {action:'ifTouch',params:{nm:'مضربي'}},
+      {action:'sclk'},
+      {action:'setVel',params:{vx:6,vy:3}},
+      {action:'endif'},
+      {action:'ifTouch',params:{nm:'مضرب AI'}},
+      {action:'sclk'},
+      {action:'setVel',params:{vx:-6,vy:-3}},
+      {action:'endif'},
+      {action:'ifVar',params:{nm:'اللاعب',op:'>=',vl:5}},
+      {action:'win',params:{m:'🏆 فزت بالمباراة!',s:'5-x'}},
+      {action:'endif'},
+      {action:'ifVar',params:{nm:'الكمبيوتر',op:'>=',vl:5}},
+      {action:'gameover',params:{m:'💀 خسرت!',s:'الكمبيوتر فاز'}},
+      {action:'endif'},
+    ];
+    G.cur=PD.id;
+
+  }else if(t==='frog'){
+    /* ═══ عبور الضفدع ═══ */
+    G.bd=5;G.vars={النقاط:0};
+    const F=mk('🐸','الضفدع',0,-130,{sz:1,isControllable:true,ctrlSpeed:8});
+    F.code=[
+      {action:'flag'},
+      {action:'setV',params:{nm:'النقاط',vl:0}},
+      {action:'showV',params:{nm:'النقاط'}},
+      {action:'say',params:{tx:'🐸 اقفز للأعلى!',t:2}},
+      {action:'loop'},
+      {action:'ifTouch',params:{nm:'السيارة1'}},
+      {action:'slos'},
+      {action:'gameover',params:{m:'💥 صدمتك سيارة!',s:'كن أكثر حذراً'}},
+      {action:'endif'},
+      {action:'ifTouch',params:{nm:'السيارة2'}},
+      {action:'slos'},
+      {action:'gameover',params:{m:'💥 صدمتك سيارة!',s:'حاول مجدداً'}},
+      {action:'endif'},
+      {action:'ifVar',params:{nm:'y',op:'>',vl:140}},
+      {action:'chgV',params:{nm:'النقاط',vl:1}},
+      {action:'swin'},
+      {action:'setY',params:{v:-130}},
+      {action:'ifVar',params:{nm:'النقاط',op:'>=',vl:5}},
+      {action:'win',params:{m:'🏆 ضفدع بطل!',s:'عبرت 5 مرات'}},
+      {action:'endif'},
+      {action:'endif'},
+    ];
+    const C1=mk('🚗','السيارة1',-200,-50,{sz:1.1});
+    C1.code=[{action:'flag'},{action:'frv'},{action:'mr',params:{v:6}},{action:'ifEdge'},{action:'setX',params:{v:-200}},{action:'endif'},{action:'endfrv'}];
+    const C2=mk('🚙','السيارة2',200,30,{sz:1.1});
+    C2.code=[{action:'flag'},{action:'frv'},{action:'ml',params:{v:5}},{action:'ifEdge'},{action:'setX',params:{v:200}},{action:'endif'},{action:'endfrv'}];
+    mk('🏁','الهدف',0,150,{sz:1.2}).code=[];
+    G.cur=F.id;
+
+  }else if(t==='whackmole'){
+    /* ═══ اضرب الخلد ═══ */
+    G.bd=9;G.vars={النقاط:0,الوقت:30};
+    const M=mk('🦫','الخلد',0,0,{sz:1.3});
+    M.code=[
+      {action:'flag'},
+      {action:'setV',params:{nm:'النقاط',vl:0}},
+      {action:'setV',params:{nm:'الوقت',vl:30}},
+      {action:'showV',params:{nm:'النقاط'}},
+      {action:'showV',params:{nm:'الوقت'}},
+      {action:'frv'},
+      {action:'show'},
+      {action:'rnd'},
+      {action:'wait',params:{v:0.8}},
+      {action:'hide'},
+      {action:'wait',params:{v:0.3}},
+      {action:'endfrv'},
+      // عند النقر
+      {action:'click'},
+      {action:'chgV',params:{nm:'النقاط',vl:1}},
+      {action:'scoin'},
+      {action:'flash'},
+      {action:'hide'},
+      {action:'ifVar',params:{nm:'النقاط',op:'>=',vl:15}},
+      {action:'win',params:{m:'🏆 صياد خلد محترف!',s:'ضربت 15 خلد!'}},
+      {action:'endif'},
+    ];
+    const TM=mk('⏱️','الموقت',180,145,{sz:0.55});
+    TM.code=[
+      {action:'flag'},
+      {action:'rep',params:{v:30}},
+      {action:'wait',params:{v:1}},
+      {action:'chgV',params:{nm:'الوقت',vl:-1}},
+      {action:'endrep'},
+      {action:'gameover',params:{m:'⏰ انتهى الوقت!',s:'حاول جمع 15 نقطة'}},
+    ];
+    G.cur=M.id;
+
+  }else if(t==='fishing'){
+    /* ═══ صيد السمك ═══ */
+    G.bd=7;G.vars={سمكات:0,القنديل:0};
+    const H=mk('🎣','الصنارة',0,100,{sz:1,isControllable:true,ctrlSpeed:7});
+    H.code=[
+      {action:'flag'},
+      {action:'setV',params:{nm:'سمكات',vl:0}},
+      {action:'showV',params:{nm:'سمكات'}},
+      {action:'loop'},
+      {action:'ifTouch',params:{nm:'السمكة'}},
+      {action:'chgV',params:{nm:'سمكات',vl:1}},
+      {action:'scoin'},
+      {action:'ifVar',params:{nm:'سمكات',op:'>=',vl:12}},
+      {action:'win',params:{m:'🏆 صياد ماهر!',s:'صدت 12 سمكة'}},
+      {action:'endif'},
+      {action:'endif'},
+      {action:'ifTouch',params:{nm:'قنديل'}},
+      {action:'slos'},
+      {action:'gameover',params:{m:'☠️ قنديل بحر سام!',s:'تجنّبه المرة القادمة'}},
+      {action:'endif'},
+    ];
+    // 3 fish
+    for(let i=0;i<3;i++){
+      const F=mk(['🐟','🐠','🐡'][i],'السمكة',(i-1)*100,-80+i*30,{sz:0.9});
+      F.code=[
+        {action:'flag'},
+        {action:'frv'},
+        {action:'mr',params:{v:3+i}},
+        {action:'ifEdge'},
+        {action:'setX',params:{v:-220}},
+        {action:'endif'},
+        {action:'endfrv'},
+      ];
+    }
+    // 2 jellyfish
+    for(let i=0;i<2;i++){
+      const J=mk('🪼','قنديل',(i?-100:100),-130,{sz:0.95});
+      J.code=[
+        {action:'flag'},
+        {action:'frv'},
+        {action:'ml',params:{v:4}},
+        {action:'ifEdge'},
+        {action:'setX',params:{v:220}},
+        {action:'endif'},
+        {action:'endfrv'},
+      ];
+    }
+    G.cur=H.id;
+
+  }else if(t==='memory'){
+    /* ═══ لعبة الذاكرة ═══ */
+    G.bd=8;G.vars={المستوى:1,النقاط:0};
+    const G1=mk('🟥','أحمر',-120,60,{sz:1.2});
+    G1.code=[{action:'click'},{action:'flash'},{action:'sclk'},{action:'chgV',params:{nm:'النقاط',vl:1}}];
+    const G2=mk('🟦','أزرق',120,60,{sz:1.2});
+    G2.code=[{action:'click'},{action:'flash'},{action:'note',params:{n:'E4',d:0.3}},{action:'chgV',params:{nm:'النقاط',vl:1}}];
+    const G3=mk('🟩','أخضر',-120,-60,{sz:1.2});
+    G3.code=[{action:'click'},{action:'flash'},{action:'note',params:{n:'G4',d:0.3}},{action:'chgV',params:{nm:'النقاط',vl:1}}];
+    const G4=mk('🟨','أصفر',120,-60,{sz:1.2});
+    G4.code=[{action:'click'},{action:'flash'},{action:'note',params:{n:'C5',d:0.3}},{action:'chgV',params:{nm:'النقاط',vl:1}},
+      {action:'ifVar',params:{nm:'النقاط',op:'>=',vl:20}},
+      {action:'win',params:{m:'🧠 ذاكرة قوية!',s:'20 نقرة صحيحة'}},
+      {action:'endif'}];
+    const I=mk('🎯','المركز',0,140,{sz:0.7});
+    I.code=[
+      {action:'flag'},
+      {action:'setV',params:{nm:'النقاط',vl:0}},
+      {action:'showV',params:{nm:'النقاط'}},
+      {action:'say',params:{tx:'انقر الألوان بنفس ترتيب الوميض!',t:3}},
+    ];
+    G.cur=G1.id;
+
+  }else if(t==='tank'){
+    /* ═══ حرب الدبابات ═══ */
+    G.bd=6;G.vars={النقاط:0,الحياة:3};
+    const T=mk('🪖','الدبابة',-150,-50,{sz:1,isControllable:true,ctrlSpeed:5});
+    T.dir=90;
+    T.code=[
+      {action:'flag'},
+      {action:'sdir',params:{v:90}},
+      {action:'setV',params:{nm:'النقاط',vl:0}},
+      {action:'setV',params:{nm:'الحياة',vl:3}},
+      {action:'showV',params:{nm:'النقاط'}},
+      {action:'showV',params:{nm:'الحياة'}},
+      {action:'loop'},
+      {action:'ifTouch',params:{nm:'قذيفة العدو'}},
+      {action:'chgV',params:{nm:'الحياة',vl:-1}},
+      {action:'slos'},
+      {action:'flash'},
+      {action:'ifVar',params:{nm:'الحياة',op:'<=',vl:0}},
+      {action:'gameover',params:{m:'💥 دُمّرت دبابتك!',s:'كنت محارباً شجاعاً'}},
+      {action:'endif'},
+      {action:'endif'},
+    ];
+    const BU=mk('💥','قذيفتي',0,-200,{sz:0.5,vis:false});
+    BU.code=[
+      {action:'action'},
+      {action:'shot'},
+      {action:'clone'},
+      {action:'whenClone'},
+      {action:'show'},
+      {action:'setX',params:{v:-150}},
+      {action:'setY',params:{v:-50}},
+      {action:'rep',params:{v:25}},
+      {action:'mr',params:{v:14}},
+      {action:'ifTouch',params:{nm:'العدو'}},
+      {action:'chgV',params:{nm:'النقاط',vl:1}},
+      {action:'swin'},
+      {action:'ifVar',params:{nm:'النقاط',op:'>=',vl:8}},
+      {action:'win',params:{m:'🏆 بطل الدبابات!',s:'دمّرت 8 أعداء'}},
+      {action:'endif'},
+      {action:'delClone'},
+      {action:'endif'},
+      {action:'endrep'},
+      {action:'delClone'},
+    ];
+    const EN=mk('🚙','العدو',150,30,{sz:1});
+    EN.code=[
+      {action:'flag'},
+      {action:'frv'},
+      {action:'mu',params:{v:3}},
+      {action:'ifEdge'},
+      {action:'sdir',params:{v:270}},
+      {action:'md',params:{v:6}},
+      {action:'rnd'},
+      {action:'endif'},
+      {action:'endfrv'},
+    ];
+    const EBU=mk('💢','قذيفة العدو',150,-200,{sz:0.45,vis:false});
+    EBU.code=[
+      {action:'flag'},
+      {action:'frv'},
+      {action:'wait',params:{v:2}},
+      {action:'clone'},
+      {action:'endfrv'},
+      {action:'whenClone'},
+      {action:'show'},
+      {action:'goto',params:{x:150,y:30}},
+      {action:'rep',params:{v:30}},
+      {action:'ml',params:{v:10}},
+      {action:'endrep'},
+      {action:'delClone'},
+    ];
+    G.cur=T.id;
+
+  }else if(t==='puzzle'){
+    /* ═══ جامع الكنوز ═══ */
+    G.bd=2;G.vars={الكنوز:0,الوقت:45};
+    const H=mk('🧝','البطل',-180,-100,{sz:1,isControllable:true,ctrlSpeed:7});
+    H.code=[
+      {action:'flag'},
+      {action:'setV',params:{nm:'الكنوز',vl:0}},
+      {action:'setV',params:{nm:'الوقت',vl:45}},
+      {action:'showV',params:{nm:'الكنوز'}},
+      {action:'showV',params:{nm:'الوقت'}},
+      {action:'loop'},
+      {action:'ifTouch',params:{nm:'كنز1'}},
+      {action:'chgV',params:{nm:'الكنوز',vl:1}},
+      {action:'scoin'},
+      {action:'endif'},
+      {action:'ifTouch',params:{nm:'كنز2'}},
+      {action:'chgV',params:{nm:'الكنوز',vl:1}},
+      {action:'scoin'},
+      {action:'endif'},
+      {action:'ifTouch',params:{nm:'كنز3'}},
+      {action:'chgV',params:{nm:'الكنوز',vl:1}},
+      {action:'scoin'},
+      {action:'endif'},
+      {action:'ifVar',params:{nm:'الكنوز',op:'>=',vl:10}},
+      {action:'win',params:{m:'🏆 جامع كنوز محترف!',s:'10 كنوز ذهبية!'}},
+      {action:'endif'},
+    ];
+    // 3 treasures that respawn
+    ['💎','👑','💰'].forEach((em,i)=>{
+      const K=mk(em,'كنز'+(i+1),(i-1)*100+50,(i%2?60:-50),{sz:0.85});
+      K.code=[
+        {action:'loop'},
+        {action:'ifTouch',params:{nm:'البطل'}},
+        {action:'rnd'},
+        {action:'endif'},
+      ];
+    });
+    const TM=mk('⏱️','الموقت',180,145,{sz:0.5});
+    TM.code=[
+      {action:'flag'},
+      {action:'rep',params:{v:45}},
+      {action:'wait',params:{v:1}},
+      {action:'chgV',params:{nm:'الوقت',vl:-1}},
+      {action:'endrep'},
+      {action:'gameover',params:{m:'⏰ انتهى الوقت!',s:'لم تجمع 10 كنوز'}},
+    ];
+    G.cur=H.id;
+
+  }else if(t==='asteroid'){
+    /* ═══ حقل الكويكبات ═══ */
+    G.bd=4;G.vars={الوقت:0,الحياة:3};
+    const SP=mk('🛸','السفينة',0,-100,{sz:1,isControllable:true,ctrlSpeed:9});
+    SP.code=[
+      {action:'flag'},
+      {action:'setV',params:{nm:'الوقت',vl:0}},
+      {action:'setV',params:{nm:'الحياة',vl:3}},
+      {action:'showV',params:{nm:'الوقت'}},
+      {action:'showV',params:{nm:'الحياة'}},
+      {action:'loop'},
+      {action:'ifTouch',params:{nm:'كويكب'}},
+      {action:'chgV',params:{nm:'الحياة',vl:-1}},
+      {action:'slos'},
+      {action:'flash'},
+      {action:'ctr'},
+      {action:'setY',params:{v:-100}},
+      {action:'ifVar',params:{nm:'الحياة',op:'<=',vl:0}},
+      {action:'gameover',params:{m:'💥 دُمّرت السفينة!',s:'الفضاء قاسٍ'}},
+      {action:'endif'},
+      {action:'endif'},
+    ];
+    // 4 asteroids
+    for(let i=0;i<4;i++){
+      const A=mk(['☄️','🌑','🪨','💫'][i],'كويكب',-150+i*100,140,{sz:0.85+i*0.1});
+      A.code=[
+        {action:'flag'},
+        {action:'frv'},
+        {action:'rnd'},
+        {action:'setY',params:{v:160}},
+        {action:'rep',params:{v:60}},
+        {action:'md',params:{v:5+i}},
+        {action:'rcw',params:{v:6}},
+        {action:'endrep'},
+        {action:'endfrv'},
+      ];
+    }
+    const TM=mk('⭐','الموقت',180,145,{sz:0.5});
+    TM.code=[
+      {action:'flag'},
+      {action:'frv'},
+      {action:'wait',params:{v:1}},
+      {action:'chgV',params:{nm:'الوقت',vl:1}},
+      {action:'ifVar',params:{nm:'الوقت',op:'>=',vl:60}},
+      {action:'win',params:{m:'🏆 ربان فضاء أسطوري!',s:'60 ثانية بدون موت'}},
+      {action:'endif'},
+      {action:'endfrv'},
+    ];
+    G.cur=SP.id;
+
+  }else if(t==='tennis'){
+    /* ═══ تنس بريك (Breakout) ═══ */
+    G.bd=8;G.vars={النقاط:0,الحياة:3};
+    const PD=mk('🟦','المضرب',0,-130,{sz:1.4,isControllable:true,ctrlSpeed:10});
+    PD.code=[
+      {action:'flag'},
+      {action:'setV',params:{nm:'النقاط',vl:0}},
+      {action:'setV',params:{nm:'الحياة',vl:3}},
+      {action:'showV',params:{nm:'النقاط'}},
+      {action:'showV',params:{nm:'الحياة'}},
+      {action:'setY',params:{v:-130}},
+      {action:'loop'},
+    ];
+    const BL=mk('⚪','الكرة',0,-100,{sz:0.7});
+    BL.code=[
+      {action:'flag'},
+      {action:'setVel',params:{vx:4,vy:5}},
+      {action:'friction'},
+      {action:'loop'},
+      {action:'ifTouch',params:{nm:'المضرب'}},
+      {action:'sclk'},
+      {action:'setVel',params:{vx:5,vy:6}},
+      {action:'endif'},
+      {action:'ifTouch',params:{nm:'طوب1'}},
+      {action:'chgV',params:{nm:'النقاط',vl:1}},
+      {action:'swin'},
+      {action:'setVel',params:{vx:-5,vy:-5}},
+      {action:'endif'},
+      {action:'ifTouch',params:{nm:'طوب2'}},
+      {action:'chgV',params:{nm:'النقاط',vl:1}},
+      {action:'swin'},
+      {action:'endif'},
+      {action:'ifTouch',params:{nm:'طوب3'}},
+      {action:'chgV',params:{nm:'النقاط',vl:1}},
+      {action:'swin'},
+      {action:'endif'},
+      {action:'ifVar',params:{nm:'النقاط',op:'>=',vl:6}},
+      {action:'win',params:{m:'🏆 حطّمت كل الطوب!',s:'مهارة عالية!'}},
+      {action:'endif'},
+    ];
+    // 6 bricks
+    ['🟥','🟧','🟨','🟩','🟦','🟪'].forEach((em,i)=>{
+      const B=mk(em,'طوب'+(Math.floor(i/2)+1),(i-2.5)*65,90+(i%2?20:0),{sz:1.1});
+      B.code=[
+        {action:'loop'},
+        {action:'ifTouch',params:{nm:'الكرة'}},
+        {action:'hide'},
+        {action:'endif'},
+      ];
+    });
+    G.cur=PD.id;
+  }
+
+  applyBd();
+  G.sp.forEach(s=>applyT(s));
+  renderList();selS(G.sp[0].id);updCtrlTarget();
+  const tplName=TEMPLATES.find(x=>x.id===t)?.name||t;
+  flash(`✅ قالب "${tplName}" — اضغط 🚩 تشغيل!`,3000);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   ▓▓▓ CUSTOM BUTTONS SYSTEM ▓▓▓
+═══════════════════════════════════════════════════════════ */
+if(!G.btns)G.btns=[];
+let adminEditMode=false;
+let editingBtnId=null;
+
+const COLOR_PRESETS=['#ef4444','#f97316','#f59e0b','#22c55e','#06b6d4','#3b82f6','#a855f7','#ec4899','#64748b','#1f2937'];
+
+const BTN_ACTIONS={
+  'broadcast':'📢 بث رسالة (يفعّل لبنات "عند استقبال")',
+  'jump':'⬆️ قفز للشخصية المتحكَّم بها',
+  'shoot':'🚀 إطلاق (يفعّل "عند زر الإطلاق")',
+  'kick':'⚽ شوط الكرة (إذا وُجدت)',
+  'goto':'📍 اذهب لإحداثيات',
+  'setVar':'📝 اضبط متغيراً = قيمة',
+  'chgVar':'➕ غيّر متغيراً بـ',
+  'reset':'🔄 إعادة المشروع',
+  'pause':'⏸️ إيقاف/تشغيل',
+  'sound':'🔊 صوت',
+  'moveR':'➡️ تحرك يميناً',
+  'moveL':'⬅️ تحرك يساراً',
+  'moveU':'⬆️ تحرك للأعلى',
+  'moveD':'⬇️ تحرك للأسفل',
+};
+
+function shadeColor(col,pct){
+  if(!col||col.length<7)col='#3b82f6';
+  const num=parseInt(col.slice(1),16);
+  let r=(num>>16)+pct,g=((num>>8)&0xff)+pct,b=(num&0xff)+pct;
+  r=Math.max(0,Math.min(255,r));g=Math.max(0,Math.min(255,g));b=Math.max(0,Math.min(255,b));
+  return '#'+((r<<16)|(g<<8)|b).toString(16).padStart(6,'0');
+}
+
+function renderCustomBtns(){
+  document.querySelectorAll('.custom-btn').forEach(b=>b.remove());
+  G.btns.forEach(b=>{
+    const el=document.createElement('button');
+    el.className='custom-btn';
+    el.dataset.bid=b.id;
+    el.style.left=b.x+'px';
+    el.style.top=b.y+'px';
+    el.style.width=b.w+'px';
+    el.style.height=b.h+'px';
+    el.style.background=`linear-gradient(135deg,${b.color},${shadeColor(b.color,-25)})`;
+    el.style.color=b.textColor||'#fff';
+    el.style.fontSize=(b.fontSize||13)+'px';
+    el.innerHTML=`${b.icon||''} ${b.label||''}`;
+    if(adminEditMode)el.classList.add('edit-mode');
+
+    const press=ev=>{
+      ev.preventDefault();ev.stopPropagation();
+      if(adminEditMode){startBtnDrag(b,el,ev);return}
+      el.classList.add('pressed');
+      handleBtnPress(b);
+      try{el.setPointerCapture?.(ev.pointerId)}catch(e){}
+    };
+    const rel=()=>el.classList.remove('pressed');
+    el.addEventListener('pointerdown',press);
+    el.addEventListener('pointerup',rel);
+    el.addEventListener('pointercancel',rel);
+    el.addEventListener('pointerleave',rel);
+    if(adminEditMode){el.ondblclick=()=>openBtnEditor(b.id)}
+    stg.appendChild(el);
+  });
+}
+
+function handleBtnPress(b){
+  // Trigger any "btnPress" event handlers
+  G.sp.forEach(s=>{
+    s.code.forEach((blk,i)=>{
+      if(blk.action==='btnPress'&&blk.params.bid===b.id)runFrom(s,i+1);
+    });
+  });
+
+  // Execute configured action — always works (even when not running for some actions)
+  switch(b.action){
+    case 'broadcast':if(G.run)trigBC(b.message||'btn1');else flash('⚠️ شغّل المشروع 🚩 أولاً');break;
+    case 'jump':{
+      G.sp.filter(s=>s.isControllable).forEach(s=>{
+        if(s.gravity)G.grav[s.id]=parseFloat(b.force)||14;
+        else{s.y+=(parseFloat(b.force)||14)*2;clip(s);applyT(s)}
+      });
+      sJump();break;
+    }
+    case 'shoot':{
+      G.actionPressed=true;
+      if(G.run)trigActionEv();
+      setTimeout(()=>{G.actionPressed=false},200);
+      sShot();break;
+    }
+    case 'kick':{
+      const player=G.sp.find(s=>s.isControllable);
+      const ball=G.sp.find(s=>s.name&&(s.name.includes('كرة')||s.name==='الكرة'))||G.sp.find(s=>s.emoji==='⚽');
+      if(player&&ball){
+        const force=parseFloat(b.force)||20;
+        const rad=(player.dir-90)*Math.PI/180;
+        ball.vx=Math.cos(rad)*force;ball.vy=-Math.sin(rad)*force;
+        ball.friction=true;ball.autoBounce=true;
+        sClk();
+      }else flash('⚠️ يحتاج شخصية متحكَّم بها + كرة');
+      break;
+    }
+    case 'moveR':G.sp.filter(s=>s.isControllable).forEach(s=>{s.x+=(parseFloat(b.force)||15);clip(s);applyT(s)});break;
+    case 'moveL':G.sp.filter(s=>s.isControllable).forEach(s=>{s.x-=(parseFloat(b.force)||15);clip(s);applyT(s)});break;
+    case 'moveU':G.sp.filter(s=>s.isControllable).forEach(s=>{s.y+=(parseFloat(b.force)||15);clip(s);applyT(s)});break;
+    case 'moveD':G.sp.filter(s=>s.isControllable).forEach(s=>{s.y-=(parseFloat(b.force)||15);clip(s);applyT(s)});break;
+    case 'goto':{
+      G.sp.filter(s=>s.isControllable).forEach(s=>{
+        s.x=parseFloat(b.gotoX)||0;s.y=parseFloat(b.gotoY)||0;clip(s);applyT(s);
+      });break;
+    }
+    case 'setVar':G.vars[b.varName]=parseFloat(b.varValue)||0;updVD();break;
+    case 'chgVar':G.vars[b.varName]=(G.vars[b.varName]||0)+(parseFloat(b.varValue)||1);updVD();break;
+    case 'reset':resetAll();break;
+    case 'pause':G.run?stopExec():startExec();break;
+    case 'sound':{
+      const t=b.soundType||'click';
+      ({click:sClk,win:sWin,lose:sLos,shot:sShot,jump:sJump,coin:sCoin}[t]||sClk)();
+      break;
+    }
+  }
+}
+
+/* Button drag in admin edit mode */
+const btnDrag={b:null,el:null,ox:0,oy:0};
+function startBtnDrag(b,el,ev){
+  btnDrag.b=b;btnDrag.el=el;
+  const r=el.getBoundingClientRect();
+  btnDrag.ox=ev.clientX-r.left;btnDrag.oy=ev.clientY-r.top;
+  try{el.setPointerCapture(ev.pointerId)}catch(e){}
+}
+document.addEventListener('pointermove',ev=>{
+  if(!btnDrag.b)return;
+  const sr=stg.getBoundingClientRect();
+  btnDrag.b.x=Math.max(0,Math.min(stg.clientWidth-btnDrag.b.w,ev.clientX-sr.left-btnDrag.ox));
+  btnDrag.b.y=Math.max(0,Math.min(stg.clientHeight-btnDrag.b.h,ev.clientY-sr.top-btnDrag.oy));
+  btnDrag.el.style.left=btnDrag.b.x+'px';
+  btnDrag.el.style.top=btnDrag.b.y+'px';
+});
+document.addEventListener('pointerup',()=>{btnDrag.b=null});
+
+/* Button editor modal */
+function openBtnEditor(bid){
+  let b;
+  if(bid){b=G.btns.find(x=>x.id===bid);if(!b)return}
+  else{
+    b={id:'b'+Date.now(),label:'زر جديد',icon:'⭐',color:'#3b82f6',textColor:'#ffffff',
+       x:stg.clientWidth/2-50,y:stg.clientHeight-100,w:110,h:46,fontSize:14,
+       action:'broadcast',message:'btn1'};
+  }
+  editingBtnId=b.id;
+  const body=`
+    <div class="bform">
+      <div class="btn-preview-area">
+        <button class="custom-btn" id="bp-preview" style="position:relative;left:auto;top:auto"></button>
+      </div>
+      <div class="bform-row"><label>📛 النص:</label><input id="bf-label" value="${b.label||''}" placeholder="نص الزر"></div>
+      <div class="bform-row"><label>😊 الأيقونة:</label><input id="bf-icon" value="${b.icon||''}" placeholder="مثال: ⭐ 🚀 ⚽"></div>
+      <div class="bform-row"><label>📏 العرض:</label><input id="bf-w" type="number" value="${b.w}" min="40" max="300"></div>
+      <div class="bform-row"><label>📐 الارتفاع:</label><input id="bf-h" type="number" value="${b.h}" min="30" max="120"></div>
+      <div class="bform-row"><label>🔤 الخط:</label><input id="bf-fs" type="number" value="${b.fontSize||14}" min="9" max="32"></div>
+      <div class="bform-row"><label>🎨 اللون:</label><input id="bf-color" type="color" value="${b.color}"></div>
+      <div class="color-presets" id="cpre-list">${COLOR_PRESETS.map(c=>`<div class="cpre${c===b.color?' on':''}" data-c="${c}" style="background:${c}" onclick="pickColor(event,'${c}')"></div>`).join('')}</div>
+      <div class="bform-row" style="margin-top:6px"><label>🎬 الإجراء:</label>
+        <select id="bf-action">${Object.entries(BTN_ACTIONS).map(([k,v])=>`<option value="${k}" ${b.action===k?'selected':''}>${v}</option>`).join('')}</select>
+      </div>
+      <div id="bf-action-extra"></div>
+      <div style="margin-top:8px;padding:8px 10px;background:rgba(245,158,11,.1);border:1px solid rgba(245,158,11,.3);border-radius:6px;font-size:11px;color:#fcd34d;line-height:1.6">
+        💡 افتح لوحة الأدمن لسحب الزر وتغيير مكانه
+      </div>
+    </div>
+  `;
+  showM(bid?'✏️ تحرير الزر':'➕ إنشاء زر جديد','اضبط مظهر الزر ووظيفته',body,()=>saveBtn(b));
+  setTimeout(()=>{
+    updBtnPreview();updActionExtra(b);
+    ['bf-label','bf-icon','bf-w','bf-h','bf-fs','bf-color'].forEach(id=>{
+      const el=document.getElementById(id);
+      if(el)el.addEventListener('input',updBtnPreview);
+    });
+    document.getElementById('bf-action').addEventListener('change',()=>updActionExtra());
+  },60);
+}
+
+function updActionExtra(b){
+  const act=document.getElementById('bf-action').value;
+  const ex=document.getElementById('bf-action-extra');
+  if(!ex)return;
+  let html='';
+  if(act==='broadcast')html=`<div class="bform-row"><label>📢 الرسالة:</label><input id="bf-msg" value="${b?.message||'btn1'}"></div>`;
+  else if(act==='jump'||act==='kick'||act==='moveR'||act==='moveL'||act==='moveU'||act==='moveD')html=`<div class="bform-row"><label>💪 القوة:</label><input id="bf-force" type="number" value="${b?.force||14}"></div>`;
+  else if(act==='goto')html=`<div class="bform-row"><label>الإحداثيات:</label><input id="bf-gx" type="number" value="${b?.gotoX||0}" placeholder="X"><input id="bf-gy" type="number" value="${b?.gotoY||0}" placeholder="Y"></div>`;
+  else if(act==='setVar'||act==='chgVar'){
+    const ks=Object.keys(G.vars);
+    const sel=ks.length?`<select id="bf-varName">${ks.map(k=>`<option ${b?.varName===k?'selected':''}>${k}</option>`).join('')}</select>`:`<input id="bf-varName" placeholder="اسم المتغير">`;
+    html=`<div class="bform-row"><label>📦 المتغير:</label>${sel}</div><div class="bform-row"><label>🔢 القيمة:</label><input id="bf-varValue" type="number" value="${b?.varValue||1}"></div>`;
+  }else if(act==='sound')html=`<div class="bform-row"><label>🔊 النوع:</label><select id="bf-soundType"><option value="click">🔔 نقر</option><option value="win">🎉 فوز</option><option value="lose">❌ خسارة</option><option value="shot">💥 طلق</option><option value="jump">🦘 قفز</option><option value="coin">🪙 عملة</option></select></div>`;
+  ex.innerHTML=html;
+}
+
+function pickColor(ev,c){
+  ev.stopPropagation();
+  document.getElementById('bf-color').value=c;
+  document.querySelectorAll('#cpre-list .cpre').forEach(el=>el.classList.remove('on'));
+  ev.target.classList.add('on');
+  updBtnPreview();
+}
+
+function updBtnPreview(){
+  const p=document.getElementById('bp-preview');if(!p)return;
+  const lbl=document.getElementById('bf-label')?.value||'زر';
+  const ic=document.getElementById('bf-icon')?.value||'';
+  const c=document.getElementById('bf-color')?.value||'#3b82f6';
+  const w=document.getElementById('bf-w')?.value||110;
+  const h=document.getElementById('bf-h')?.value||46;
+  const fs=document.getElementById('bf-fs')?.value||14;
+  p.style.width=w+'px';p.style.height=h+'px';
+  p.style.background=`linear-gradient(135deg,${c},${shadeColor(c,-25)})`;
+  p.style.fontSize=fs+'px';p.style.color='white';
+  p.innerHTML=`${ic} ${lbl}`;
+}
+
+function saveBtn(orig){
+  const b={
+    id:orig.id,
+    label:document.getElementById('bf-label').value||'زر',
+    icon:document.getElementById('bf-icon').value||'',
+    color:document.getElementById('bf-color').value||'#3b82f6',
+    textColor:'#ffffff',
+    x:orig.x,y:orig.y,
+    w:parseInt(document.getElementById('bf-w').value)||110,
+    h:parseInt(document.getElementById('bf-h').value)||46,
+    fontSize:parseInt(document.getElementById('bf-fs').value)||14,
+    action:document.getElementById('bf-action').value,
+  };
+  if(b.action==='broadcast')b.message=document.getElementById('bf-msg')?.value||'btn1';
+  if(['jump','kick','moveR','moveL','moveU','moveD'].includes(b.action))b.force=parseFloat(document.getElementById('bf-force')?.value)||14;
+  if(b.action==='goto'){b.gotoX=parseFloat(document.getElementById('bf-gx').value)||0;b.gotoY=parseFloat(document.getElementById('bf-gy').value)||0}
+  if(b.action==='setVar'||b.action==='chgVar'){b.varName=document.getElementById('bf-varName')?.value||'';b.varValue=parseFloat(document.getElementById('bf-varValue')?.value)||0}
+  if(b.action==='sound')b.soundType=document.getElementById('bf-soundType')?.value||'click';
+
+  const idx=G.btns.findIndex(x=>x.id===b.id);
+  if(idx>=0)G.btns[idx]=b;else G.btns.push(b);
+  renderCustomBtns();renderBtnList();updAdmStats();
+  flash(`✅ زر "${b.label}" محفوظ`);
+}
+
+function delBtn(id){
+  if(!confirm('حذف هذا الزر؟'))return;
+  G.btns=G.btns.filter(b=>b.id!==id);
+  renderCustomBtns();renderBtnList();updAdmStats();
+  flash('🗑️ حُذف الزر');
+}
+
+function renderBtnList(){
+  const el=document.getElementById('btn-list');if(!el)return;
+  const cnt=document.getElementById('btn-count');if(cnt)cnt.textContent=`(${G.btns.length})`;
+  if(!G.btns.length){el.innerHTML='<div style="text-align:center;color:var(--tx3);font-size:11px;padding:18px">لا توجد أزرار بعد</div>';return}
+  el.innerHTML=G.btns.map(b=>`
+    <div class="btn-list-item">
+      <div class="preview" style="background:linear-gradient(135deg,${b.color},${shadeColor(b.color,-25)})">${b.icon||'▣'}</div>
+      <div class="info">
+        <div class="nm">${b.icon||''} ${b.label||'بلا اسم'}</div>
+        <div class="meta">${(BTN_ACTIONS[b.action]||b.action).substring(0,35)}</div>
+      </div>
+      <div class="acts">
+        <button onclick="openBtnEditor('${b.id}')" title="تحرير">✏️</button>
+        <button class="del" onclick="delBtn('${b.id}')" title="حذف">🗑️</button>
+      </div>
+    </div>
+  `).join('');
+}
+
+/* ⚡ Quick button presets — أزرار جاهزة بضغطة */
+function quickBtn(type){
+  const baseX=stg.clientWidth-130;
+  const baseY=stg.clientHeight-100-(G.btns.length%5)*55;
+  const presets={
+    jump:{label:'قفز',icon:'⬆️',color:'#22c55e',action:'jump',force:14},
+    shoot:{label:'إطلاق',icon:'🚀',color:'#ef4444',action:'shoot'},
+    kick:{label:'شوط',icon:'⚽',color:'#f59e0b',action:'kick',force:20},
+    left:{label:'',icon:'◀',color:'#3b82f6',action:'moveL',force:15,w:60,h:60,fontSize:20},
+    right:{label:'',icon:'▶',color:'#3b82f6',action:'moveR',force:15,w:60,h:60,fontSize:20},
+    up:{label:'',icon:'▲',color:'#3b82f6',action:'moveU',force:15,w:60,h:60,fontSize:20},
+    down:{label:'',icon:'▼',color:'#3b82f6',action:'moveD',force:15,w:60,h:60,fontSize:20},
+    pause:{label:'إيقاف',icon:'⏸️',color:'#64748b',action:'pause'},
+    reset:{label:'إعادة',icon:'🔄',color:'#a855f7',action:'reset'},
+    boost:{label:'تعزيز',icon:'⚡',color:'#06b6d4',action:'broadcast',message:'boost'},
+    teleport:{label:'نقل',icon:'✨',color:'#ec4899',action:'goto',gotoX:0,gotoY:0},
+    coin:{label:'+1',icon:'🪙',color:'#fbbf24',action:'chgVar',varName:'النقاط',varValue:1},
+  };
+  const p=presets[type];if(!p)return;
+  const b={id:'b'+Date.now(),x:baseX,y:baseY,w:110,h:46,fontSize:14,textColor:'#fff',...p};
+  G.btns.push(b);renderCustomBtns();renderBtnList();updAdmStats();
+  // Auto-create variable if needed
+  if(p.action==='chgVar'&&p.varName&&G.vars[p.varName]===undefined){G.vars[p.varName]=0;showVD(p.varName)}
+  flash(`✅ تمت إضافة زر "${p.icon} ${p.label||''}"`);
+}
+
+/* P_btnEv prompt */
+function P_btnEv(){
+  if(!G.btns.length){flash('⚠️ أنشئ أزراراً أولاً من 👑 الأدمن');return}
+  const opts=G.btns.map(b=>`<option value="${b.id}">${b.icon||''} ${b.label||'بلا اسم'}</option>`).join('');
+  showM('🎛️ عند ضغط زر مخصص','اختر الزر الذي يفعّل هذا الكود',`<select id="bei">${opts}</select>`,()=>{
+    const bid=document.getElementById('bei').value;
+    const b=G.btns.find(x=>x.id===bid);
+    AB('btnPress',{bid,label:b?.label||''});
+  });
+}
+
+/* btnPress is now handled directly in BL, BC, isEv original functions above */
+
+/* ═══════════════════════════════════════════════════════════
+   ▓▓▓ INIT ▓▓▓
+═══════════════════════════════════════════════════════════ */
+
+/* ═══════════════════════════════════════════════════════════
+   ▓▓▓ ADMIN PANEL ▓▓▓
+═══════════════════════════════════════════════════════════ */
+function toggleAdmin(){
+  const p=document.getElementById('admin-panel');
+  const isOpen=p.classList.toggle('on');
+  adminEditMode=isOpen;
+  renderCustomBtns();
+  if(isOpen){renderBtnList();renderAdmSprites();renderAdmVars();renderAdmBd();updAdmStats();
+    document.getElementById('adm-ctrl-mode').value=ctrlMode;
+  }
+}
+
+function aTab(tab,el){
+  document.querySelectorAll('.atab').forEach(b=>b.classList.remove('on'));
+  document.querySelectorAll('.apanel').forEach(p=>p.classList.remove('on'));
+  el.classList.add('on');
+  document.getElementById('apanel-'+tab).classList.add('on');
+  if(tab==='sprites')renderAdmSprites();
+  if(tab==='vars')renderAdmVars();
+  if(tab==='stage')renderAdmBd();
+  if(tab==='stats')updAdmStats();
+  if(tab==='buttons')renderBtnList();
+}
+
+function renderAdmSprites(){
+  const el=document.getElementById('adm-sprite-list');if(!el)return;
+  if(!G.sp.length){el.innerHTML='<div style="text-align:center;color:var(--tx3);font-size:11px;padding:18px">لا توجد شخصيات</div>';return}
+  el.innerHTML=G.sp.map(s=>`
+    <div class="btn-list-item" onclick="selS(${s.id})">
+      <div class="preview" style="background:var(--p3);font-size:24px">${s.emoji}</div>
+      <div class="info">
+        <div class="nm">${s.name}${s.isControllable?' 🎮':''}</div>
+        <div class="meta">X:${Math.round(s.x)} Y:${Math.round(s.y)} • ${s.code.length} أمر</div>
+      </div>
+      <div class="acts">
+        <button onclick="event.stopPropagation();toggleCtrlSp2(${s.id})" title="تحكم">🎮</button>
+        <button class="del" onclick="event.stopPropagation();delS(${s.id})" title="حذف">🗑️</button>
+      </div>
+    </div>
+  `).join('');
+}
+
+function toggleCtrlSp2(id){
+  const s=G.sp.find(x=>x.id===id);if(!s)return;
+  s.isControllable=!s.isControllable;
+  s.el.classList.toggle('ctrl',s.isControllable);
+  renderList();updPanel();updCtrlTarget();renderAdmSprites();
+}
+
+function renderAdmVars(){
+  const el=document.getElementById('adm-var-list');if(!el)return;
+  const ks=Object.keys(G.vars);
+  if(!ks.length){el.innerHTML='<div style="text-align:center;color:var(--tx3);font-size:11px;padding:18px">لا توجد متغيرات</div>';return}
+  el.innerHTML=ks.map(k=>`
+    <div class="var-row">
+      <input class="vn" value="${k}" onchange="renameVar('${k}',this.value)">
+      <input class="vv" type="number" value="${G.vars[k]}" onchange="G.vars['${k}']=parseFloat(this.value)||0;updVD()">
+      <button class="vdel" onclick="delVar('${k}')">✖</button>
+    </div>
+  `).join('');
+}
+
+function renameVar(old,nw){
+  if(!nw||nw===old||G.vars[nw]!==undefined)return;
+  G.vars[nw]=G.vars[old];delete G.vars[old];
+  if(G.vd[old]){G.vd[nw]=G.vd[old];delete G.vd[old]}
+  updVD();renderAdmVars();
+}
+
+function delVar(k){
+  if(!confirm(`حذف المتغير "${k}"؟`))return;
+  delete G.vars[k];if(G.vd[k]){G.vd[k].remove();delete G.vd[k]}
+  renderAdmVars();updAdmStats();
+}
+
+function renderAdmBd(){
+  const el=document.getElementById('adm-bd-grid');if(!el)return;
+  el.innerHTML=BDS.map((b,i)=>`<div onclick="G.bd=${i};applyBd();renderAdmBd();flash('🖼️ ${b.n}')" style="${b.c};height:46px;border-radius:7px;cursor:pointer;display:flex;align-items:flex-end;justify-content:center;padding:3px;font-size:9px;font-weight:800;color:white;text-shadow:0 1px 4px rgba(0,0,0,.9);border:2px solid ${i===G.bd?'var(--acc)':'transparent'}">${b.n}</div>`).join('');
+}
+
+function setCtrlModeDirect(m){
+  const target=parseInt(m);
+  while(ctrlMode!==target)cycleCtrl();
+}
+
+function allCenter(){G.sp.forEach(s=>{s.x=0;s.y=0;applyT(s)});updPanel();flash('🎯 الكل للوسط')}
+function allShow(){G.sp.forEach(s=>{s.vis=true;applyT(s)});flash('✨ الكل ظاهر')}
+function allHide(){G.sp.forEach(s=>{s.vis=false;applyT(s)});flash('👻 الكل مخفي')}
+
+function updAdmStats(){
+  const sp=document.getElementById('st-sp');if(sp)sp.textContent=G.sp.length;
+  const btn=document.getElementById('st-btn');if(btn)btn.textContent=G.btns.length;
+  const vr=document.getElementById('st-var');if(vr)vr.textContent=Object.keys(G.vars).length;
+  const cd=document.getElementById('st-code');if(cd)cd.textContent=G.sp.reduce((a,s)=>a+s.code.length,0);
+  const st=document.getElementById('st-status');if(st)st.textContent=G.run?'🟢 يعمل':'⚪ متوقف';
+}
+
+/* ═══════════════════════════════════════════════════════════
+   ▓▓▓ TUTORIAL BOOK — دفتر التعليم ▓▓▓
+═══════════════════════════════════════════════════════════ */
+const TUTORIAL=[
+  {icon:'👋',title:'مرحباً بك!',content:`
+    <h2>👋 أهلاً يا صانع الألعاب!</h2>
+    <p>هذا الدفتر سيعلّمك خطوة بخطوة كيف تصنع <b>أي لعبة في العالم</b> 🌍 — حتى لو كنت مبتدئاً تماماً!</p>
+    <div class="info-box">🎯 <b>ماذا ستتعلم؟</b>
+    <ul>
+      <li>كيف تضيف شخصيات وتحركها</li>
+      <li>كيف تكتب أوامر بالضغط (بدون كود)</li>
+      <li>كيف تصنع أزرار تفاعلية</li>
+      <li>كيف تبني لعبة كاملة من الصفر</li>
+      <li>كيف تستخدم المتغيرات للنقاط والحياة</li>
+    </ul></div>
+    <div class="tip">💡 <b>نصيحة:</b> لا تستعجل! اقرأ كل درس وجرّب فوراً. التعلّم بالتجربة أفضل من القراءة فقط.</div>
+    <p>اضغط <b>التالي ➡️</b> لتبدأ مغامرتك! 🚀</p>
+  `},
+  {icon:'🎬',title:'فهم الواجهة',content:`
+    <h2>🎬 تعرّف على الواجهة</h2>
+    <p>قبل أي شيء، دعنا نفهم ما أمامك:</p>
+    <div class="step"><span class="step-num">1</span><b>الأعلى:</b> الأزرار العلوية للحفظ، التعلّم، والقوالب الجاهزة 🎮</div>
+    <div class="step"><span class="step-num">2</span><b>اليمين:</b> لبنات الأوامر مقسّمة لفئات: 🚩 أحداث، 🏃 حركة، 👀 مظهر، ⚙️ تحكم...</div>
+    <div class="step"><span class="step-num">3</span><b>الوسط:</b> المسرح حيث تعمل اللعبة 🎭</div>
+    <div class="step"><span class="step-num">4</span><b>الأسفل:</b> الشخصيات وخصائصها</div>
+    <div class="step"><span class="step-num">5</span><b>اليسار:</b> قائمة الأوامر التي اخترتها لكل شخصية 🧾</div>
+    <div class="tip">💡 الزر 🚩 الأخضر هو زر <b>التشغيل</b> — يجعل لعبتك تعمل!</div>
+  `},
+  {icon:'🐱',title:'إضافة شخصية',content:`
+    <h2>🐱 الدرس الأول: إضافة شخصية</h2>
+    <p>الشخصيات هي أبطال لعبتك. كل شيء يدور حولها!</p>
+    <h3>📌 كيف تضيف شخصية؟</h3>
+    <div class="step"><span class="step-num">1</span>اضغط زر <b>"➕ شخصية"</b> في الأعلى</div>
+    <div class="step"><span class="step-num">2</span>اختر إيموجي من المكتبة (حيوانات، شخصيات، مركبات...)</div>
+    <div class="step"><span class="step-num">3</span>ستظهر الشخصية في وسط المسرح 🎯</div>
+    <h3>✏️ تعديل الشخصية</h3>
+    <p>في شريط الأسفل، يمكنك تغيير:</p>
+    <ul>
+      <li><b>📛 الاسم:</b> اكتب اسم بالعربية أو الإنجليزية</li>
+      <li><b>X و Y:</b> الموقع على المسرح (0,0 = الوسط)</li>
+      <li><b>الحجم %:</b> 100 = طبيعي، 200 = ضعف، 50 = نصف</li>
+      <li><b>الاتجاه:</b> 0 = أعلى، 90 = يمين، 180 = أسفل، 270 = يسار</li>
+    </ul>
+    <div class="tip">💡 يمكنك سحب الشخصية بالماوس مباشرة على المسرح!</div>
+  `},
+  {icon:'🎮',title:'تحريك الشخصية',content:`
+    <h2>🎮 الدرس الثاني: التحكم بالحركة</h2>
+    <p>هذا أهم درس! بدون حركة لا توجد لعبة.</p>
+    <h3>⚡ الطريقة السهلة (الموصى بها)</h3>
+    <div class="step"><span class="step-num">1</span>اختر شخصيتك من شريط الأسفل</div>
+    <div class="step"><span class="step-num">2</span>اضغط زر <b>"🎮 لا تخضع للتحكم"</b> فتصبح <b>"🎮 قابل للتحكم ✓"</b></div>
+    <div class="step"><span class="step-num">3</span>أضف لبنتين فقط:
+    <div class="code-box">🚩 عند النقر على العلم<br>🔄 حلقة اللعبة الرئيسية</div></div>
+    <div class="step"><span class="step-num">4</span>اضغط 🚩 تشغيل واستخدم الأسهم!</div>
+    <div class="tip">✨ <b>سحر</b>: عندما تكون الشخصية "قابلة للتحكم"، تتحرك تلقائياً بالأسهم/جويستيك/D-Pad دون كتابة أوامر إضافية!</div>
+    <h3>🔥 الطريقة المتقدمة (تحكم يدوي)</h3>
+    <p>إذا أردت تحكماً مخصصاً، استخدم لبنات <b>"إذا ضغط مفتاح..."</b>:</p>
+    <div class="code-box">🚩 عند النقر على العلم<br>🔄 حلقة اللعبة<br>  ⌨️ إذا "ArrowRight"<br>    ➡️ يمين 10<br>  ⏹️ نهاية إذا</div>
+  `},
+  {icon:'🎛️',title:'الأزرار المخصصة',content:`
+    <h2>🎛️ الدرس الثالث: الأزرار</h2>
+    <p>الأزرار تخلّي لعبتك تفاعلية ومناسبة للهاتف 📱!</p>
+    <h3>⚡ أزرار جاهزة بضغطة واحدة</h3>
+    <div class="step"><span class="step-num">1</span>اضغط <b>👑 أدمن</b> في الأعلى</div>
+    <div class="step"><span class="step-num">2</span>في تبويب <b>🎛️ أزرار</b>، اختر من الأزرار الجاهزة:
+    <ul>
+      <li>⬆️ <b>قفز</b> - يقفز الشخصية المتحكَّم بها</li>
+      <li>🚀 <b>إطلاق</b> - يطلق رصاصة</li>
+      <li>⚽ <b>شوط</b> - يشوط الكرة</li>
+      <li>◀▶▲▼ <b>أسهم</b> - تحرك الشخصية</li>
+      <li>🪙 <b>+1 نقطة</b> - يزيد نقطة</li>
+    </ul></div>
+    <div class="step"><span class="step-num">3</span>الزر يظهر فوراً على المسرح وجاهز للاستخدام!</div>
+    <h3>✏️ تخصيص زر</h3>
+    <p>افتح الأدمن → اضغط ✏️ بجوار الزر، وغيّر:</p>
+    <ul>
+      <li>📛 النص و 😊 الأيقونة</li>
+      <li>🎨 اللون (من قائمة الألوان الجاهزة)</li>
+      <li>📏 الحجم</li>
+      <li>🎬 ما يفعله الزر عند الضغط</li>
+    </ul>
+    <div class="tip">💡 في وضع الأدمن، اسحب أي زر لتغيير مكانه على المسرح!</div>
+  `},
+  {icon:'📦',title:'المتغيرات (النقاط والحياة)',content:`
+    <h2>📦 الدرس الرابع: المتغيرات</h2>
+    <p>المتغيرات تحفظ الأرقام: <b>النقاط، الحياة، الوقت، المستوى...</b></p>
+    <h3>🆕 إنشاء متغير</h3>
+    <div class="step"><span class="step-num">1</span>اضغط <b>📦 متغير</b> في الأعلى</div>
+    <div class="step"><span class="step-num">2</span>اكتب الاسم (مثل "النقاط") والقيمة الابتدائية (0)</div>
+    <div class="step"><span class="step-num">3</span>اضغط تأكيد ✅</div>
+    <h3>🛠️ استخدام المتغير</h3>
+    <p>من فئة <b>📦 متغير</b> في اليمين:</p>
+    <ul>
+      <li><b>📝 اضبط متغير = قيمة</b> - يضع قيمة محددة</li>
+      <li><b>➕ غيّر متغير بـ</b> - يزيد/ينقص (استخدم -1 للنقص)</li>
+      <li><b>👁️ أظهر متغير</b> - يعرضه فوق المسرح</li>
+    </ul>
+    <h3>💡 مثال: عداد نقاط</h3>
+    <div class="code-box">🚩 عند العلم<br>📝 النقاط = 0<br>👁️ أظهر النقاط<br><br>// عند جمع عملة<br>🎯 إذا لمس "العملة"<br>  ➕ النقاط بـ 1<br>  🪙 صوت عملة<br>⏹️ نهاية إذا</div>
+    <div class="tip">💡 يمكنك استخدام المتغيرات في الشروط:<br><b>إذا النقاط >= 10 → فزت!</b></div>
+  `},
+  {icon:'🎯',title:'الأحداث والشروط',content:`
+    <h2>🎯 الدرس الخامس: الأحداث والشروط</h2>
+    <h3>🚩 الأحداث (تبدأ الأكواد)</h3>
+    <ul>
+      <li><b>🚩 عند العلم</b> - يبدأ عند تشغيل اللعبة</li>
+      <li><b>⌨️ عند ضغط مفتاح</b> - يبدأ عند ضغط زر معين</li>
+      <li><b>🖱️ عند النقر على الشخصية</b> - يبدأ عند نقر الشخصية</li>
+      <li><b>📨 عند استقبال رسالة</b> - يستجيب للبث</li>
+      <li><b>🎛️ عند ضغط زر مخصص</b> - زرك المخصص</li>
+      <li><b>🔄 حلقة اللعبة</b> - يعمل باستمرار (كل 30 جزء من الثانية)</li>
+    </ul>
+    <h3>🔍 الشروط (إذا)</h3>
+    <p>الشروط تختبر شيئاً وتنفّذ كوداً فقط إذا كان صحيحاً:</p>
+    <div class="code-box">🎯 إذا لمس "العدو"<br>  💀 شاشة انتهاء<br>⏹️ نهاية إذا</div>
+    <div class="warn">⚠️ <b>مهم جداً:</b> كل "إذا" يجب أن ينتهي بـ <b>"⏹️ نهاية إذا"</b>!</div>
+    <h3>📡 البث (Broadcasting)</h3>
+    <p>طريقة لإرسال إشارة من شخصية لأخرى:</p>
+    <ul>
+      <li>شخصية أ: <b>📢 بث "ابدأ"</b></li>
+      <li>شخصية ب: <b>📨 عند استقبال "ابدأ"</b> → تفعل شيئاً</li>
+    </ul>
+  `},
+  {icon:'⚽',title:'صناعة لعبة كرة قدم',content:`
+    <h2>⚽ مشروع كامل: كرة قدم</h2>
+    <p>سنبني لعبة كرة قدم خطوة بخطوة!</p>
+    <h3>🎬 الخطوات</h3>
+    <div class="step"><span class="step-num">1</span><b>الخلفية:</b> اختر "ملعب" من 🖼️ خلفية</div>
+    <div class="step"><span class="step-num">2</span><b>المتغيرات:</b> أنشئ "النقاط=0" و "الوقت=60"</div>
+    <div class="step"><span class="step-num">3</span><b>الشخصيات:</b>
+    <ul>
+      <li>🧑 اللاعب (متحكَّم به ✓)</li>
+      <li>⚽ الكرة</li>
+      <li>🥅 المرمى</li>
+    </ul></div>
+    <div class="step"><span class="step-num">4</span><b>كود اللاعب:</b>
+    <div class="code-box">🚩 عند العلم<br>📝 النقاط = 0<br>👁️ أظهر النقاط<br>🔄 حلقة اللعبة<br>  ⌨️ إذا "ArrowRight" → 🧭 اتجاه = 90<br>  ⌨️ إذا "ArrowLeft"  → 🧭 اتجاه = 270<br>  ⌨️ إذا "ArrowUp"    → 🧭 اتجاه = 0<br>  🎯 إذا زر الإطلاق<br>    ⚽ اشوط الكرة "الكرة" بقوة 18<br>  ⏹️ نهاية إذا</div></div>
+    <div class="step"><span class="step-num">5</span><b>كود الكرة:</b>
+    <div class="code-box">🚩 عند العلم<br>🌀 تفعيل الاحتكاك<br>🔄 حلقة<br>  🎯 إذا لمس "اللاعب"<br>    🦵 اشوطني من "اللاعب" بقوة 5<br>  🎯 إذا لمس "المرمى"<br>    ➕ النقاط بـ 1<br>    🎉 صوت فوز</div></div>
+    <div class="tip">🏆 <b>اختصار:</b> اضغط <b>🎮 قوالب الألعاب → ⚽ كرة القدم</b> ليُنشأ المشروع جاهزاً!</div>
+  `},
+  {icon:'🎨',title:'أفكار ألعاب لتبنيها',content:`
+    <h2>🎨 أفكار ألعاب يمكنك بناؤها</h2>
+    <p>الآن وقد تعلّمت الأساسيات، إليك أفكار ألعاب يمكنك إنشاؤها:</p>
+    
+    <h3>🟢 سهلة (مبتدئ)</h3>
+    <ul>
+      <li>🪣 <b>صيد الفواكه:</b> سلة تتحرك تصطاد فواكه متساقطة</li>
+      <li>🐱 <b>مطاردة:</b> فأر يهرب من قطة</li>
+      <li>🎯 <b>إصابة الهدف:</b> اضغط على شخصية تتحرك عشوائياً</li>
+      <li>🎨 <b>لوحة رسم:</b> فرشاة تتحرك بالأسهم وترسم</li>
+    </ul>
+    
+    <h3>🟡 متوسطة</h3>
+    <ul>
+      <li>⚽ <b>كرة قدم:</b> لاعب يشوط كرة في المرمى</li>
+      <li>🐍 <b>الثعبان:</b> ثعبان يأكل ويكبر</li>
+      <li>🚗 <b>سباق سيارات:</b> تجنّب عقبات</li>
+      <li>🧩 <b>متاهة:</b> اجمع كنوزاً وتجنّب وحوشاً</li>
+    </ul>
+    
+    <h3>🔴 متقدمة (محترف)</h3>
+    <ul>
+      <li>🚀 <b>غزاة الفضاء:</b> مركبة تطلق رصاصات</li>
+      <li>🐦 <b>Flappy Bird:</b> طائر بجاذبية يتجنّب أنابيب</li>
+      <li>🏃 <b>منصات قفز:</b> بطل يقفز بين منصات</li>
+      <li>🏓 <b>بونغ:</b> لاعب ضد كمبيوتر</li>
+      <li>👾 <b>دفاع البرج:</b> أعداء يهبطون وأنت تطلق</li>
+    </ul>
+
+    <div class="info-box">🎮 <b>كل هذه الألعاب موجودة جاهزة!</b><br>
+    اضغط 🎮 <b>قوالب الألعاب</b> في الأعلى لتجربتها وتعديلها.<br>
+    <b>أفضل طريقة للتعلّم:</b> افتح قالباً، اقرأ كوده، عدّله!</div>
+  `},
+  {icon:'🌟',title:'نصائح للاحتراف',content:`
+    <h2>🌟 الدرس الأخير: كن محترفاً</h2>
+    
+    <h3>💡 نصائح ذهبية</h3>
+    <ul>
+      <li>✅ <b>ابدأ صغيراً:</b> لا تحاول بناء لعبة ضخمة دفعة واحدة</li>
+      <li>✅ <b>اختبر باستمرار:</b> بعد كل لبنة، شغّل المشروع وجرّبه</li>
+      <li>✅ <b>احفظ كثيراً:</b> اضغط 💾 حفظ بعد كل تقدّم مهم</li>
+      <li>✅ <b>افكر بمنطق "إذا/إذن":</b> كل لعبة هي سلسلة قواعد</li>
+      <li>✅ <b>اقرأ القوالب الجاهزة:</b> أفضل معلم!</li>
+    </ul>
+    
+    <h3>🛠️ أدوات متقدمة</h3>
+    <ul>
+      <li>👯 <b>الاستنساخ:</b> صنع نسخ متعددة (مثل الرصاصات)</li>
+      <li>🌍 <b>الجاذبية:</b> لألعاب القفز والمنصات</li>
+      <li>🌀 <b>الاحتكاك:</b> لحركة الكرات الواقعية</li>
+      <li>📨 <b>البث:</b> تواصل بين الشخصيات</li>
+      <li>♾️ <b>كرر للأبد:</b> حلقات لا تنتهي</li>
+    </ul>
+    
+    <h3>🎯 خطوات بناء أي لعبة</h3>
+    <div class="step"><span class="step-num">1</span><b>اخترع الفكرة:</b> ماذا يفعل اللاعب؟ ما هدفه؟</div>
+    <div class="step"><span class="step-num">2</span><b>ارسم في ذهنك:</b> شخصيات، خلفية، أزرار</div>
+    <div class="step"><span class="step-num">3</span><b>ابدأ بالحركة:</b> اجعل اللاعب يتحرك أولاً</div>
+    <div class="step"><span class="step-num">4</span><b>أضف عناصر:</b> أعداء، كنوز، عقبات</div>
+    <div class="step"><span class="step-num">5</span><b>أضف منطق الفوز/الخسارة:</b> النقاط، الحياة، الوقت</div>
+    <div class="step"><span class="step-num">6</span><b>اختبر وحسّن:</b> شارك مع أصدقائك واحصل على رأيهم!</div>
+    
+    <div class="tip">🏆 <b>تذكر:</b> أعظم المبرمجين بدأوا من الصفر! لا تستسلم.</div>
+    
+    <p style="text-align:center;margin-top:20px;font-size:18px;font-weight:900;color:#92400e">🎉 الآن أنت جاهز لصناعة أي لعبة! 🚀</p>
+    <p style="text-align:center;font-size:13px;color:#78350f">اضغط زر "ابدأ الآن!" أدناه لإغلاق الدفتر والبدء بصنع لعبتك</p>
+    <button class="try-btn" onclick="closeTutorial();flash('🎮 موفّق! ابدأ بمشروعك الأول')">🚀 ابدأ الآن!</button>
+  `},
+];
+let tutCurrent=0;
+
+function openTutorial(){
+  document.getElementById('tut-overlay').classList.add('on');
+  renderTutSidebar();renderTutContent();dismissWelcome();
+  localStorage.setItem('tutSeen','1');
+}
+function closeTutorial(){document.getElementById('tut-overlay').classList.remove('on')}
+function renderTutSidebar(){
+  const el=document.getElementById('tb-sidebar');
+  el.innerHTML=TUTORIAL.map((t,i)=>`
+    <div class="tb-lesson${i===tutCurrent?' on':''}" onclick="tutGo(${i})">
+      <div class="num">${i+1}</div>
+      <div>${t.icon} ${t.title}</div>
+    </div>
+  `).join('');
+}
+function renderTutContent(){
+  const t=TUTORIAL[tutCurrent];
+  document.getElementById('tb-content').innerHTML=t.content;
+  document.getElementById('tb-content').scrollTop=0;
+  document.getElementById('tb-progress').textContent=`الدرس ${tutCurrent+1} / ${TUTORIAL.length}`;
+  document.getElementById('tb-prev').disabled=tutCurrent===0;
+  document.getElementById('tb-next').disabled=tutCurrent===TUTORIAL.length-1;
+}
+function tutGo(i){tutCurrent=i;renderTutSidebar();renderTutContent()}
+function tutNav(d){const n=tutCurrent+d;if(n<0||n>=TUTORIAL.length)return;tutGo(n)}
+
+function dismissWelcome(){
+  const h=document.getElementById('welcome-hint');if(h)h.classList.add('gone');
+  localStorage.setItem('welcomeSeen','1');
+}
+
+/* ═══════════════════════════════════════════════════════════
+   ▓▓▓ CODE SNIPPETS LIBRARY — مكتبة أكواد جاهزة ▓▓▓
+═══════════════════════════════════════════════════════════ */
+const SNIPPETS=[
+  {cat:'🏃 حركة',items:[
+    {icon:'⌨️',name:'تحكم بالأسهم',desc:'حركة كاملة بالأسهم (يتطلب حلقة)',code:[
+      {action:'loop'},
+      {action:'ifKey',params:{k:'ArrowRight'}},{action:'mr',params:{v:8}},{action:'endif'},
+      {action:'ifKey',params:{k:'ArrowLeft'}},{action:'ml',params:{v:8}},{action:'endif'},
+      {action:'ifKey',params:{k:'ArrowUp'}},{action:'mu',params:{v:8}},{action:'endif'},
+      {action:'ifKey',params:{k:'ArrowDown'}},{action:'md',params:{v:8}},{action:'endif'},
+    ]},
+    {icon:'🎮',name:'تحكم WASD',desc:'تحكم بالأسهم العربية WASD',code:[
+      {action:'loop'},
+      {action:'ifKey',params:{k:'d'}},{action:'mr',params:{v:8}},{action:'endif'},
+      {action:'ifKey',params:{k:'a'}},{action:'ml',params:{v:8}},{action:'endif'},
+      {action:'ifKey',params:{k:'w'}},{action:'mu',params:{v:8}},{action:'endif'},
+      {action:'ifKey',params:{k:'s'}},{action:'md',params:{v:8}},{action:'endif'},
+    ]},
+    {icon:'🐭',name:'اتبع الماوس',desc:'الشخصية تتبع مؤشر الماوس',code:[
+      {action:'frv'},
+      {action:'follow'},
+      {action:'endfrv'},
+    ]},
+    {icon:'🦘',name:'قفز بالجاذبية',desc:'يقفز عند ضغط Space - يحتاج أرضية',code:[
+      {action:'flag'},
+      {action:'grav'},
+      {action:'frv'},
+      {action:'ifKey',params:{k:' '}},
+      {action:'jump',params:{v:14}},
+      {action:'sjump'},
+      {action:'endif'},
+      {action:'endfrv'},
+    ]},
+    {icon:'↔️',name:'حركة جيئة وذهاب',desc:'يتحرك تلقائياً بين الحواف',code:[
+      {action:'flag'},
+      {action:'setVel',params:{vx:4,vy:0}},
+      {action:'frv'},
+      {action:'ifEdge'},
+      {action:'setVel',params:{vx:-4,vy:0}},
+      {action:'wait',params:{v:0.1}},
+      {action:'endif'},
+      {action:'endfrv'},
+    ]},
+    {icon:'🌪️',name:'حركة دائرية',desc:'تدور حول مركز المسرح',code:[
+      {action:'flag'},
+      {action:'frv'},
+      {action:'rcw',params:{v:3}},
+      {action:'fwd',params:{v:3}},
+      {action:'ifEdge'},{action:'bnc'},{action:'endif'},
+      {action:'endfrv'},
+    ]},
+  ]},
+  {cat:'🎯 تفاعل',items:[
+    {icon:'💀',name:'موت عند لمس عدو',desc:'شاشة انتهاء عند لمس شخصية',code:[
+      {action:'loop'},
+      {action:'ifTouch',params:{nm:'العدو'}},
+      {action:'slos'},
+      {action:'gameover',params:{m:'💀 لمست العدو!',s:'حاول مرة أخرى'}},
+      {action:'endif'},
+    ]},
+    {icon:'⭐',name:'اجمع كنوزاً',desc:'+1 نقطة عند لمس كنز - يحتاج متغير "النقاط"',code:[
+      {action:'loop'},
+      {action:'ifTouch',params:{nm:'الكنز'}},
+      {action:'chgV',params:{nm:'النقاط',vl:1}},
+      {action:'scoin'},
+      {action:'endif'},
+    ]},
+    {icon:'🏆',name:'فوز عند نقاط معينة',desc:'يفوز عندما تصل النقاط لـ 10',code:[
+      {action:'loop'},
+      {action:'ifVar',params:{nm:'النقاط',op:'>=',vl:10}},
+      {action:'win',params:{m:'🏆 ممتاز!',s:'وصلت لـ 10 نقاط'}},
+      {action:'endif'},
+    ]},
+    {icon:'🖱️',name:'انقر عشوائياً',desc:'يتحرك عشوائياً عند نقره',code:[
+      {action:'click'},
+      {action:'sclk'},
+      {action:'rnd'},
+    ]},
+    {icon:'💬',name:'يقول مرحباً',desc:'يحيّي عند تشغيل اللعبة',code:[
+      {action:'flag'},
+      {action:'say',params:{tx:'مرحباً بك! 👋',t:2}},
+      {action:'say',params:{tx:'استمتع باللعب! 🎮',t:2}},
+    ]},
+  ]},
+  {cat:'⏱️ موقت',items:[
+    {icon:'⏱️',name:'عداد تنازلي 30 ثانية',desc:'موقت ينتهي بعد 30 ثانية',code:[
+      {action:'flag'},
+      {action:'setV',params:{nm:'الوقت',vl:30}},
+      {action:'showV',params:{nm:'الوقت'}},
+      {action:'rep',params:{v:30}},
+      {action:'wait',params:{v:1}},
+      {action:'chgV',params:{nm:'الوقت',vl:-1}},
+      {action:'endrep'},
+      {action:'gameover',params:{m:'⏰ انتهى الوقت!',s:'حاول أسرع'}},
+    ]},
+    {icon:'❤️',name:'نظام 3 حيوات',desc:'يفقد حياة عند لمس عدو',code:[
+      {action:'flag'},
+      {action:'setV',params:{nm:'الحياة',vl:3}},
+      {action:'showV',params:{nm:'الحياة'}},
+      {action:'loop'},
+      {action:'ifTouch',params:{nm:'العدو'}},
+      {action:'chgV',params:{nm:'الحياة',vl:-1}},
+      {action:'flash'},
+      {action:'slos'},
+      {action:'ctr'},
+      {action:'ifVar',params:{nm:'الحياة',op:'<=',vl:0}},
+      {action:'gameover',params:{m:'💀 انتهت الحياة!',s:'حاول مرة أخرى'}},
+      {action:'endif'},
+      {action:'endif'},
+    ]},
+  ]},
+  {cat:'✨ مظهر',items:[
+    {icon:'⭐',name:'تكبير وتصغير دائم',desc:'نبض الشخصية',code:[
+      {action:'frv'},
+      {action:'sup',params:{v:5}},
+      {action:'wait',params:{v:0.3}},
+      {action:'sdn',params:{v:5}},
+      {action:'wait',params:{v:0.3}},
+      {action:'endfrv'},
+    ]},
+    {icon:'🌀',name:'دوران مستمر',desc:'يدور حول نفسه باستمرار',code:[
+      {action:'frv'},
+      {action:'rcw',params:{v:5}},
+      {action:'endfrv'},
+    ]},
+    {icon:'👻',name:'ظهور واختفاء',desc:'يظهر ويختفي بإيقاع',code:[
+      {action:'frv'},
+      {action:'show'},
+      {action:'wait',params:{v:0.5}},
+      {action:'hide'},
+      {action:'wait',params:{v:0.5}},
+      {action:'endfrv'},
+    ]},
+  ]},
+  {cat:'🎬 سيناريوهات كاملة',items:[
+    {icon:'🚗',name:'عدو يطارد اللاعب',desc:'يتبع الشخصية المتحكَّم بها',code:[
+      {action:'flag'},
+      {action:'frv'},
+      {action:'followSp',params:{nm:'اللاعب'}},
+      {action:'endfrv'},
+    ]},
+    {icon:'☄️',name:'سقوط من السماء',desc:'يسقط من فوق ويعود',code:[
+      {action:'flag'},
+      {action:'frv'},
+      {action:'setY',params:{v:160}},
+      {action:'rnd'},
+      {action:'setY',params:{v:160}},
+      {action:'rep',params:{v:60}},
+      {action:'md',params:{v:5}},
+      {action:'endrep'},
+      {action:'endfrv'},
+    ]},
+    {icon:'🚀',name:'إطلاق رصاصات',desc:'نظام إطلاق كامل بالاستنساخ',code:[
+      {action:'action'},
+      {action:'shot'},
+      {action:'clone'},
+      {action:'whenClone'},
+      {action:'show'},
+      {action:'rep',params:{v:30}},
+      {action:'mu',params:{v:12}},
+      {action:'endrep'},
+      {action:'delClone'},
+    ]},
+  ]},
+];
+
+function openCodeSnippets(){
+  const s=getS();
+  if(!s){flash('⚠️ اختر شخصية أولاً');return}
+  let html='<div style="font-size:11px;color:var(--tx2);margin-bottom:10px;line-height:1.7">📌 سيتم إضافة الكود لشخصية: <b style="color:var(--acc)">'+s.emoji+' '+s.name+'</b><br>الأكواد ستُضاف لنهاية أوامرها الحالية.</div>';
+  SNIPPETS.forEach(g=>{
+    html+=`<div class="eslbl" style="margin-top:12px;font-size:12px;color:var(--acc);font-weight:900">${g.cat}</div><div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:8px">`;
+    g.items.forEach((it,idx)=>{
+      const key=g.cat+'|'+idx;
+      html+=`<div onclick="applySnippet('${key.replace(/'/g,"\\'")}')" style="background:var(--p3);border:1px solid var(--b);border-radius:8px;padding:9px;cursor:pointer;transition:.15s;font-family:inherit" onmouseover="this.style.borderColor='var(--acc)';this.style.transform='translateY(-2px)'" onmouseout="this.style.borderColor='var(--b)';this.style.transform=''">
+        <div style="font-size:18px;margin-bottom:3px">${it.icon}</div>
+        <div style="font-size:11px;font-weight:800;color:var(--tx);margin-bottom:2px">${it.name}</div>
+        <div style="font-size:9px;color:var(--tx3);line-height:1.4">${it.desc}</div>
+        <div style="font-size:9px;color:var(--acc);margin-top:4px;font-weight:700">📦 ${it.code.length} أمر</div>
+      </div>`;
+    });
+    html+='</div>';
+  });
+  showM('📜 مكتبة الأكواد الجاهزة','اضغط أي كود ليُضاف لأوامر الشخصية الحالية',html,()=>{});
+}
+
+function applySnippet(key){
+  const [catName,idx]=key.split('|');
+  const g=SNIPPETS.find(x=>x.cat===catName);
+  if(!g)return;
+  const it=g.items[parseInt(idx)];
+  if(!it)return;
+  const s=getS();
+  if(!s){flash('⚠️ اختر شخصية');return}
+  // Deep clone the code to avoid reference issues
+  const codeCopy=JSON.parse(JSON.stringify(it.code));
+  codeCopy.forEach(b=>{b.id=Date.now()+Math.random();s.code.push(b)});
+  // Auto-create needed variables
+  codeCopy.forEach(b=>{
+    if(['setV','chgV','showV','hideV','ifVar'].includes(b.action)&&b.params&&b.params.nm){
+      if(G.vars[b.params.nm]===undefined){G.vars[b.params.nm]=0}
+    }
+  });
+  mClose();
+  renderCode();
+  flash(`✅ تمت إضافة كود "${it.name}" (${codeCopy.length} أمر)`);
+}
+
+
+function init(){
+  resizeCV();applyBd();
+  setupDpad();setupActBtn();setupJoystick();
+  addS('🐱');
+  G.sp[0].isControllable=true;
+  G.sp[0].el.classList.add('ctrl');
+  renderList();updPanel();updCtrlTarget();
+  // Welcome hint - hide if seen before
+  if(localStorage.getItem('welcomeSeen')){dismissWelcome()}
+  else{setTimeout(()=>{const h=document.getElementById('welcome-hint');if(h&&!h.classList.contains('gone'))h.style.display='flex'},500)}
+  // Auto-open tutorial first time
+  if(!localStorage.getItem('tutSeen')){setTimeout(()=>openTutorial(),1200)}
+}
+init();
+</script>
+</body>
+</html>
